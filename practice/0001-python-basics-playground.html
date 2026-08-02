@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Python 动手练习场 · 第一组</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a1020;
+      --panel: #121b31;
+      --panel-2: #17233d;
+      --ink: #edf3ff;
+      --muted: #aab8d3;
+      --accent: #65d6ad;
+      --accent-2: #8fb5ff;
+      --warn: #ffd479;
+      --line: #2b3b5f;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .34);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(101, 214, 173, .14), transparent 34rem),
+        radial-gradient(circle at 100% 20%, rgba(143, 181, 255, .14), transparent 32rem),
+        var(--bg);
+      font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    .shell { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 34px 0 50px; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow { color: var(--accent); font-weight: 800; letter-spacing: .08em; }
+    h1 { margin: 8px 0 6px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.04; }
+    header p { margin: 0; color: var(--muted); max-width: 700px; line-height: 1.7; }
+
+    .progress {
+      flex: 0 0 auto;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(18, 27, 49, .75);
+    }
+
+    .course-nav { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 18px; }
+    .course-nav a {
+      display: inline-block;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--accent-2);
+      background: rgba(18, 27, 49, .75);
+      text-decoration: none;
+      font-weight: 750;
+    }
+    .course-nav a:hover { border-color: var(--accent-2); }
+
+    .roadmap { margin-bottom: 18px; padding: 16px 18px; }
+    .roadmap strong { color: var(--accent); }
+    .roadmap-track { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .roadmap-step { padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--panel-2); }
+    .roadmap-step.current { color: #07130f; border-color: var(--accent); background: var(--accent); font-weight: 800; }
+
+    .knowledge-model { margin-bottom: 18px; padding: 18px; }
+    .knowledge-model > h2 { margin: 0 0 6px; font-size: 1.15rem; }
+    .knowledge-model > p { margin: 0 0 14px; color: var(--muted); line-height: 1.65; }
+    .model-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .model-card { padding: 14px; border-radius: 15px; border: 1px solid var(--line); background: var(--panel-2); }
+    .model-card.focus { border-color: rgba(101, 214, 173, .45); }
+    .model-card.reference { border-style: dashed; }
+    .model-card strong { display: block; margin-bottom: 6px; }
+    .model-card span { color: var(--muted); line-height: 1.55; font-size: .9rem; }
+    .model-note { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--warn); border-radius: 9px; background: rgba(255, 212, 121, .07); color: var(--muted); line-height: 1.65; }
+
+    .layout { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 18px; }
+    .card { background: rgba(18, 27, 49, .94); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); }
+    .sidebar { padding: 18px; align-self: start; position: sticky; top: 16px; }
+    .sidebar h2 { margin: 4px 4px 14px; font-size: 1rem; color: var(--muted); }
+
+    .question-list { display: grid; gap: 9px; }
+    .question-button {
+      width: 100%;
+      border: 1px solid transparent;
+      border-radius: 15px;
+      padding: 13px 14px;
+      color: var(--ink);
+      background: var(--panel-2);
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      line-height: 1.45;
+    }
+    .question-button:hover { border-color: var(--accent-2); }
+    .question-button.active { border-color: var(--accent); background: rgba(101, 214, 173, .1); }
+    .question-button span { display: block; color: var(--muted); font-size: .86rem; margin-top: 3px; }
+
+    .sidebar-note { margin: 18px 4px 0; color: var(--muted); font-size: .9rem; line-height: 1.65; }
+    .sidebar a { color: var(--accent-2); }
+
+    .workspace { padding: clamp(18px, 3vw, 30px); min-width: 0; }
+    .mini-lesson { margin-bottom: 24px; padding: 18px; border: 1px solid rgba(101, 214, 173, .32); border-radius: 18px; background: rgba(101, 214, 173, .07); }
+    .mini-lesson-label { color: var(--accent); font-weight: 800; letter-spacing: .05em; font-size: .82rem; }
+    .lesson-layers { display: grid; gap: 10px; margin: 12px 0; }
+    .lesson-layer { padding: 14px; border-radius: 14px; border: 1px solid var(--line); background: rgba(8, 14, 27, .55); }
+    .lesson-layer.primary { border-color: rgba(101, 214, 173, .38); }
+    .lesson-layer.reference { border-style: dashed; }
+    .lesson-layer-tag { color: var(--accent); font-weight: 800; font-size: .8rem; }
+    .lesson-layer.reference .lesson-layer-tag { color: var(--warn); }
+    .lesson-layer h2 { margin: 4px 0 6px; font-size: 1.1rem; }
+    .lesson-layer p { color: var(--muted); line-height: 1.65; margin: 0; }
+    .mini-lesson pre { overflow: auto; padding: 14px; border-radius: 13px; background: #080e1b; border: 1px solid var(--line); }
+    .mini-lesson code { font-family: "Cascadia Code", Consolas, monospace; color: #eaf2ff; }
+    .syntax-label { color: var(--accent-2); font-weight: 800; font-size: .86rem; }
+    .then-do { display: flex; align-items: center; gap: 12px; color: var(--accent-2); font-weight: 800; margin: 0 0 18px; }
+    .then-do::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+    .task-top { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+    .task-number { color: var(--accent); font-weight: 800; }
+    h2#task-title { margin: 5px 0 10px; font-size: clamp(1.5rem, 3vw, 2.25rem); }
+    #task-description { color: var(--muted); line-height: 1.75; margin: 0; }
+
+    .difficulty { color: var(--warn); border: 1px solid rgba(255, 212, 121, .35); border-radius: 999px; padding: 7px 11px; white-space: nowrap; }
+    .examples { margin: 20px 0 14px; padding: 14px 16px; border-radius: 15px; background: #0c1427; border: 1px solid var(--line); }
+    .examples strong { color: var(--accent-2); }
+    .examples code { color: var(--ink); }
+
+    .editor-label { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin: 15px 0 8px; }
+    .editor-label strong { font-size: .95rem; }
+    #save-state { color: var(--muted); font-size: .86rem; }
+
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 310px;
+      resize: vertical;
+      border: 1px solid #35486e;
+      border-radius: 16px;
+      outline: none;
+      padding: 18px;
+      color: #eaf2ff;
+      background: #080e1b;
+      font: 16px/1.65 "Cascadia Code", Consolas, monospace;
+      tab-size: 4;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      caret-color: var(--accent);
+    }
+    textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(101, 214, 173, .12); }
+
+    .reflection { margin: 18px 0; }
+    .reflection-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .reflection-card { padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: rgba(23, 35, 61, .7); }
+    .reflection-label { color: var(--accent-2); font-weight: 800; margin-bottom: 5px; }
+    .reflection-help { color: var(--muted); line-height: 1.55; font-size: .9rem; margin: 0 0 9px; }
+    .reflection textarea { min-height: 96px; padding: 13px; font: 15px/1.6 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif; }
+    .transfer { margin-top: 14px; padding: 15px; border-radius: 15px; border: 1px solid rgba(255, 212, 121, .3); background: rgba(255, 212, 121, .07); color: var(--muted); line-height: 1.65; }
+    .transfer strong { color: var(--warn); }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 12px; }
+    button.action {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 13px;
+      color: var(--ink);
+      background: var(--panel-2);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+    }
+    button.action:hover { border-color: var(--accent-2); }
+    button.primary { background: var(--accent); color: #07130f; border-color: var(--accent); }
+    button.danger { color: #ffb4b4; }
+    button:disabled { cursor: wait; opacity: .55; }
+
+    .checker { margin-top: 14px; padding: 16px; border-radius: 16px; border: 1px solid rgba(101, 214, 173, .3); background: rgba(101, 214, 173, .06); }
+    .checker-top { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+    .checker h3 { margin: 0 0 5px; font-size: 1rem; }
+    .checker p { margin: 0; color: var(--muted); line-height: 1.55; font-size: .9rem; }
+    .checker-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    #checker-status { margin-top: 12px; color: var(--accent-2); font-weight: 700; }
+    #checker-output { min-height: 52px; margin: 10px 0 0; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: #080e1b; color: var(--ink); white-space: pre-wrap; font: 14px/1.6 "Cascadia Code", Consolas, monospace; }
+
+    details { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 14px; color: var(--muted); }
+    summary { cursor: pointer; color: var(--accent-2); font-weight: 700; }
+    #hint { line-height: 1.7; }
+
+    .feedback-flow { margin-top: 20px; padding: 16px; border-radius: 16px; background: rgba(143, 181, 255, .08); border: 1px solid rgba(143, 181, 255, .25); color: var(--muted); line-height: 1.65; }
+    .feedback-flow strong { color: var(--ink); }
+    #toast { min-height: 24px; color: var(--accent); margin-top: 10px; font-weight: 700; }
+
+    @media (max-width: 820px) {
+      header { align-items: start; flex-direction: column; }
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .question-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .model-grid { grid-template-columns: 1fr; }
+      .reflection-grid { grid-template-columns: 1fr; }
+      .checker-top { flex-direction: column; }
+    }
+
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 18px, 1180px); padding-top: 20px; }
+      .question-list { grid-template-columns: 1fr; }
+      .task-top { flex-direction: column; }
+      textarea { min-height: 360px; font-size: 15px; }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/course.css">
+  <script defer src="../assets/course-context.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <nav class="course-nav" aria-label="课程导航">
+      <a href="../index.html">返回课程首页</a>
+      <a href="../reference/0002-course-progress.html">查看完整路线</a>
+    </nav>
+    <section class="roadmap" role="status">
+      <strong>已完成练习证据页，不是当前学习入口。</strong>
+      第 1–2 题及其本地答案继续保留，无需从这里继续第 3 题。正式会话 1 已完成；当前学习请进入
+      <a href="../lessons/0012-failure-retry-stop.html">正式会话 2“重试、防重复与批处理”</a>。
+    </section>
+    <header>
+      <div>
+        <div class="eyebrow">PYTHON · 动手练习场</div>
+        <h1>从稳定结构，理解 Python，再落到工程细节。</h1>
+        <p>每题都用同一套三层视角：先理解数据、状态、控制流和副作用，再理解 Python 的对象模型，最后查清具体语法与工程接口。</p>
+      </div>
+      <div class="progress">阶段 A · 环 1 · Python 补充练习 · 自动保存</div>
+    </header>
+
+    <section class="card knowledge-model">
+      <h2>固定的三层知识模型</h2>
+      <p>前两层是主要教导和考核对象；第三层必须讲清，并借助文档、自动补全、测试和当前证据正确使用。</p>
+      <div class="model-grid">
+        <div class="model-card focus"><strong>第一层 · 稳定结构（重点）</strong><span>数据、状态、控制流、函数调用、抽象、复杂度、内存、接口和副作用。</span></div>
+        <div class="model-card focus"><strong>第二层 · Python 模型（重点）</strong><span>对象属于类型；方法是绑定到对象上的函数；函数本身也可以作为对象传递。</span></div>
+        <div class="model-card reference"><strong>第三层 · 工程事实与细节</strong><span>具体名字、路径、配置、参数、返回结构、版本和当前状态：清楚讲、按需查、当前验证。</span></div>
+      </div>
+      <p class="model-note">本页三层按照知识稳定性和学习方式分类，不等同于《有限智能》的元模型、领域模型与情境事实三种尺度。情境事实不是低价值琐事：它可能迫使前两层结构接受修正。</p>
+    </section>
+
+    <section class="card roadmap" aria-label="课程中的工程练习路线">
+      <strong>工程练习路线</strong>
+      <div class="roadmap-track">
+        <span class="roadmap-step">阶段 A · 环 1：正式会话 1 · 状态与允许行动（已完成）</span>
+        <span class="roadmap-step current">阶段 A · 环 1 当前：正式会话 2 · 重试、防重复与批处理</span>
+        <span class="roadmap-step">接着：正式会话 3 · 模块、诊断与授权边界（开头先做间隔回忆）；完整课程另有阶段 B–D</span>
+        <span class="roadmap-step">关口通过后：Catalog 纵向切片</span>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="card sidebar">
+        <h2>选择题目</h2>
+        <div class="question-list" id="question-list"></div>
+        <p class="sidebar-note">只需当前网页：输入、Python运行、检查结果、证据记录和提交反馈都在这里完成。首次运行检查器需要联网加载浏览器版 Python。</p>
+      </aside>
+
+      <section class="card workspace">
+        <section class="mini-lesson" aria-label="本题三层讲解">
+          <div class="mini-lesson-label">先教 · 三层定位</div>
+          <div class="lesson-layers">
+            <div class="lesson-layer primary">
+              <div class="lesson-layer-tag">第一层 · 主要教与考</div>
+              <h2 id="layer1-title"></h2>
+              <p id="layer1-text"></p>
+            </div>
+            <div class="lesson-layer primary">
+              <div class="lesson-layer-tag">第二层 · 主要教与考</div>
+              <h2 id="layer2-title"></h2>
+              <p id="layer2-text"></p>
+            </div>
+            <div class="lesson-layer reference">
+              <div class="lesson-layer-tag">第三层 · 清楚讲、按需查、当前验证</div>
+              <h2 id="layer3-title"></h2>
+              <p id="layer3-text"></p>
+            </div>
+          </div>
+          <div class="syntax-label">本题需要看懂的 Python 写法</div>
+          <pre><code id="lesson-code"></code></pre>
+        </section>
+
+        <div class="then-do">然后做</div>
+        <div class="task-top">
+          <div>
+            <div class="task-number" id="task-number"></div>
+            <h2 id="task-title"></h2>
+            <p id="task-description"></p>
+          </div>
+          <div class="difficulty" id="difficulty"></div>
+        </div>
+
+        <div class="examples"><strong>例子：</strong> <code id="example"></code></div>
+
+        <section class="reflection reflection-card">
+          <div class="reflection-label">编码前预测</div>
+          <p class="reflection-help">先不运行：写下输入输出、状态变化、调用关系或副作用，以及你准备使用的 Python 对象模型。</p>
+          <textarea id="prediction" wrap="soft" aria-label="编码前预测"></textarea>
+        </section>
+
+        <div class="editor-label">
+          <strong>在下面输入 Python</strong>
+          <span id="save-state">尚未修改</span>
+        </div>
+        <textarea id="editor" wrap="soft" spellcheck="false" aria-label="Python 代码输入区"></textarea>
+
+        <div class="toolbar">
+          <button class="action primary" id="copy-current">复制本题给 Codex</button>
+          <button class="action" id="copy-all">复制全部答案</button>
+          <button class="action" id="download">导出为 .py</button>
+          <button class="action danger" id="reset">恢复本题初始代码</button>
+        </div>
+
+        <section class="checker" aria-label="网页内 Python 检查器">
+          <div class="checker-top">
+            <div>
+              <h3>网页内 Python 检查器</h3>
+              <p>首次加载需要联网；Python在隔离 Worker 中运行。自动检查只证明当前样例，不代替结构解释。</p>
+            </div>
+            <div class="checker-actions">
+              <button class="action primary" id="run-checker">运行当前题</button>
+              <button class="action danger" id="stop-checker" disabled>停止运行</button>
+            </div>
+          </div>
+          <div id="checker-status" role="status" aria-live="polite">尚未运行</div>
+          <pre id="checker-output">检查结果会显示在这里。</pre>
+        </section>
+
+        <details>
+          <summary>卡住时再看一个小提示</summary>
+          <p id="hint"></p>
+        </details>
+
+        <div class="reflection-grid">
+          <section class="reflection-card reflection">
+            <div class="reflection-label">运行后证据</div>
+            <p class="reflection-help">记录检查器输出、失败条件或观察结果。只写“通过”不够，说明证据证明了什么。</p>
+            <textarea id="evidence" wrap="soft" aria-label="运行后证据"></textarea>
+          </section>
+          <section class="reflection-card reflection">
+            <div class="reflection-label">结构校正</div>
+            <p class="reflection-help">预测若不一致，指出需要修正第一层、第二层还是第三层；若一致，说明适用边界。</p>
+            <textarea id="correction" wrap="soft" aria-label="结构校正"></textarea>
+          </section>
+        </div>
+
+        <div class="transfer"><strong>反例与迁移问题：</strong><span id="transfer-question"></span></div>
+        <section class="reflection-card reflection">
+          <div class="reflection-label">反例与迁移回答</div>
+          <p class="reflection-help">不要只重复题目。说明哪一层负责解释、边界怎样变化，以及调用者能观察到什么。</p>
+          <textarea id="transfer-answer" wrap="soft" aria-label="反例与迁移回答"></textarea>
+        </section>
+
+        <div class="feedback-flow">
+          <strong>反馈方法：</strong>完成预测、代码、证据和校正后点击“复制本题给 Codex”。快捷键是 <code>Ctrl + Enter</code>。我会分别检查前两层理解、第三层接口使用和反例迁移，不把测试通过直接等同于已经掌握。
+        </div>
+        <div id="toast" role="status" aria-live="polite"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const STORAGE_PREFIX = "python-practice-three-layers-v3-";
+    const RECOMMENDED_TASK_INDEX = 1;
+    const PYODIDE_BASE = "https://cdn.jsdelivr.net/pyodide/v314.0.2/full/";
+    const BROWSER_CHECKER_PY = String.raw`
+import contextlib
+import io
+import json
+import traceback
+
+report = {"passed": False, "checks": [], "stdout": "", "error": None}
+
+def add_check(passed, message):
+    report["checks"].append({"passed": bool(passed), "message": message})
+
+def expect_raises(error_type, callback, message):
+    try:
+        callback()
+    except error_type:
+        add_check(True, message)
+    except Exception as exc:
+        add_check(False, f"{message}；实际抛出 {type(exc).__name__}")
+    else:
+        add_check(False, f"{message}；实际没有抛出异常")
+
+namespace = {"__name__": "__practice__"}
+stdout = io.StringIO()
+
+try:
+    with contextlib.redirect_stdout(stdout):
+        exec(USER_CODE, namespace)
+        task_index = int(TASK_INDEX)
+
+        if task_index == 0:
+            function = namespace.get("normalize_name")
+            add_check(callable(function), "已定义 normalize_name 函数")
+            if callable(function):
+                add_check(function("  Alice  ") == "alice", "去掉两端空白并转成小写")
+                add_check(function("小 林") == "小 林", "保留字符串中间的空格")
+
+        elif task_index == 1:
+            function = namespace.get("validate_order")
+            add_check(callable(function), "已定义 validate_order 函数")
+            if callable(function):
+                add_check(function(10, 2) == [], "有效订单返回空错误列表")
+                add_check(function(0, 2) == ["价格必须大于0"], "价格错误能够被收集")
+                add_check(
+                    function(0, -1) == ["价格必须大于0", "数量必须大于0"],
+                    "两个独立错误都被收集并保持顺序",
+                )
+
+        elif task_index == 2:
+            function = namespace.get("next_state")
+            add_check(callable(function), "已定义 next_state 函数")
+            if callable(function):
+                add_check(function("waiting", "start") == "running", "waiting + start 转为 running")
+                add_check(function("running", "finish") == "done", "running + finish 转为 done")
+                add_check(function("running", "fail") == "failed", "running + fail 转为 failed")
+                expect_raises(
+                    ValueError,
+                    lambda: function("waiting", "finish"),
+                    "未定义的状态转换抛出 ValueError",
+                )
+
+        elif task_index == 3:
+            function = namespace.get("retry")
+            add_check(callable(function), "已定义 retry 函数")
+            if callable(function):
+                class FlakyAction:
+                    def __init__(self, failures):
+                        self.failures = failures
+                        self.calls = 0
+
+                    def __call__(self):
+                        self.calls += 1
+                        if self.calls <= self.failures:
+                            raise RuntimeError("暂时失败")
+                        return "完成"
+
+                action = FlakyAction(2)
+                add_check(function(action, 3) == "完成" and action.calls == 3, "成功前进行有限次数调用")
+
+                exhausted = FlakyAction(5)
+                expect_raises(RuntimeError, lambda: function(exhausted, 2), "耗尽后重新抛出最后异常")
+                add_check(exhausted.calls == 2, "耗尽时没有超过最大尝试次数")
+                expect_raises(ValueError, lambda: function(lambda: "不应执行", 0), "非法次数抛出 ValueError")
+
+        elif task_index == 4:
+            function = namespace.get("create_once")
+            add_check(callable(function), "已定义 create_once 函数")
+            if callable(function):
+                store = {}
+                first_payload = {"value": 1}
+                first_call = function(store, "op-1", first_payload)
+                add_check(
+                    isinstance(first_call, tuple) and len(first_call) == 2,
+                    "返回（结果，是否复用）二元组",
+                )
+                if isinstance(first_call, tuple) and len(first_call) == 2:
+                    add_check(first_call[0] is first_payload and first_call[1] is False, "第一次调用创建并标记未复用")
+                add_check(store == {"op-1": first_payload}, "第一次调用只写入一个键")
+
+                second_payload = {"value": 999}
+                second_call = function(store, "op-1", second_payload)
+                add_check(
+                    isinstance(second_call, tuple)
+                    and len(second_call) == 2
+                    and second_call[0] is first_payload
+                    and second_call[1] is True,
+                    "重复操作复用第一次结果",
+                )
+                add_check(store == {"op-1": first_payload}, "重复操作没有覆盖第一次结果")
+                expect_raises(ValueError, lambda: function(store, "", {}), "空操作键抛出 ValueError")
+
+        elif task_index == 5:
+            function = namespace.get("process_batch")
+            add_check(callable(function), "已定义 process_batch 函数")
+            if callable(function):
+                def handler(item):
+                    if item < 0:
+                        raise ValueError("不能为负数")
+                    if item == 99:
+                        raise RuntimeError("系统故障")
+                    return item * 2
+
+                add_check(
+                    function([2, -1, 3], handler)
+                    == {
+                        "results": [4, 6],
+                        "errors": [{"position": 2, "error": "不能为负数"}],
+                    },
+                    "隔离 ValueError 并保留成功结果和位置",
+                )
+                expect_raises(RuntimeError, lambda: function([1, 99, 2], handler), "RuntimeError 继续向外传播")
+        else:
+            raise ValueError(f"未知题号: {task_index}")
+
+    report["passed"] = bool(report["checks"]) and all(item["passed"] for item in report["checks"])
+except Exception as exc:
+    report["error"] = "".join(traceback.format_exception_only(type(exc), exc)).strip()
+finally:
+    report["stdout"] = stdout.getvalue()[-4000:]
+
+json.dumps(report, ensure_ascii=False)
+`;
+
+    function buildCheckerWorkerSource() {
+      return `
+import { loadPyodide } from ${JSON.stringify(PYODIDE_BASE + "pyodide.mjs")};
+const PYODIDE_BASE = ${JSON.stringify(PYODIDE_BASE)};
+const CHECKER_PY = ${JSON.stringify(BROWSER_CHECKER_PY)};
+let runtimePromise = null;
+
+async function getRuntime(id) {
+  if (runtimePromise === null) {
+    self.postMessage({type: "runtime-loading", id});
+    runtimePromise = loadPyodide({indexURL: PYODIDE_BASE});
+  }
+  const pyodide = await runtimePromise;
+  self.postMessage({type: "runtime-ready", id});
+  return pyodide;
+}
+
+self.onmessage = async (event) => {
+  const {id, taskIndex, code} = event.data;
+  try {
+    const pyodide = await getRuntime(id);
+    pyodide.globals.set("USER_CODE", code);
+    pyodide.globals.set("TASK_INDEX", taskIndex);
+    const result = await pyodide.runPythonAsync(CHECKER_PY);
+    self.postMessage({type: "result", id, report: JSON.parse(result)});
+  } catch (error) {
+    self.postMessage({type: "worker-error", id, error: error?.message || String(error)});
+  }
+};
+`;
+    }
+
+    const tasks = [
+      {
+        title: "统一外部名称",
+        short: "数据转换＋对象方法",
+        difficulty: "很简单",
+        layer1Title: "数据经过函数完成确定性转换",
+        layer1Text: "输入是一个字符串，输出也是字符串。相同输入应得到相同输出；函数只产生新值，不修改外部状态，也没有副作用。",
+        layer2Title: "str 是对象，strip 与 lower 是绑定方法",
+        layer2Text: "name 指向 str 类型的对象。name.strip() 可以近似理解为 str.strip(name)：点号前的对象隐式成为第一个参数。str 不可变，所以方法返回新字符串。",
+        layer3Title: "本题具体写法",
+        layer3Text: "strip() 只删除两端空白，lower() 转成小写；可以连续调用。name: str 和 -> str 是类型标注，帮助编辑器、检查工具和读者理解接口。",
+        lessonCode: `raw = "  Alice  "\ncleaned = raw.strip()\nnormalized = cleaned.lower()`,
+        description: "完成 normalize_name(name)。去掉名字两端的空白并转成小写，但保留名字中间原有的空格。",
+        example: 'normalize_name("  Alice  ")  →  "alice"',
+        hint: "尝试把两个字符串方法连续写在 return 后面。",
+        transferQuestion: "str.lower() 返回新对象，而 list.append() 修改原对象。这个差异主要由哪一层解释？它会怎样影响函数副作用？",
+        starter: `def normalize_name(name: str) -> str:\n    # 返回规范化后的新字符串\n    pass\n`
+      },
+      {
+        title: "收集订单错误",
+        short: "控制流＋可变列表",
+        difficulty: "简单",
+        layer1Title: "控制流决定哪些规则执行，列表保存累计状态",
+        layer1Text: "两个规则彼此独立，因此都必须执行。errors 从空状态开始，每发现一个问题就增加一项，最后一次性返回完整结果。",
+        layer2Title: "list 是可变对象，append 是绑定方法",
+        layer2Text: "errors.append(message) 可近似理解为 list.append(errors, message)。与 str 不同，append 会修改原列表对象，并返回 None。",
+        layer3Title: "本题具体写法与接口",
+        layer3Text: "使用两个独立 if 和 <=。错误文本属于可验证接口，必须精确为“价格必须大于0”“数量必须大于0”；list[str] 表示元素应为字符串。",
+        lessonCode: `errors = []\nif age < 0:\n    errors.append("年龄不能为负数")\nreturn errors`,
+        description: "完成 validate_order(price, quantity)。价格或数量小于等于 0 时收集对应错误；有效订单返回空列表。",
+        example: 'validate_order(0, -1)  →  ["价格必须大于0", "数量必须大于0"]',
+        hint: "两个条件都可能成立，所以使用两个 if；不要在第一个 if 中提前 return。",
+        transferQuestion: "如果业务改成发现第一个错误就停止，改变的是底层控制流、Python 对象模型，还是具体接口约定？哪些测试需要随之变化？",
+        starter: `def validate_order(price: int, quantity: int) -> list[str]:\n    errors = []\n    # 执行两条独立规则，最后返回 errors\n    pass\n`
+      },
+      {
+        title: "执行状态转换",
+        short: "状态机＋字典/二元组",
+        difficulty: "结构入门",
+        layer1Title: "状态和事件共同决定下一状态",
+        layer1Text: "状态机把允许的转换显式列出。输入是当前状态与事件，输出是下一状态；未列出的组合必须停止，而不是随意猜测。",
+        layer2Title: "tuple 可以作为 dict 的复合键",
+        layer2Text: "(current, event) 创建二元组对象。二元组不可变，可以作为字典键；transitions[key] 调用字典的索引接口取得下一状态。",
+        layer3Title: "本题状态表与异常约定",
+        layer3Text: "只允许 waiting+start→running、running+finish→done、running+fail→failed。其他组合抛出 ValueError；具体状态名和异常类型属于本题接口细节。",
+        lessonCode: `transitions = {\n    ("off", "turn_on"): "on",\n    ("on", "turn_off"): "off",\n}\nkey = (current, event)`,
+        description: "完成 next_state(current, event)。按给定状态表返回下一状态；不允许的组合抛出 ValueError。",
+        example: 'next_state("waiting", "start") → "running"',
+        hint: "先建立 transitions 字典，再用 key in transitions 判断组合是否允许。",
+        transferQuestion: "新增 cancel 事件时，哪些内容属于稳定的状态机结构，哪些只是当前状态名和转换表细节？",
+        starter: `def next_state(current: str, event: str) -> str:\n    transitions = {\n        ("waiting", "start"): "running",\n        ("running", "finish"): "done",\n        ("running", "fail"): "failed",\n    }\n    # 查找转换；未定义时抛出 ValueError\n    pass\n`
+      },
+      {
+        title: "实现有限重试",
+        short: "函数对象＋异常控制流",
+        difficulty: "工程进阶",
+        layer1Title: "失败改变控制流，重试必须有停止条件",
+        layer1Text: "每次调用可能成功或失败。成功立即结束；失败只允许进入有限的下一次尝试；最后一次失败必须向外传播。",
+        layer2Title: "函数本身也是对象，可以作为参数传入",
+        layer2Text: "action 是一个函数对象；action() 才是调用它。except 接收调用产生的异常，裸 raise 重新抛出当前异常而不改变其身份。",
+        layer3Title: "本题具体循环与异常语法",
+        layer3Text: "range(max_attempts) 产生从 0 开始的次数；最后一次索引是 max_attempts - 1。次数小于 1 抛 ValueError。真实网络重试还需要等待间隔和错误分类。",
+        lessonCode: `for attempt in range(3):\n    try:\n        return action()\n    except OSError:\n        if attempt == 2:\n            raise`,
+        description: "完成 retry(action, max_attempts)。成功立即返回；失败时有限重试；耗尽后重新抛出；非法次数抛出 ValueError。",
+        example: "action 前两次失败、第三次成功；retry(action, 3) 返回第三次结果",
+        hint: "不要在 except 中返回 None；判断当前是否已经是最后一次。",
+        transferQuestion: "如果 action 抛出明确的输入 ValueError，还应该重试吗？要实现分类重试，需要改变哪一层的结构与哪一层的异常细节？",
+        starter: `def retry(action, max_attempts: int):\n    # 校验次数，然后有限调用 action\n    pass\n`
+      },
+      {
+        title: "同一操作只创建一次",
+        short: "幂等＋可变状态",
+        difficulty: "工程核心",
+        layer1Title: "幂等用操作身份限制副作用次数",
+        layer1Text: "operation_key 表示一次操作的身份。第一次调用允许写入 store；相同身份再次到来时复用旧结果，不再次产生写入副作用。",
+        layer2Title: "dict 保存状态，函数返回值可以是二元组",
+        layer2Text: "store 是调用者传入的可变字典对象。store[key] = payload 会修改它；return result, reused 创建并返回一个二元组对象。",
+        layer3Title: "本题接口及真实系统限制",
+        layer3Text: "空幂等键抛 ValueError。新建返回 (payload, False)，复用返回 (旧结果, True)。内存字典只能解释机制；真实并发必须依靠数据库 UNIQUE 约束或原子写入。",
+        lessonCode: `if key in store:\n    return store[key], True\nstore[key] = value\nreturn value, False`,
+        description: "完成 create_once(store, operation_key, payload)。同一键只保存第一次 payload，后续调用返回旧结果并标记 reused=True。",
+        example: '第二次 create_once(store, "op-1", 新数据) → (第一次的数据, True)',
+        hint: "先拒绝空 key，再检查 key 是否已经存在；只有不存在时才修改 store。",
+        transferQuestion: "两个进程各自拥有一个内存 store，并发处理相同 key 时为什么仍可能写入两次？数据库唯一约束修正了哪个系统边界？",
+        starter: `def create_once(\n    store: dict[str, object], operation_key: str, payload: object\n) -> tuple[object, bool]:\n    # 只让第一次调用修改 store\n    pass\n`
+      },
+      {
+        title: "隔离预期错误，保留系统故障",
+        short: "接口＋副作用边界",
+        difficulty: "综合工程题",
+        layer1Title: "批处理需要定义错误边界与资源代价",
+        layer1Text: "逐项调用 handler 是 O(n) 次调用；保存全部结果和错误需要 O(n) 额外内存。单项输入错误可以隔离，但系统故障必须停止并向外传播。",
+        layer2Title: "handler 是函数对象，异常类型形成层级",
+        layer2Text: "handler(item) 调用传入对象。except ValueError 只捕获这一类预期输入错误；RuntimeError 等其他异常不匹配，因此会自然传播。",
+        layer3Title: "本题结果结构与位置约定",
+        layer3Text: "返回字典固定含 results 和 errors。errors 每项是 {position, error}，position 从 1 开始；enumerate(items, start=1) 提供位置。具体字段名属于接口细节。",
+        lessonCode: `for position, item in enumerate(items, start=1):\n    try:\n        results.append(handler(item))\n    except ValueError as exc:\n        errors.append({"position": position, "error": str(exc)})`,
+        description: "完成 process_batch(items, handler)。成功结果进入 results；ValueError 转成带位置的错误；其他异常不得吞掉。",
+        example: "处理 [2, -1, 3]，handler 拒绝负数 → 两个结果＋第2项错误",
+        hint: "except 后明确写 ValueError，不要写 except Exception；循环结束后返回固定结构。",
+        transferQuestion: "如果业务要求某类 RuntimeError 也继续处理，为什么不能只把 except 改成 Exception？需要先补充哪些领域分类和当前事实？",
+        starter: `def process_batch(items: list[int], handler) -> dict[str, object]:\n    results = []\n    errors = []\n    # 逐项调用 handler，只隔离 ValueError\n    pass\n`
+      }
+    ];
+
+    const list = document.querySelector("#question-list");
+    const editor = document.querySelector("#editor");
+    const prediction = document.querySelector("#prediction");
+    const evidence = document.querySelector("#evidence");
+    const correction = document.querySelector("#correction");
+    const transferAnswer = document.querySelector("#transfer-answer");
+    const toast = document.querySelector("#toast");
+    const runCheckerButton = document.querySelector("#run-checker");
+    const stopCheckerButton = document.querySelector("#stop-checker");
+    const checkerStatus = document.querySelector("#checker-status");
+    const checkerOutput = document.querySelector("#checker-output");
+    let current = 0;
+    let toastTimer;
+    let checkerWorker = null;
+    let checkerWorkerUrl = null;
+    let activeCheck = null;
+    let checkerTimer = null;
+    let nextCheckId = 1;
+
+    function storageKey(index) { return `${STORAGE_PREFIX}${index}`; }
+    function answerFor(index) { return localStorage.getItem(storageKey(index)) ?? tasks[index].starter; }
+    function reflectionKey(kind, index) { return `${STORAGE_PREFIX}${kind}-${index}`; }
+    function reflectionFor(kind, index) { return localStorage.getItem(reflectionKey(kind, index)) ?? ""; }
+
+    function renderButtons() {
+      list.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const button = document.createElement("button");
+        button.className = `question-button${index === current ? " active" : ""}`;
+        button.type = "button";
+        button.innerHTML = `第${index + 1}题 · ${task.title}<span>${task.short}</span>`;
+        button.addEventListener("click", () => selectTask(index));
+        list.appendChild(button);
+      });
+    }
+
+    function selectTask(index) {
+      current = index;
+      const task = tasks[index];
+      document.querySelector("#task-number").textContent = `第 ${index + 1} 题 / 共 ${tasks.length} 题`;
+      document.querySelector("#task-title").textContent = task.title;
+      document.querySelector("#task-description").textContent = task.description;
+      document.querySelector("#difficulty").textContent = task.difficulty;
+      document.querySelector("#layer1-title").textContent = task.layer1Title;
+      document.querySelector("#layer1-text").textContent = task.layer1Text;
+      document.querySelector("#layer2-title").textContent = task.layer2Title;
+      document.querySelector("#layer2-text").textContent = task.layer2Text;
+      document.querySelector("#layer3-title").textContent = task.layer3Title;
+      document.querySelector("#layer3-text").textContent = task.layer3Text;
+      document.querySelector("#lesson-code").textContent = task.lessonCode;
+      document.querySelector("#example").textContent = task.example;
+      document.querySelector("#hint").textContent = task.hint;
+      document.querySelector("#transfer-question").textContent = task.transferQuestion;
+      editor.value = answerFor(index);
+      prediction.value = reflectionFor("prediction", index);
+      evidence.value = reflectionFor("evidence", index);
+      correction.value = reflectionFor("correction", index);
+      transferAnswer.value = reflectionFor("transfer", index);
+      const hasSaved = [storageKey(index), reflectionKey("prediction", index), reflectionKey("evidence", index), reflectionKey("correction", index), reflectionKey("transfer", index)].some(key => localStorage.getItem(key) !== null);
+      document.querySelector("#save-state").textContent = hasSaved ? "已恢复本地保存" : "尚未修改";
+      document.querySelector("details").open = false;
+      if (activeCheck === null) {
+        checkerStatus.textContent = "尚未运行当前题";
+        checkerOutput.textContent = "检查结果会显示在这里。";
+      }
+      renderButtons();
+      editor.focus();
+    }
+
+    function showToast(message) {
+      clearTimeout(toastTimer);
+      toast.textContent = message;
+      toastTimer = setTimeout(() => { toast.textContent = ""; }, 3200);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (_) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+    }
+
+    function setCheckerRunning(running) {
+      runCheckerButton.disabled = running;
+      stopCheckerButton.disabled = !running;
+    }
+
+    function clearCheckerTimer() {
+      if (checkerTimer !== null) {
+        clearTimeout(checkerTimer);
+        checkerTimer = null;
+      }
+    }
+
+    function startCheckerTimer(milliseconds, message) {
+      clearCheckerTimer();
+      checkerTimer = setTimeout(() => {
+        stopChecker(message);
+      }, milliseconds);
+    }
+
+    function disposeCheckerWorker() {
+      if (checkerWorker !== null) checkerWorker.terminate();
+      checkerWorker = null;
+      if (checkerWorkerUrl !== null) URL.revokeObjectURL(checkerWorkerUrl);
+      checkerWorkerUrl = null;
+    }
+
+    function stopChecker(message = "运行已停止。") {
+      clearCheckerTimer();
+      disposeCheckerWorker();
+      activeCheck = null;
+      setCheckerRunning(false);
+      checkerStatus.textContent = message;
+      checkerOutput.textContent = "Worker 已终止；下次运行会重新加载 Python。";
+    }
+
+    function formatReport(report) {
+      const lines = [];
+      if (report.error) lines.push(`✗ 程序未完成：${report.error}`);
+      for (const item of report.checks || []) {
+        lines.push(`${item.passed ? "✓" : "✗"} ${item.message}`);
+      }
+      if (report.stdout) lines.push(`\n程序输出：\n${report.stdout.trimEnd()}`);
+      if (lines.length === 0) lines.push("没有收到可识别的检查结果。");
+      return lines.join("\n");
+    }
+
+    function saveCheckerEvidence(taskIndex, report, formatted) {
+      const timestamp = new Date().toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"});
+      const text = `网页检查器：${report.passed ? "通过" : "未通过"}（${timestamp}）\n${formatted}`;
+      localStorage.setItem(reflectionKey("evidence", taskIndex), text);
+      if (current === taskIndex) {
+        evidence.value = text;
+        markSaved();
+      }
+    }
+
+    function finishCheck(report, taskIndex) {
+      clearCheckerTimer();
+      const formatted = formatReport(report);
+      checkerOutput.textContent = formatted;
+      checkerStatus.textContent = report.passed ? "当前题检查通过；请继续完成结构解释。" : "当前题尚未通过；请依据证据修正。";
+      saveCheckerEvidence(taskIndex, report, formatted);
+      activeCheck = null;
+      setCheckerRunning(false);
+    }
+
+    function failCheck(message) {
+      clearCheckerTimer();
+      checkerStatus.textContent = "检查器运行失败。";
+      checkerOutput.textContent = message;
+      activeCheck = null;
+      setCheckerRunning(false);
+      disposeCheckerWorker();
+    }
+
+    function ensureCheckerWorker() {
+      if (checkerWorker !== null) return checkerWorker;
+      if (typeof Worker === "undefined") throw new Error("当前浏览器不支持 Web Worker。");
+      checkerWorkerUrl = URL.createObjectURL(new Blob([buildCheckerWorkerSource()], {type: "text/javascript"}));
+      checkerWorker = new Worker(checkerWorkerUrl, {type: "module"});
+      checkerWorker.onmessage = (event) => {
+        const message = event.data;
+        if (activeCheck === null || message.id !== activeCheck.id) return;
+        if (message.type === "runtime-loading") {
+          checkerStatus.textContent = "首次加载浏览器版 Python，请稍候……";
+        } else if (message.type === "runtime-ready") {
+          checkerStatus.textContent = "Python 已就绪，正在执行当前题……";
+          startCheckerTimer(5000, "代码执行超过 5 秒，已终止 Worker。请检查死循环或过大的计算。 ");
+        } else if (message.type === "result") {
+          finishCheck(message.report, activeCheck.taskIndex);
+        } else if (message.type === "worker-error") {
+          failCheck(message.error);
+        }
+      };
+      checkerWorker.onerror = (event) => failCheck(event.message || "Worker 发生未知错误。");
+      return checkerWorker;
+    }
+
+    function submissionFor(index) {
+      const task = tasks[index];
+      return `请检查 Python 动手练习场第一组第${index + 1}题“${task.title}”。\n\n编码前预测：\n${reflectionFor("prediction", index) || "（未填写）"}\n\n\`\`\`python\n${answerFor(index).trimEnd()}\n\`\`\`\n\n运行后证据：\n${reflectionFor("evidence", index) || "（未填写）"}\n\n结构校正：\n${reflectionFor("correction", index) || "（未填写）"}\n\n反例与迁移问题：\n${task.transferQuestion}\n\n反例与迁移回答：\n${reflectionFor("transfer", index) || "（未填写）"}`;
+    }
+
+    function markSaved() {
+      document.querySelector("#save-state").textContent = `已自动保存 ${new Date().toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}`;
+    }
+
+    editor.addEventListener("input", () => {
+      localStorage.setItem(storageKey(current), editor.value);
+      markSaved();
+    });
+
+    [["prediction", prediction], ["evidence", evidence], ["correction", correction], ["transfer", transferAnswer]].forEach(([kind, field]) => {
+      field.addEventListener("input", () => {
+        localStorage.setItem(reflectionKey(kind, current), field.value);
+        markSaved();
+      });
+    });
+
+    editor.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") {
+        event.preventDefault();
+        const start = editor.selectionStart;
+        editor.setRangeText("    ", start, editor.selectionEnd, "end");
+        editor.dispatchEvent(new Event("input"));
+      }
+      if (event.ctrlKey && event.key === "Enter") {
+        event.preventDefault();
+        document.querySelector("#copy-current").click();
+      }
+    });
+
+    runCheckerButton.addEventListener("click", () => {
+      if (activeCheck !== null) return;
+      try {
+        const worker = ensureCheckerWorker();
+        const request = {id: nextCheckId++, taskIndex: current, code: editor.value};
+        activeCheck = request;
+        setCheckerRunning(true);
+        checkerStatus.textContent = "正在准备 Python 运行时……";
+        checkerOutput.textContent = "";
+        startCheckerTimer(90000, "首次加载超过 90 秒，已终止 Worker。请检查网络后重试。 ");
+        worker.postMessage(request);
+      } catch (error) {
+        failCheck(error?.message || String(error));
+      }
+    });
+
+    stopCheckerButton.addEventListener("click", () => stopChecker("已由用户停止运行。"));
+
+    document.querySelector("#copy-current").addEventListener("click", async () => {
+      await copyText(submissionFor(current));
+      showToast("本题已经复制。回到对话粘贴发送即可。");
+    });
+
+    document.querySelector("#copy-all").addEventListener("click", async () => {
+      const text = tasks.map((_, index) => submissionFor(index)).join("\n\n---\n\n");
+      await copyText(text);
+      showToast(`${tasks.length} 题答案已经复制。`);
+    });
+
+    document.querySelector("#download").addEventListener("click", () => {
+      const asComment = (label, content) => `# ${label}\n${(content || "（未填写）").split("\n").map(line => `# ${line}`).join("\n")}`;
+      const source = tasks.map((task, index) => [
+        `# 第${index + 1}题：${task.title}`,
+        asComment("编码前预测", reflectionFor("prediction", index)),
+        answerFor(index).trimEnd(),
+        asComment("运行后证据", reflectionFor("evidence", index)),
+        asComment("结构校正", reflectionFor("correction", index)),
+        asComment("反例与迁移问题", task.transferQuestion),
+        asComment("反例与迁移回答", reflectionFor("transfer", index)),
+      ].join("\n\n")).join("\n\n\n");
+      const blob = new Blob([source], {type: "text/x-python;charset=utf-8"});
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "practice_0001_my_answers.py";
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast("已经导出 Python 文件。");
+    });
+
+    document.querySelector("#reset").addEventListener("click", () => {
+      if (!confirm("恢复当前题吗？代码、预测、证据、校正和迁移回答都会被清除。")) return;
+      if (activeCheck !== null && activeCheck.taskIndex === current) stopChecker("当前题已恢复，原检查已停止。 ");
+      localStorage.removeItem(storageKey(current));
+      ["prediction", "evidence", "correction", "transfer"].forEach(kind => localStorage.removeItem(reflectionKey(kind, current)));
+      editor.value = tasks[current].starter;
+      prediction.value = "";
+      evidence.value = "";
+      correction.value = "";
+      transferAnswer.value = "";
+      document.querySelector("#save-state").textContent = "已恢复当前题";
+      showToast("当前题已恢复，其他题不受影响。");
+      editor.focus();
+    });
+
+    selectTask(RECOMMENDED_TASK_INDEX);
+  </script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+"""Verify the structure and local links of the course artifact."""
+
+from __future__ import annotations
+
+import re
+import subprocess
+import sys
+from html.parser import HTMLParser
+from pathlib import Path
+from urllib.parse import unquote, urlsplit
+
+
+ROOT = Path(__file__).resolve().parent.parent
+BANNED_TEXT = (
+    "旧课程",
+    "outputs\\python-teaching",
+    "outputs/python-teaching",
+    "outputs\\llm-application-engineering-teaching",
+    "outputs/llm-application-engineering-teaching",
+    "2026-07-18\\60-90-5-6-text-12",
+)
+STALE_ACTIVE_ROUTE_TEXT = (
+    "当前六个正式会话",
+    "当前六个会话",
+    "会话 1–6",
+    "会话 3–6",
+    "未来正式会话 5",
+    "未来正式会话 6",
+    "正式会话 6“模型候选与已授权行动”",
+    "六会话是首段",
+    "状态与 Python 控制",
+)
+
+
+class PageParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.links: list[str] = []
+        self.ids: set[str] = set()
+        self.scripts: list[str] = []
+        self._script_parts: list[str] | None = None
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        if attributes.get("id"):
+            self.ids.add(attributes["id"] or "")
+        if tag in {"a", "link"} and attributes.get("href"):
+            self.links.append(attributes["href"] or "")
+        if tag == "script" and not attributes.get("src"):
+            self._script_parts = []
+
+    def handle_data(self, data: str) -> None:
+        if self._script_parts is not None:
+            self._script_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "script" and self._script_parts is not None:
+            self.scripts.append("".join(self._script_parts))
+            self._script_parts = None
+
+
+def parse_page(path: Path) -> PageParser:
+    parser = PageParser()
+    parser.feed(path.read_text(encoding="utf-8"))
+    return parser
+
+
+def check_node_syntax(script: str, page: Path, number: int, failures: list[str]) -> None:
+    result = subprocess.run(
+        ["node", "--check", "-"],
+        input=script,
+        text=True,
+        encoding="utf-8",
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode:
+        details = result.stderr.strip().splitlines()[-1] if result.stderr.strip() else "unknown error"
+        failures.append(f"JavaScript syntax: {page.relative_to(ROOT)} script {number}: {details}")
+
+
+def main() -> int:
+    failures: list[str] = []
+    lessons = sorted((ROOT / "lessons").glob("*.html"))
+    records = sorted((ROOT / "learning-records").glob("*.md"))
+    if len(lessons) != 12:
+        failures.append(f"expected 12 lessons, found {len(lessons)}")
+    if len(records) != 11:
+        failures.append(f"expected 11 learning records, found {len(records)}")
+
+    required = (
+        ROOT / "index.html",
+        ROOT / "assets" / "course.css",
+        ROOT / "assets" / "course-context.js",
+        ROOT / "practice" / "0001-python-basics-playground.html",
+        ROOT / "reference" / "0001-first-terms.html",
+        ROOT / "reference" / "0002-course-progress.html",
+        ROOT / "reference" / "0003-model-system-action-card.html",
+        ROOT / "reference" / "0004-session-page-contract.html",
+        ROOT / "reference" / "0005-final-capabilities.html",
+        ROOT / "lessons" / "0010-state-and-permitted-actions.html",
+        ROOT / "lessons" / "0011-integrated-review-established-capabilities.html",
+        ROOT / "lessons" / "0012-failure-retry-stop.html",
+        ROOT / "learning-records" / "0011-implement-and-transfer-state-transitions.md",
+        ROOT / "SESSION-PAGE-CONTRACT.md",
+        ROOT / "FINAL-CAPABILITY-CONTRACT.md",
+    )
+    for path in required:
+        if not path.is_file():
+            failures.append(f"missing required file: {path.relative_to(ROOT)}")
+
+    shared_css_path = ROOT / "assets" / "course.css"
+    if shared_css_path.is_file():
+        shared_css = shared_css_path.read_text(encoding="utf-8")
+        for marker in ("--course-accent", ".course-nav", ".course-context-bar", ".question-button", ".page-status", ".session-terms", ".term-grid", "textarea", "@media"):
+            if marker not in shared_css:
+                failures.append(f"missing shared CSS marker: {marker}")
+        without_comments = re.sub(r"/\*.*?\*/", "", shared_css, flags=re.DOTALL)
+        if without_comments.count("{") != without_comments.count("}"):
+            failures.append("unbalanced braces in assets/course.css")
+
+    required_text = {
+        ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "重试、防重复与批处理", "11 条", "17 环", "最终能力契约", "数学、张量与系统分析"),
+        ROOT / "README.md": ("重试、防重复与批处理", "三个不同问题", "三个问题共九项任务", "模块、诊断与授权边界"),
+        ROOT / "MISSION.md": ("## 唯一最终目标", "## 最终能力域", "四阶段、十七环", "FINAL-CAPABILITY-CONTRACT.md", "共九项任务"),
+        ROOT / "FINAL-CAPABILITY-CONTRACT.md": ("## 1. 数学表示与证据判断", "## 2. 微积分、线性代数与张量计算", "## 3. 动力系统与物理结构", "## 4. 语言模型核心计算", "## 5. Transformer 机制", "## 6. 嵌入、检索与 RAG", "## 7. 优化、训练与轻量微调", "## 8. 数值精度、显存与计算排错", "## 9. API、工作流与 Agent 工程", "## 10. 多主体、规则和长期后果", "## 11. LLM 系统评估与可靠性", "## 最终综合项目"),
+        ROOT / "TEACHING-OVERVIEW.md": ("四阶段、十七环", "项目与理论怎样交织", "每个数学、物理和模型能力域仍有独立关口", "约为 90–120 个正式会话", "三个问题共九项任务"),
+        ROOT / "reference" / "0002-course-progress.html": ("四个阶段", "十七个学习环", "约 90–120", "环 0", "环 16", "会话 2“重试、防重复与批处理”", "会话 3“模块、诊断与授权边界”", "数学表示、概率与证据", "线性代数与张量", "动力系统与物理结构", "语言模型核心计算", "Transformer 机制", "训练、LoRA 与数值计算", "嵌入、检索与 RAG", "多主体、规则与长期后果", "系统评估与可靠性", "最终综合项目与论文阅读", "十一项最终能力如何落到路线"),
+        ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", "正式会话 1：状态与允许行动", "正式会话 2：重试、防重复与批处理", "部分函数", "指数退避"),
+        ROOT / "NOTES.md": ("粒度层级固定", "三个不同问题", "A“专注隧道”", "纵向切片", "会话 3“模块、诊断与授权边界”", "共九项任务"),
+        ROOT / "RESOURCES.md": ("商品上架自动化项目", "客户反馈项目", "教育领域模型"),
+        ROOT / "reference" / "0004-session-page-contract.html": ("学习会话页面规范", "最终能力 → 阶段 → 学习环", "每个问题完整经过七步", "三个问题的正式会话共有九个任务", "模块、诊断与授权边界", "四阶段十七环", "证据边界"),
+        ROOT / "reference" / "0005-final-capabilities.html": ("唯一最终能力事实来源", "数学表示与证据判断", "Transformer 机制", "多主体、规则与长期后果", "最终综合项目的十项证据"),
+        ROOT / "SESSION-PAGE-CONTRACT.md": ("最终能力 → 阶段 → 学习环", "本会话中文术语", "综合复习会话", "候选参考页", "模块、诊断与授权边界", "四阶段、十七环"),
+        ROOT / "SESSION-DESIGN-PROPOSAL.md": ("状态：历史设计提案", "不再是当前课程规则或路线", "SESSION-PAGE-CONTRACT.md"),
+    }
+    for path, markers in required_text.items():
+        text = path.read_text(encoding="utf-8")
+        for marker in markers:
+            if marker not in text:
+                failures.append(f"missing course-map marker in {path.relative_to(ROOT)}: {marker}")
+
+    homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+    for marker in ("sessionStorage.setItem(tokenStorageKey", "sessionStorage.getItem(tokenStorageKey", "history.replaceState", "sessionStorage.removeItem(tokenStorageKey"):
+        if marker not in homepage:
+            failures.append(f"missing persistent shutdown-token behavior: {marker}")
+
+    context_script_path = ROOT / "assets" / "course-context.js"
+    if context_script_path.is_file():
+        context_script = context_script_path.read_text(encoding="utf-8")
+        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线"):
+            if marker not in context_script:
+                failures.append(f"missing shared course-context marker: {marker}")
+        check_node_syntax(context_script, context_script_path, 1, failures)
+
+    interactive_contracts = {
+        ROOT / "practice" / "0001-python-basics-playground.html": (
+            'id="transfer-answer"',
+            'reflectionKey("transfer"',
+            'reflectionFor("transfer"',
+            'RECOMMENDED_TASK_INDEX = 1',
+        ),
+        ROOT / "lessons" / "0008-find-the-owning-module.html": (
+            'id="recall-answer"',
+            'id="module-answer"',
+            'id="copy-lesson"',
+            'localStorage.setItem(storageKey',
+        ),
+        ROOT / "lessons" / "0009-output-is-not-action.html": (
+            'data-answer',
+            'id="copy-answers"',
+            'localStorage.setItem(storageKey',
+        ),
+        ROOT / "practice" / "prototype-guided-session.html": (
+            'data-variant="A"',
+            'data-variant="B"',
+            'data-variant="C"',
+            'class="prototype-switcher"',
+            'params.set("variant"',
+        ),
+        ROOT / "lessons" / "0010-state-and-permitted-actions.html": (
+            'data-page-kind="completed-session"',
+            '正式会话 1 已完成',
+            'data-step="0"',
+            'data-task="1"',
+            'data-task="2"',
+            'data-task="3"',
+            'id="core-code"',
+            'id="transfer-code"',
+            'id="copy-submission"',
+            '本会话中文术语',
+            '跨会话总术语表',
+            'localStorage.setItem(STORAGE_PREFIX',
+            'function buildWorkerSource()',
+            'CHECK_MODE',
+        ),
+        ROOT / "lessons" / "0011-integrated-review-established-capabilities.html": (
+            'data-page-kind="review-session"',
+            'data-step="0"',
+            'data-task="1"',
+            'data-task="2"',
+            'data-task="3"',
+            'id="check-recall"',
+            'id="check-incident"',
+            'id="check-transfer"',
+            'id="copy-review"',
+            '本会话中文术语',
+            '不改变正式会话进度',
+            '不会重复创建记录',
+            'localStorage.setItem(STORAGE_PREFIX',
+        ),
+        ROOT / "lessons" / "0012-failure-retry-stop.html": (
+            'data-page-kind="formal-session"',
+            'data-session-id="S02"',
+            'data-step="0"',
+            'data-step="22"',
+            'data-task="1"',
+            'data-task="9"',
+            'id="retry-core-code"',
+            'id="retry-transfer-code"',
+            'id="identity-core-code"',
+            'id="identity-transfer-code"',
+            'id="rows-core-code"',
+            'id="batch-transfer-code"',
+            'id="session-boundaries"',
+            'id="actual-minutes"',
+            'id="copy-submission"',
+            'TemporaryError',
+            'PermanentError',
+            'sleep_fn',
+            '指数退避',
+            '3 个不同问题',
+            '每题 7 步',
+            '9 个任务',
+            'import_once',
+            'import_or_get',
+            'DuplicateOperation',
+            'validate_rows',
+            'validate_batch',
+            'operation_id',
+            '批次总数量不能超过100',
+            '本会话中文术语',
+            'localStorage.setItem(STORAGE_PREFIX',
+            'function buildWorkerSource()',
+            'CHECK_MODE',
+            '达到标准后老师直接给出下一会话',
+        ),
+    }
+    for path, markers in interactive_contracts.items():
+        text = path.read_text(encoding="utf-8")
+        for marker in markers:
+            if marker not in text:
+                failures.append(f"missing interaction marker in {path.relative_to(ROOT)}: {marker}")
+
+    prototype = (ROOT / "practice" / "prototype-guided-session.html").read_text(encoding="utf-8")
+    if "localStorage" in prototype or "sessionStorage" in prototype:
+        failures.append("prototype must not persist answers or progress")
+
+    lesson_roles = {
+        **{lesson_number: "completed-review" for lesson_number in range(1, 9)},
+        9: "candidate-reference",
+        10: "completed-session",
+        11: "review-session",
+        12: "formal-session",
+    }
+    for lesson_number, expected_role in lesson_roles.items():
+        lesson = next((ROOT / "lessons").glob(f"{lesson_number:04d}-*.html"))
+        text = lesson.read_text(encoding="utf-8")
+        marker = f'data-page-kind="{expected_role}"'
+        if marker not in text:
+            failures.append(f"wrong or missing page role in {lesson.relative_to(ROOT)}: expected {expected_role}")
+
+    for lesson_number in range(1, 9):
+        lesson = next((ROOT / "lessons").glob(f"{lesson_number:04d}-*.html"))
+        text = lesson.read_text(encoding="utf-8")
+        for forbidden in ('href="../practice/0001-python-basics-playground.html">当前练习', "用自己的话告诉老师"):
+            if forbidden in text:
+                failures.append(f"completed review still presents active-course wording in {lesson.relative_to(ROOT)}: {forbidden}")
+        if re.search(r"第[一二三四五六七八九十0-9]+课|前[一二三四五六七八九十]+课", text):
+            failures.append(f"completed review still uses old lesson numbering as route wording: {lesson.relative_to(ROOT)}")
+
+    candidate = (ROOT / "lessons" / "0009-output-is-not-action.html").read_text(encoding="utf-8")
+    for marker in ("正式会话 3", "模块、诊断与授权边界", "问题三", "模型候选与已授权行动", "当前未开始", "不承担当前进度"):
+        if marker not in candidate:
+            failures.append(f"missing candidate-session position in lessons/0009-output-is-not-action.html: {marker}")
+
+    boundary_card = (ROOT / "reference" / "0003-model-system-action-card.html").read_text(encoding="utf-8")
+    for marker in ('data-page-kind="candidate-reference"', "正式会话 3", "问题三", "模型候选与已授权行动", "当前未开始", "返回当前正式会话"):
+        if marker not in boundary_card:
+            failures.append(f"missing reference-card session position: {marker}")
+
+    session_three_sources = (
+        ROOT / "SESSION-PAGE-CONTRACT.md",
+        ROOT / "NOTES.md",
+        ROOT / "reference" / "0002-course-progress.html",
+        ROOT / "reference" / "0004-session-page-contract.html",
+    )
+    for path in session_three_sources:
+        text = path.read_text(encoding="utf-8")
+        for marker in ("模块、诊断与授权边界", "模块责任与调用链", "traceback 与测试诊断", "模型候选与已授权行动"):
+            if marker not in text:
+                failures.append(f"session 3 route mismatch in {path.relative_to(ROOT)}: missing {marker}")
+
+    active_route_files = (
+        ROOT / "README.md",
+        ROOT / "MISSION.md",
+        ROOT / "NOTES.md",
+        ROOT / "TEACHING-OVERVIEW.md",
+        ROOT / "index.html",
+        ROOT / "assets" / "course-context.js",
+        ROOT / "SESSION-PAGE-CONTRACT.md",
+        *sorted((ROOT / "lessons").glob("*.html")),
+        *sorted((ROOT / "practice").glob("*.html")),
+        *sorted((ROOT / "reference").glob("*.html")),
+    )
+    for path in active_route_files:
+        text = path.read_text(encoding="utf-8")
+        for stale in STALE_ACTIVE_ROUTE_TEXT:
+            if stale in text:
+                failures.append(f"stale active route wording in {path.relative_to(ROOT)}: {stale}")
+
+    completed_session = (ROOT / "lessons" / "0010-state-and-permitted-actions.html").read_text(encoding="utf-8")
+    if completed_session.count('data-task="') != 3:
+        failures.append("completed formal session must retain exactly three related tasks")
+
+    formal_session = (ROOT / "lessons" / "0012-failure-retry-stop.html").read_text(encoding="utf-8")
+    if formal_session.count('data-task="') != 9:
+        failures.append("formal session must contain nine tasks across three problems")
+    if formal_session.count('class="session-step') != 23:
+        failures.append("formal session 2 must contain exactly twenty-three steps")
+    if formal_session.count('class="step-chip') != 23:
+        failures.append("formal session 2 step strip must contain exactly twenty-three chips")
+    for problem_name in ("问题一", "问题二", "问题三"):
+        if formal_session.count(f"{problem_name} · 第") != 7:
+            failures.append(f"formal session 2 must give {problem_name} exactly seven steps")
+
+    review_session = (ROOT / "lessons" / "0011-integrated-review-established-capabilities.html").read_text(encoding="utf-8")
+    if review_session.count('data-task="') != 3:
+        failures.append("review session must contain exactly three integrated tasks")
+
+    for lesson_number in range(1, 8):
+        lesson = next((ROOT / "lessons").glob(f"{lesson_number:04d}-*.html"))
+        text = lesson.read_text(encoding="utf-8")
+        if '<input type="radio"' not in text or "检查答案" not in text:
+            failures.append(f"missing immediate quiz feedback in {lesson.relative_to(ROOT)}")
+
+    local_sources = (
+        Path(r"D:\download\ratio\商品上架自动化项目\TEACHING-GUIDE.md"),
+        Path(r"D:\download\ratio\客户反馈项目\TEACHING-GUIDE.md"),
+        Path(r"D:\download\ratio\领域模型\计算机领域模型.md"),
+        Path(r"D:\download\ratio\领域模型\教育领域模型.md"),
+        Path(r"D:\download\ratio\有限宇宙\有限变化实践.md"),
+    )
+    for path in local_sources:
+        if not path.is_file():
+            failures.append(f"missing local teaching source: {path}")
+
+    text_files = [*ROOT.rglob("*.md"), *ROOT.rglob("*.html")]
+    for path in text_files:
+        text = path.read_text(encoding="utf-8")
+        for banned in BANNED_TEXT:
+            if banned.casefold() in text.casefold():
+                failures.append(f"banned source/migration wording in {path.relative_to(ROOT)}: {banned}")
+
+    pages: dict[Path, PageParser] = {}
+    for page in ROOT.rglob("*.html"):
+        page_text = page.read_text(encoding="utf-8")
+        if not re.search(r'<link\s+[^>]*rel=["\']icon["\']', page_text, flags=re.IGNORECASE):
+            failures.append(f"missing favicon declaration: {page.relative_to(ROOT)}")
+        theme_links = re.findall(r'<link\s+[^>]*href=["\']([^"\']*assets/course\.css)["\']', page_text, flags=re.IGNORECASE)
+        if len(theme_links) != 1:
+            failures.append(f"expected one shared theme link in {page.relative_to(ROOT)}, found {len(theme_links)}")
+        elif page_text.find(theme_links[0]) < page_text.rfind("</style>"):
+            failures.append(f"shared theme must load after inline styles: {page.relative_to(ROOT)}")
+        context_links = re.findall(r'<script\s+[^>]*src=["\']([^"\']*assets/course-context\.js)["\']', page_text, flags=re.IGNORECASE)
+        if len(context_links) != 1:
+            failures.append(f"expected one shared course-context script in {page.relative_to(ROOT)}, found {len(context_links)}")
+        if page != ROOT / "index.html" and not re.search(r"<nav\b", page_text, flags=re.IGNORECASE):
+            failures.append(f"missing course navigation: {page.relative_to(ROOT)}")
+        parser = parse_page(page)
+        pages[page.resolve()] = parser
+        for number, script in enumerate(parser.scripts, start=1):
+            if script.strip():
+                check_node_syntax(script, page, number, failures)
+
+    if len(pages) != 20:
+        failures.append(f"expected 20 HTML pages, found {len(pages)}")
+
+    for page, parser in pages.items():
+        for href in parser.links:
+            parts = urlsplit(href)
+            if parts.scheme or parts.netloc or href.startswith(("mailto:", "javascript:")):
+                continue
+            target = page if not parts.path else (page.parent / unquote(parts.path)).resolve()
+            if not target.exists():
+                failures.append(f"broken local link: {page.relative_to(ROOT)} -> {href}")
+                continue
+            if parts.fragment and target.suffix.lower() == ".html":
+                target_parser = pages.get(target.resolve()) or parse_page(target)
+                if parts.fragment not in target_parser.ids:
+                    failures.append(f"missing fragment: {page.relative_to(ROOT)} -> {href}")
+
+    output = {
+        "passed": not failures,
+        "lessons": len(lessons),
+        "learning_records": len(records),
+        "html_pages": len(pages),
+        "themed_pages": sum(1 for page in pages if "assets/course.css" in page.read_text(encoding="utf-8")),
+        "failures": failures,
+    }
+    import json
+
+    print(json.dumps(output, ensure_ascii=False, indent=2))
+    return 0 if not failures else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

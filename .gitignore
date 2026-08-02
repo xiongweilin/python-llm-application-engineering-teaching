@@ -1,0 +1,9 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+
+# Browser validation artifacts
+.playwright-cli/
+
+# Runtime logs
+*.log

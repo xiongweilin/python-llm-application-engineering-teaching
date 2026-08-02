@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>学习会话 1 · 状态与允许行动</title>
+  <style>
+    .session-header{margin-bottom:20px}.session-header .lead{font-size:1.12rem}.session-meta{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}.session-meta span{padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-weight:750}
+    .orientation,.focus-card,.step-panel,.layer-card,.task-card,.submission-card{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--course-shadow)}
+    .orientation{border-left:7px solid var(--accent);background:var(--gold)}.orientation h2,.focus-card h2,.step-panel h2{margin:0 0 9px}.orientation p,.focus-card p{margin:.4rem 0}
+    .step-strip{display:grid;grid-template-columns:repeat(7,minmax(105px,1fr));gap:8px;margin:20px 0;overflow-x:auto;padding-bottom:4px}.step-chip{padding:9px 8px;border:1px solid var(--line);border-radius:12px;background:var(--soft);text-align:center;font-size:.88rem;font-weight:760;white-space:nowrap}.step-chip.active{background:var(--gold);border-color:#c89e3e}.step-chip.done{background:var(--green)}
+    .session-step[hidden]{display:none}.step-kicker{color:var(--accent);font-weight:850;letter-spacing:.06em}.current-action{margin:16px 0;padding:14px 16px;border-left:5px solid var(--accent-2);border-radius:12px;background:var(--blue)}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.flow>div{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:center}.flow strong{display:block;color:var(--accent)}
+    .logic-grid,.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin:18px 0}.layer-card h3{margin-top:0}.layer-tag{color:var(--accent);font-size:.82rem;font-weight:850;letter-spacing:.06em}.boundary{padding:15px 17px;border:1px solid #a686a6;border-radius:14px;background:var(--purple)}
+    .symbol-box{padding:16px;border-radius:14px;background:var(--course-code);color:var(--course-code-ink);font:16px/1.7 Consolas,"Cascadia Code",monospace}.symbol-box code{color:inherit!important;background:transparent!important}
+    .trace{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:15px 0}.trace div{padding:12px 9px;border:1px solid var(--line);border-radius:12px;background:var(--soft);text-align:center}.trace strong{display:block;color:var(--accent)}
+    .task-card h2{margin-top:0}.question-set{display:grid;gap:14px}.question-row{padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--blue)}.question-row label{display:block;font-weight:800;margin-bottom:7px}.question-row select{width:100%;padding:10px 12px}
+    .editor{width:100%;min-height:330px;padding:16px;resize:vertical;font:15px/1.55 Consolas,"Cascadia Code",monospace}.explanation{width:100%;min-height:150px;padding:15px;resize:vertical;font:15px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+    .feedback-box{min-height:3rem;margin-top:12px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;background:var(--soft);white-space:pre-wrap}.feedback-box.pass{background:var(--green)}.feedback-box.fail{background:var(--red)}
+    .hint-stack details{margin-top:10px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}
+    .session-controls{position:sticky;z-index:10;bottom:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:20px;padding:10px 12px;border:1px solid #344456;border-radius:999px;background:var(--course-code);box-shadow:0 16px 34px rgba(0,0,0,.22)}.session-controls .progress-label{color:#fff;text-align:center;font-weight:800}.session-controls .next{justify-self:end}.session-controls .previous{justify-self:start}
+    .submission-card{background:var(--green)}.submission-card textarea{width:100%;min-height:135px;padding:15px;resize:vertical}.save-state{color:var(--muted);font-size:.9rem}.sources{font-size:.92rem;color:var(--muted)}
+    @media(max-width:760px){.logic-grid,.detail-grid,.flow,.trace{grid-template-columns:1fr}.session-controls{grid-template-columns:1fr 1fr;border-radius:18px}.session-controls .progress-label{grid-column:1/-1;grid-row:1}.session-controls button{width:100%}.step-strip{grid-template-columns:repeat(7,125px)}}
+  </style>
+  <link rel="stylesheet" href="../assets/course.css">
+  <script defer src="../assets/course-context.js"></script>
+</head>
+<body data-page-kind="completed-session" data-session-id="S01" data-route-position="阶段 A · 环 1 · 正式会话 1（已完成）">
+<main>
+  <nav class="course-nav" aria-label="课程导航"><a class="primary" href="0012-failure-retry-stop.html">进入当前会话 2</a><a href="../index.html">课程首页</a><a href="../reference/0002-course-progress.html">完整路线</a><a href="../reference/0001-first-terms.html">跨会话总术语表</a></nav>
+  <div class="page-status"><strong>正式会话 1 已完成 · LR 0011</strong><br>本页保留代码、解释和检查器用于复习；当前正式会话已经推进到“重试、防重复与批处理”。重新练习不会重复创建学习记录。</div>
+
+  <header class="session-header">
+    <div class="tag">阶段 A · 环 1 · 正式学习会话 1/6 · 已完成</div>
+    <h1>状态与允许行动</h1>
+    <p class="lead">本次只建立一个能力：根据“当前状态 + 发生事件”判断下一状态，并明确拒绝没有被允许的组合。</p>
+    <div class="session-meta"><span>约 30–45 分钟</span><span>3 个相关任务</span><span>结束后互动 1 次</span><span id="save-state" class="save-state">答案自动保存在本机浏览器</span></div>
+  </header>
+
+  <section class="orientation">
+    <h2>本次路线</h2>
+    <p><strong>先理解：</strong>抽象的底层逻辑 → Python 的具体实现。</p>
+    <p><strong>再练习：</strong>辨认与预测 → 编写与验证 → 改变条件后迁移。</p>
+    <p><strong>最后：</strong>把三个任务一次性复制给老师，不需要每做一步就中断。</p>
+  </section>
+
+  <div class="step-strip" aria-label="会话步骤">
+    <div class="step-chip active">1 定向</div><div class="step-chip">2 底层逻辑</div><div class="step-chip">3 Python 细节</div><div class="step-chip">4 辨认</div><div class="step-chip">5 编写</div><div class="step-chip">6 迁移</div><div class="step-chip">7 汇总</div>
+  </div>
+
+  <section class="session-step step-panel" data-step="0">
+    <div class="step-kicker">第 1 步 · 定向</div>
+    <h2>先知道今天不学什么</h2>
+    <p>你已经理解“状态可以触发行动”以及“重复领取会制造重复处理”。这次不重讲这些结论，而是把它们变成一个可以运行和检查的 Python 函数。</p>
+    <div class="current-action"><strong>现在只做：</strong>读下面的完成标准，然后点“下一步”。</div>
+    <div class="logic-grid">
+      <article class="layer-card"><div class="layer-tag">完成后能解释</div><h3>为什么要有转换表</h3><p>不是为了记住几个状态名，而是让“允许”和“不允许”成为程序能够检查的规则。</p></article>
+      <article class="layer-card"><div class="layer-tag">完成后能编写</div><h3>一个纯判断函数</h3><p>输入当前状态和事件，返回下一状态；非法组合抛出 <code>ValueError</code>。</p></article>
+    </div>
+    <div class="boundary"><strong>本次边界：</strong>只学习“怎样决定下一状态”。数据库写入、并发锁和 Worker 领取属于后续会话，暂时不混进来。</div>
+  </section>
+
+  <section class="session-step step-panel" data-step="1" hidden>
+    <div class="step-kicker">第 2 步 · 抽象的底层逻辑</div>
+    <h2>状态转换是一条受限制的变化规则</h2>
+    <div class="current-action"><strong>现在只做：</strong>沿着流程读一遍，重点理解“转换是部分定义的”。</div>
+    <div class="flow"><div><strong>对象</strong>一个后台任务</div><div><strong>当前状态</strong><code>waiting</code></div><div><strong>事件</strong><code>start</code></div><div><strong>下一状态</strong><code>running</code></div></div>
+    <div class="logic-grid">
+      <article class="layer-card"><div class="layer-tag">概念 1</div><h3>状态压缩了有关过去的信息</h3><p>程序不需要每次重放任务的全部历史。它用当前状态表示“哪些过去事实与下一步决定有关”。例如 <code>done</code> 表示任务已经完成，因此再次 <code>start</code> 可能造成重复执行。</p></article>
+      <article class="layer-card"><div class="layer-tag">概念 2</div><h3>事件不是状态</h3><p>状态回答“现在处于哪里”；事件回答“刚发生了什么”。<code>running</code> 是状态，<code>finish</code> 是事件。二者共同决定下一状态。</p></article>
+      <article class="layer-card"><div class="layer-tag">概念 3</div><h3>转换规则不是对所有组合都有答案</h3><p>只有被业务明确允许的组合才有下一状态。表里没有 <code>done + start</code>，不是“还没想好”，而是这个组合不属于允许路径。</p></article>
+      <article class="layer-card"><div class="layer-tag">概念 4</div><h3>稳定条件：实际变化必须属于允许集合</h3><p>无论以后增加多少状态，稳定结构都是：读取当前状态与事件、查允许规则、找到就返回、找不到就停止。</p></article>
+    </div>
+    <div class="symbol-box"><code>δ(current_state, event) → next_state</code><br><code>δ</code> 只对允许的组合有结果；没有结果的组合必须拒绝。</div>
+    <p class="small">这里的 <code>δ</code> 读作“转换函数”，只是给规则取的符号，不要求背公式。关键是：同一组输入应产生一个确定结果，而不是由程序临时猜测。</p>
+  </section>
+
+  <section class="session-step step-panel" data-step="2" hidden>
+    <div class="step-kicker">第 3 步 · 具体的 Python 细节</div>
+    <h2>抽象结构怎样落到对象、语句和控制流</h2>
+    <div class="current-action"><strong>现在只做：</strong>把每一行 Python 与上一页的底层结构对应起来。</div>
+    <pre><code>def next_state(current: str, event: str) -&gt; str:
+    transitions = {
+        ("waiting", "start"): "running",
+        ("running", "finish"): "done",
+        ("running", "fail"): "failed",
+    }
+    key = (current, event)
+    if key not in transitions:
+        raise ValueError(f"不允许的状态转换: {current} + {event}")
+    return transitions[key]</code></pre>
+    <div class="detail-grid">
+      <article class="layer-card"><div class="layer-tag">函数与局部名称</div><h3><code>current</code> 和 <code>event</code></h3><p>调用函数时，两个实参分别绑定到函数内部的局部名称。类型标注 <code>: str</code> 表达接口意图，但 Python 默认不会仅凭标注自动拒绝错误类型。</p></article>
+      <article class="layer-card"><div class="layer-tag">Python 对象模型</div><h3>字符串、二元组和字典</h3><p><code>(current, event)</code> 创建一个二元组。二元组不可变，里面的字符串也不可变，因此它可以作为字典键；字典把这个复合键映射到下一状态字符串。</p></article>
+      <article class="layer-card"><div class="layer-tag">控制流</div><h3><code>if ... not in ...</code></h3><p>程序先检查键是否存在。存在时跳过 <code>raise</code>，继续执行 <code>return</code>；不存在时进入分支并抛出异常，函数立即中断，不会再执行后面的返回语句。</p></article>
+      <article class="layer-card"><div class="layer-tag">接口约定</div><h3><code>ValueError</code> 与返回值</h3><p>有效组合返回新的状态字符串；组合不被允许时抛出 <code>ValueError</code>。这个函数只作决定，不修改数据库或外部对象，因此调用者能先验证决定，再选择是否写入。</p></article>
+    </div>
+    <h3>有效路径的执行顺序</h3>
+    <div class="trace"><div><strong>1 输入</strong>waiting, start</div><div><strong>2 建键</strong>(waiting, start)</div><div><strong>3 查表</strong>键存在</div><div><strong>4 跳过</strong>不抛异常</div><div><strong>5 返回</strong>running</div></div>
+    <h3>非法路径的执行顺序</h3>
+    <div class="trace"><div><strong>1 输入</strong>done, start</div><div><strong>2 建键</strong>(done, start)</div><div><strong>3 查表</strong>键不存在</div><div><strong>4 抛异常</strong>ValueError</div><div><strong>5 停止</strong>不执行 return</div></div>
+    <div class="boundary"><strong>容易混淆的地方：</strong>这不是递归，也没有修改原字符串。函数创建二元组和字典等对象，沿条件分支执行，最后返回字符串或抛出异常。</div>
+  </section>
+
+  <section class="session-step task-card" data-step="3" data-task="1" hidden>
+    <div class="step-kicker">任务 1/3 · 辨认与预测</div>
+    <h2>先不写代码，预测三条路径</h2>
+    <div class="current-action"><strong>现在只做：</strong>根据转换表选择结果，再点一次“检查预测”。</div>
+    <pre><code>waiting + start  → running
+running + finish → done
+running + fail   → failed</code></pre>
+    <div class="question-set">
+      <div class="question-row"><label for="case-one"><code>waiting + start</code> 的结果</label><select id="case-one" data-save><option value="">请选择</option><option value="running">返回 running</option><option value="done">返回 done</option><option value="reject">抛出 ValueError</option></select></div>
+      <div class="question-row"><label for="case-two"><code>done + start</code> 的结果</label><select id="case-two" data-save><option value="">请选择</option><option value="running">返回 running</option><option value="done">返回 done</option><option value="reject">抛出 ValueError</option></select></div>
+      <div class="question-row"><label for="case-three"><code>running + fail</code> 的结果</label><select id="case-three" data-save><option value="">请选择</option><option value="failed">返回 failed</option><option value="waiting">返回 waiting</option><option value="reject">抛出 ValueError</option></select></div>
+    </div>
+    <div class="actions"><button id="check-prediction" type="button">检查预测</button></div>
+    <div id="prediction-feedback" class="feedback-box" aria-live="polite">尚未检查。</div>
+    <div class="hint-stack"><details><summary>提示 1 · 只看判断方向</summary><p>先找表中是否存在完全相同的“当前状态 + 事件”。</p></details><details><summary>提示 2 · 仍无法判断时展开</summary><p>表中没有 <code>done + start</code>，因此它不返回任何下一状态，而是走异常分支。</p></details></div>
+  </section>
+
+  <section class="session-step task-card" data-step="4" data-task="2" hidden>
+    <div class="step-kicker">任务 2/3 · 编写与验证</div>
+    <h2>实现核心转换函数</h2>
+    <div class="current-action"><strong>现在只做：</strong>补全 <code>key</code>、非法组合判断和返回值，然后运行检查。</div>
+    <label class="answer-label" for="core-code">Python 代码</label>
+    <textarea id="core-code" class="editor" data-save spellcheck="false">def next_state(current: str, event: str) -&gt; str:
+    transitions = {
+        ("waiting", "start"): "running",
+        ("running", "finish"): "done",
+        ("running", "fail"): "failed",
+    }
+    # 1. 用 current 和 event 建立复合键
+    # 2. 如果键不在 transitions 中，抛出 ValueError
+    # 3. 返回字典中的下一状态
+    pass
+</textarea>
+    <div class="checker-actions"><button id="check-core" type="button">运行 Python 检查</button><button id="stop-checker" class="secondary" type="button" disabled>停止运行</button></div>
+    <p id="checker-status" class="lesson-status" aria-live="polite">首次运行需要加载浏览器版 Python，可能需要几十秒。</p>
+    <pre id="checker-output">尚未运行。</pre>
+    <div class="hint-stack"><details><summary>提示 1 · 方向</summary><p>先写 <code>key = (current, event)</code>，再判断 <code>key not in transitions</code>。</p></details><details><summary>提示 2 · 代码骨架</summary><pre><code>key = (current, event)
+if key not in transitions:
+    raise ValueError("不允许的状态转换")
+return transitions[key]</code></pre></details></div>
+  </section>
+
+  <section class="session-step task-card" data-step="5" data-task="3" hidden>
+    <div class="step-kicker">任务 3/3 · 改变条件后迁移</div>
+    <h2>新增取消事件，但不破坏原来的限制</h2>
+    <p>业务变化：等待中的任务可以取消，得到 <code>cancelled</code>；运行中的任务不能取消。</p>
+    <div class="current-action"><strong>现在只做：</strong>修改转换数据并运行检查，然后说明“什么保持不变、什么发生变化”。</div>
+    <label class="answer-label" for="transfer-code">迁移后的 Python 代码</label>
+    <textarea id="transfer-code" class="editor" data-save spellcheck="false">def next_state(current: str, event: str) -&gt; str:
+    transitions = {
+        ("waiting", "start"): "running",
+        ("running", "finish"): "done",
+        ("running", "fail"): "failed",
+        # 增加 waiting + cancel 的允许路径
+    }
+    key = (current, event)
+    if key not in transitions:
+        raise ValueError(f"不允许的状态转换: {current} + {event}")
+    return transitions[key]
+</textarea>
+    <div class="checker-actions"><button id="check-transfer" type="button">检查迁移结果</button></div>
+    <pre id="transfer-output">尚未运行。</pre>
+    <label class="answer-label" for="transfer-explanation">用自己的话解释稳定结构与变化细节</label>
+    <textarea id="transfer-explanation" class="explanation" data-save placeholder="保持不变的是……&#10;发生变化的是……&#10;running + cancel 必须拒绝，因为……"></textarea>
+    <div class="hint-stack"><details><summary>提示 1 · 稳定结构</summary><p>输入仍是当前状态与事件，仍然查表，未定义组合仍然拒绝。</p></details><details><summary>提示 2 · 变化细节</summary><p>变化的是转换表中的一条数据，以及新出现的 <code>cancelled</code> 状态名。</p></details></div>
+  </section>
+
+  <section class="session-step submission-card" data-step="6" hidden>
+    <div class="step-kicker">第 7 步 · 汇总并只互动一次</div>
+    <h2>把三个任务连成一个完整能力</h2>
+    <div class="current-action"><strong>现在只做：</strong>填写两段总结，生成一次会话提交，然后回到对话粘贴给老师。</div>
+    <label class="answer-label" for="own-model">用自己的话说明底层逻辑与 Python 实现怎样对应</label>
+    <textarea id="own-model" data-save placeholder="底层逻辑是……&#10;在 Python 中，分别由……实现……"></textarea>
+    <label class="answer-label" for="uncertainty">仍不确定、容易混淆或想继续追问的地方</label>
+    <textarea id="uncertainty" data-save placeholder="可以写“暂时没有”，也可以明确写出卡住的概念或代码行。"></textarea>
+    <div class="actions"><button id="copy-submission" type="button">复制本次完整提交</button></div>
+    <div id="copy-status" class="feedback-box" aria-live="polite">复制内容将包括预测、两份代码、检查证据、迁移解释和你的总结。</div>
+    <p><strong>完成标准：</strong>网页通过不是终点。老师会根据这一次综合提交，检查你是否能解释、实现和迁移，再决定是否形成新的学习记录。</p>
+  </section>
+
+  <div class="session-controls" aria-label="会话翻页">
+    <button id="previous-step" class="secondary previous" type="button">上一步</button>
+    <div id="progress-label" class="progress-label">第 1/7 步 · 定向</div>
+    <button id="next-step" class="next" type="button">下一步</button>
+  </div>
+
+  <section class="session-terms" aria-labelledby="session-terms-title">
+    <h2 id="session-terms-title">本会话中文术语</h2>
+    <p>这些词只服务于“状态与允许行动”。先按中文意思理解；英文和代码标识用于识别源码。</p>
+    <dl class="term-grid">
+      <div><dt>对象 <code>object</code></dt><dd>被程序观察或处理的事物；本会话中是一项后台任务。</dd></div>
+      <div><dt>状态 <code>state</code></dt><dd>对象当前所处的位置，也是后续行动能否发生的条件。</dd></div>
+      <div><dt>事件 <code>event</code></dt><dd>刚刚发生、可能触发状态变化的事情，例如 <code>start</code>。</dd></div>
+      <div><dt>状态转换 <code>state transition</code></dt><dd>对象从当前状态进入下一状态的一次受规则限制的变化。</dd></div>
+      <div><dt>转换表 <code>transition table</code></dt><dd>明确列出哪些“当前状态 + 事件”组合被允许，以及它们对应的下一状态。</dd></div>
+      <div><dt>转换函数 <code>transition function</code></dt><dd>接收当前状态和事件，返回下一状态或拒绝非法组合的规则。</dd></div>
+      <div><dt>部分函数 <code>partial function</code></dt><dd>只对部分输入组合有结果的函数；没有定义结果的组合必须被拒绝。</dd></div>
+      <div><dt>二元组 <code>tuple</code></dt><dd>把两个值按顺序放在一起的不可变对象；这里用作复合字典键。</dd></div>
+      <div><dt>字典 <code>dict</code></dt><dd>保存“键 → 值”映射的 Python 对象；这里把复合键映射到下一状态。</dd></div>
+      <div><dt>成员判断 <code>membership test</code></dt><dd>用 <code>in</code> 或 <code>not in</code> 检查某个键是否存在。</dd></div>
+      <div><dt>控制流 <code>control flow</code></dt><dd>程序语句实际执行、跳过、中断和返回的顺序。</dd></div>
+      <div><dt>异常 <code>exception</code></dt><dd>正常返回无法表达当前结果时，用来中断并向调用者报告问题的机制。</dd></div>
+      <div><dt>值错误 <code>ValueError</code></dt><dd>输入类型可能正确，但值或值的组合不符合当前接口约定。</dd></div>
+      <div><dt>类型标注 <code>type hint</code></dt><dd>写给人和工具看的接口提示；Python 默认不会只靠它自动强制类型。</dd></div>
+    </dl>
+    <p class="term-link"><a href="../reference/0001-first-terms.html">打开跨会话总术语表</a>。总表用于复习，会话内理解优先看本表。</p>
+  </section>
+
+  <footer>
+    <p class="sources">参考：<a href="https://docs.python.org/zh-cn/3/tutorial/controlflow.html#defining-functions">Python 函数</a>、<a href="https://docs.python.org/zh-cn/3/tutorial/datastructures.html#dictionaries">字典</a>、<a href="https://docs.python.org/zh-cn/3/tutorial/errors.html#raising-exceptions">抛出异常</a>。这些链接用于复核语言行为；本会话的业务转换表属于当前会话接口。</p>
+    <p>如果某一步解释仍然不清楚，先在最终的“不确定之处”记录；只有无法继续或两次尝试仍失败时，才中途回到对话求助。</p>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const STORAGE_PREFIX = "course-session-0010-v1-";
+  const PYODIDE_BASE = "https://cdn.jsdelivr.net/pyodide/v314.0.2/full/";
+  const stepNames = ["定向", "底层逻辑", "Python 细节", "辨认", "编写", "迁移", "汇总"];
+  const steps = [...document.querySelectorAll(".session-step")];
+  const chips = [...document.querySelectorAll(".step-chip")];
+  const previousButton = document.getElementById("previous-step");
+  const nextButton = document.getElementById("next-step");
+  const progressLabel = document.getElementById("progress-label");
+  const saveState = document.getElementById("save-state");
+  let currentStep = Math.min(steps.length - 1, Math.max(0, Number(localStorage.getItem(STORAGE_PREFIX + "step") || 0)));
+
+  const CHECKER_PY = String.raw`
+import ast
+import contextlib
+import io
+import json
+import traceback
+
+report = {"passed": False, "checks": [], "stdout": "", "error": None}
+
+def add_check(passed, message):
+    report["checks"].append({"passed": bool(passed), "message": message})
+
+def check_result(function, current, event, expected, message):
+    try:
+        actual = function(current, event)
+    except Exception as exc:
+        add_check(False, f"{message}；实际抛出 {type(exc).__name__}: {exc}")
+    else:
+        add_check(actual == expected, f"{message}；实际得到 {actual!r}")
+
+def check_rejected(function, current, event, message):
+    try:
+        function(current, event)
+    except ValueError:
+        add_check(True, message)
+    except Exception as exc:
+        add_check(False, f"{message}；实际抛出 {type(exc).__name__}")
+    else:
+        add_check(False, f"{message}；实际没有抛出 ValueError")
+
+namespace = {"__name__": "__lesson__"}
+stdout = io.StringIO()
+try:
+    tree = ast.parse(USER_CODE)
+    with contextlib.redirect_stdout(stdout):
+        exec(USER_CODE, namespace)
+    function = namespace.get("next_state")
+    add_check(callable(function), "已定义 next_state 函数")
+    add_check(any(isinstance(node, ast.Dict) for node in ast.walk(tree)), "使用字典表达允许的转换")
+    add_check(any(isinstance(node, ast.Raise) for node in ast.walk(tree)), "非法组合会执行 raise")
+    if callable(function):
+        check_result(function, "waiting", "start", "running", "waiting + start 返回 running")
+        check_result(function, "running", "finish", "done", "running + finish 返回 done")
+        check_result(function, "running", "fail", "failed", "running + fail 返回 failed")
+        check_rejected(function, "waiting", "finish", "未定义的 waiting + finish 被拒绝")
+        if CHECK_MODE == "transfer":
+            check_result(function, "waiting", "cancel", "cancelled", "新增 waiting + cancel 返回 cancelled")
+            check_rejected(function, "running", "cancel", "running + cancel 仍然被拒绝")
+    report["passed"] = bool(report["checks"]) and all(item["passed"] for item in report["checks"])
+except Exception as exc:
+    report["error"] = "".join(traceback.format_exception_only(type(exc), exc)).strip()
+finally:
+    report["stdout"] = stdout.getvalue()[-4000:]
+
+json.dumps(report, ensure_ascii=False)
+`;
+
+  function buildWorkerSource() {
+    return `
+import { loadPyodide } from ${JSON.stringify(PYODIDE_BASE + "pyodide.mjs")};
+const PYODIDE_BASE = ${JSON.stringify(PYODIDE_BASE)};
+const CHECKER_PY = ${JSON.stringify(CHECKER_PY)};
+let runtimePromise = null;
+async function getRuntime(id) {
+  if (runtimePromise === null) {
+    self.postMessage({type: "runtime-loading", id});
+    runtimePromise = loadPyodide({indexURL: PYODIDE_BASE});
+  }
+  const pyodide = await runtimePromise;
+  self.postMessage({type: "runtime-ready", id});
+  return pyodide;
+}
+self.onmessage = async event => {
+  const {id, mode, code} = event.data;
+  try {
+    const pyodide = await getRuntime(id);
+    pyodide.globals.set("USER_CODE", code);
+    pyodide.globals.set("CHECK_MODE", mode);
+    const result = await pyodide.runPythonAsync(CHECKER_PY);
+    self.postMessage({type: "result", id, mode, report: JSON.parse(result)});
+  } catch (error) {
+    self.postMessage({type: "worker-error", id, error: error?.message || String(error)});
+  }
+};`;
+  }
+
+  let worker = null;
+  let workerUrl = null;
+  let activeRequest = null;
+  let nextRequestId = 1;
+  let checkerTimer = null;
+
+  function renderStep() {
+    steps.forEach((step, index) => { step.hidden = index !== currentStep; });
+    chips.forEach((chip, index) => {
+      chip.classList.toggle("active", index === currentStep);
+      chip.classList.toggle("done", index < currentStep);
+    });
+    previousButton.disabled = currentStep === 0;
+    nextButton.disabled = currentStep === steps.length - 1;
+    nextButton.textContent = currentStep === steps.length - 2 ? "进入汇总" : "下一步";
+    progressLabel.textContent = `第 ${currentStep + 1}/${steps.length} 步 · ${stepNames[currentStep]}`;
+    localStorage.setItem(STORAGE_PREFIX + "step", String(currentStep));
+    window.scrollTo({top: 0, behavior: "smooth"});
+  }
+
+  previousButton.addEventListener("click", () => { if (currentStep > 0) { currentStep -= 1; renderStep(); } });
+  nextButton.addEventListener("click", () => { if (currentStep < steps.length - 1) { currentStep += 1; renderStep(); } });
+
+  document.querySelectorAll("[data-save]").forEach(field => {
+    const saved = localStorage.getItem(STORAGE_PREFIX + field.id);
+    if (saved !== null) field.value = saved;
+    field.addEventListener("input", () => {
+      localStorage.setItem(STORAGE_PREFIX + field.id, field.value);
+      saveState.textContent = `已自动保存 ${new Date().toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}`;
+    });
+  });
+
+  function setFeedback(element, passed, text) {
+    element.textContent = text;
+    element.classList.toggle("pass", passed);
+    element.classList.toggle("fail", !passed);
+  }
+
+  document.getElementById("check-prediction").addEventListener("click", () => {
+    const cases = [
+      [document.getElementById("case-one").value, "running", "waiting + start 返回 running"],
+      [document.getElementById("case-two").value, "reject", "done + start 被拒绝"],
+      [document.getElementById("case-three").value, "failed", "running + fail 返回 failed"],
+    ];
+    const lines = cases.map(([actual, expected, message]) => `${actual === expected ? "✓" : "✗"} ${message}`);
+    const passed = cases.every(([actual, expected]) => actual === expected);
+    const output = document.getElementById("prediction-feedback");
+    setFeedback(output, passed, `${passed ? "预测全部正确。" : "还有预测需要修正。"}\n${lines.join("\n")}`);
+    localStorage.setItem(STORAGE_PREFIX + "prediction-evidence", output.textContent);
+  });
+
+  function disposeWorker() {
+    if (worker !== null) worker.terminate();
+    if (workerUrl !== null) URL.revokeObjectURL(workerUrl);
+    worker = null;
+    workerUrl = null;
+  }
+
+  function clearTimer() {
+    if (checkerTimer !== null) clearTimeout(checkerTimer);
+    checkerTimer = null;
+  }
+
+  function startTimer(milliseconds, message) {
+    clearTimer();
+    checkerTimer = setTimeout(() => {
+      const target = activeRequest?.output;
+      disposeWorker();
+      activeRequest = null;
+      document.getElementById("stop-checker").disabled = true;
+      if (target) setFeedback(target, false, message);
+      document.getElementById("checker-status").textContent = "运行已停止；代码仍已保存，可以修正后重试。";
+    }, milliseconds);
+  }
+
+  function ensureWorker() {
+    if (worker !== null) return worker;
+    if (typeof Worker === "undefined") throw new Error("当前浏览器不支持 Web Worker。");
+    workerUrl = URL.createObjectURL(new Blob([buildWorkerSource()], {type: "text/javascript"}));
+    worker = new Worker(workerUrl, {type: "module"});
+    worker.onmessage = event => {
+      const message = event.data;
+      if (activeRequest === null || message.id !== activeRequest.id) return;
+      if (message.type === "runtime-loading") {
+        document.getElementById("checker-status").textContent = "首次加载浏览器版 Python，请稍候……";
+      } else if (message.type === "runtime-ready") {
+        document.getElementById("checker-status").textContent = "Python 已就绪，正在运行检查……";
+        startTimer(5000, "代码执行超过 5 秒，已停止。请检查是否存在死循环。");
+      } else if (message.type === "result") {
+        clearTimer();
+        const report = message.report;
+        const lines = report.checks.map(item => `${item.passed ? "✓" : "✗"} ${item.message}`);
+        if (report.error) lines.push(`错误：${report.error}`);
+        if (report.stdout) lines.push(`输出：\n${report.stdout}`);
+        const formatted = lines.join("\n") || "没有产生检查结果。";
+        setFeedback(activeRequest.output, report.passed, formatted);
+        localStorage.setItem(STORAGE_PREFIX + `${message.mode}-evidence`, formatted);
+        document.getElementById("checker-status").textContent = report.passed ? "检查通过；继续解释为什么。" : "尚未通过；根据每条证据修改。";
+        activeRequest = null;
+        document.getElementById("stop-checker").disabled = true;
+      } else if (message.type === "worker-error") {
+        clearTimer();
+        setFeedback(activeRequest.output, false, `检查器无法加载或运行。代码已经保存，可继续学习并在最终提交中由老师检查。\n详情：${message.error}`);
+        activeRequest = null;
+        document.getElementById("stop-checker").disabled = true;
+        disposeWorker();
+      }
+    };
+    worker.onerror = event => {
+      clearTimer();
+      if (activeRequest !== null) setFeedback(activeRequest.output, false, `检查器发生错误。代码已经保存，可继续学习。\n详情：${event.message || "未知错误"}`);
+      activeRequest = null;
+      document.getElementById("stop-checker").disabled = true;
+      disposeWorker();
+    };
+    return worker;
+  }
+
+  function runCheck(mode, codeField, output) {
+    if (activeRequest !== null) return;
+    try {
+      const currentWorker = ensureWorker();
+      activeRequest = {id: nextRequestId++, mode, output};
+      document.getElementById("stop-checker").disabled = false;
+      document.getElementById("checker-status").textContent = "正在准备 Python 运行时……";
+      output.textContent = "";
+      output.classList.remove("pass", "fail");
+      startTimer(90000, "首次加载超过 90 秒，已停止。请检查网络后重试；代码仍已保存。");
+      currentWorker.postMessage({id: activeRequest.id, mode, code: codeField.value});
+    } catch (error) {
+      setFeedback(output, false, `无法启动检查器。代码已经保存。\n详情：${error?.message || String(error)}`);
+      activeRequest = null;
+      document.getElementById("stop-checker").disabled = true;
+    }
+  }
+
+  document.getElementById("check-core").addEventListener("click", () => runCheck("core", document.getElementById("core-code"), document.getElementById("checker-output")));
+  document.getElementById("check-transfer").addEventListener("click", () => runCheck("transfer", document.getElementById("transfer-code"), document.getElementById("transfer-output")));
+  document.getElementById("stop-checker").addEventListener("click", () => {
+    clearTimer();
+    if (activeRequest !== null) setFeedback(activeRequest.output, false, "已由你停止运行；代码仍已保存。");
+    activeRequest = null;
+    document.getElementById("stop-checker").disabled = true;
+    disposeWorker();
+  });
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const helper = document.createElement("textarea");
+      helper.value = text;
+      helper.style.position = "fixed";
+      helper.style.opacity = "0";
+      document.body.appendChild(helper);
+      helper.select();
+      document.execCommand("copy");
+      helper.remove();
+    }
+  }
+
+  function value(id) { return document.getElementById(id).value.trim(); }
+  document.getElementById("copy-submission").addEventListener("click", async () => {
+    const submission = `请检查正式学习会话“状态与允许行动”。\n\n任务一·辨认与预测：\n- waiting + start：${value("case-one") || "（未选择）"}\n- done + start：${value("case-two") || "（未选择）"}\n- running + fail：${value("case-three") || "（未选择）"}\n\n预测检查证据：\n${localStorage.getItem(STORAGE_PREFIX + "prediction-evidence") || "（未检查）"}\n\n任务二·核心代码：\n\`\`\`python\n${value("core-code")}\n\`\`\`\n\n核心代码检查证据：\n${localStorage.getItem(STORAGE_PREFIX + "core-evidence") || "（未检查或检查器无法运行）"}\n\n任务三·迁移代码：\n\`\`\`python\n${value("transfer-code")}\n\`\`\`\n\n迁移检查证据：\n${localStorage.getItem(STORAGE_PREFIX + "transfer-evidence") || "（未检查或检查器无法运行）"}\n\n稳定结构与变化细节：\n${value("transfer-explanation") || "（未填写）"}\n\n我的整体理解：\n${value("own-model") || "（未填写）"}\n\n仍不确定之处：\n${value("uncertainty") || "（暂时没有）"}`;
+    await copyText(submission);
+    setFeedback(document.getElementById("copy-status"), true, "本次完整会话已经复制。现在回到对话粘贴发送即可，只互动这一次。");
+  });
+
+  [document.getElementById("core-code"), document.getElementById("transfer-code")].forEach(editor => editor.addEventListener("keydown", event => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      const start = editor.selectionStart;
+      editor.setRangeText("    ", start, editor.selectionEnd, "end");
+      editor.dispatchEvent(new Event("input"));
+    }
+  }));
+
+  renderStep();
+})();
+</script>
+</body>
+</html>

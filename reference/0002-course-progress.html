@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>完整课程路线</title>
+  <style>
+    body{margin:0}main{max-width:1120px;margin:auto;padding:48px 22px 84px}.lead{font-size:1.16rem;color:var(--muted)}.current,.goal,.planning,.phase,.logic-card,.gate{border:1px solid var(--line);border-radius:17px;background:var(--card);box-shadow:var(--course-shadow)}.current{padding:20px;border:2px solid var(--accent);background:var(--gold);margin:22px 0}.goal{padding:23px;border-left:7px solid #6b4b78;background:var(--purple);margin:22px 0}.goal h2,.planning h2{margin-top:0}.planning{padding:20px;background:var(--blue);margin:20px 0}.numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.numbers div{padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--card);text-align:center}.numbers strong{display:block;color:var(--accent);font-size:1.4rem}.logic-path{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px}.logic-card{min-width:150px;padding:13px;text-align:center;background:var(--soft)}.logic-card strong{display:block;color:var(--accent)}.phase{overflow:hidden;margin:24px 0}.phase>header{padding:18px 20px;background:#e8e1d5}.phase>header h2{margin:0}.phase>header p{margin:.35rem 0;color:var(--muted)}.ring{display:grid;grid-template-columns:100px 1fr 1fr 170px;gap:13px;padding:16px 18px;border-top:1px solid var(--line)}.ring.done{background:var(--green)}.ring.now{background:var(--gold)}.ring.support{background:var(--blue)}.ring.later{background:var(--soft)}.ring h3{margin:0 0 .35rem;font-size:1rem}.ring p{margin:.25rem 0}.ring .position{font-weight:850;color:var(--accent)}.gate{padding:11px 13px;background:var(--card);font-size:.92rem}.session-list{margin:0;padding-left:1.25rem}.session-list li{margin:.35rem 0}.map-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:15px;overflow:hidden;background:var(--card)}.map-table th,.map-table td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.map-table th{background:#e8e1d5}.map-table tr:last-child td{border-bottom:0}.evidence{margin-top:24px;padding:19px;border-left:6px solid var(--accent);border-radius:14px;background:var(--card)}@media(max-width:850px){.ring{grid-template-columns:1fr}.numbers{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.numbers{grid-template-columns:1fr}.map-table,.map-table tbody,.map-table tr,.map-table th,.map-table td{display:block}.map-table thead{display:none}.map-table td:first-child{font-weight:850;background:#e8e1d5}}
+  </style>
+  <link rel="stylesheet" href="../assets/course.css">
+  <script defer src="../assets/course-context.js"></script>
+</head>
+<body data-page-kind="reference" data-route-position="完整课程路线">
+<main>
+  <nav class="course-nav" aria-label="课程导航"><a class="primary" href="../index.html">课程首页</a><a href="../lessons/0012-failure-retry-stop.html">当前正式会话 2</a><a href="../lessons/0010-state-and-permitted-actions.html">已完成会话 1</a><a href="../lessons/0011-integrated-review-established-capabilities.html">综合复习</a><a href="0005-final-capabilities.html">最终能力契约</a><a href="0001-first-terms.html">总术语表</a><a href="0004-session-page-contract.html">页面规范</a></nav>
+  <header><div class="tag">四个阶段 · 十七个学习环 · 当前位于阶段 A</div><h1>完整课程路线</h1><p class="lead">这张路线同时说明最终去向、当前坐标、每一环的底层逻辑、编程落点和通过关口。页面数量不是进度，能够解释、实现、诊断和迁移才是。</p></header>
+
+  <section class="current"><strong>当前：阶段 A · 环 1 · 正式会话 2“重试、防重复与批处理”</strong><p>正式会话 1 已通过并形成 LR 0011；当前学习三个问题：失败分类、尝试预算和等待决定重试或停止；操作身份与原子预留防重复；行级与批次级规则及错误边界。已有 11 条学习记录继续有效。</p></section>
+
+  <section class="goal"><h2>整条路线的唯一最终目标</h2><p>独立设计、实现、评估和维护一个受控的 LLM 工作流或 RAG Agent；理解关键数学、张量、模型和系统机制；能够控制状态、权限与现实副作用，并用测试、指标、trace、故障注入、恢复和回滚证明结果。</p><p>最终还要能阅读相关论文和实现，定位公式、张量形状、目标函数、实验结果与适用假设。完整定义见<a href="0005-final-capabilities.html">最终能力契约</a>。</p></section>
+
+  <section class="planning"><h2>路线规模与生成方式</h2><div class="numbers"><div><strong>4</strong>个能力阶段</div><div><strong>17</strong>个学习环</div><div><strong>约 90–120</strong>个正式会话的规划量级</div><div><strong>1–3</strong>个会话逐批生成</div></div><p>数量是范围估计，不是倒计时。课程不会一次生成一百个页面；每次只生成当前位置附近的会话，并根据真实表现调整数量，但任何最终能力域都不能静默消失。</p></section>
+
+  <h2>贯穿四个阶段的底层逻辑</h2>
+  <div class="logic-path"><article class="logic-card"><strong>1 对象与表示</strong>现实对象怎样进入符号、数据和代码</article><article class="logic-card"><strong>2 输入与规则</strong>资料范围、条件和证据支持什么判断</article><article class="logic-card"><strong>3 状态与演化</strong>对象怎样随时间变化，什么保持不变</article><article class="logic-card"><strong>4 结构与计算</strong>向量、张量、概率和模型怎样执行变化</article><article class="logic-card"><strong>5 主体与授权</strong>谁能建议、决定、执行、否决和退出</article><article class="logic-card"><strong>6 失败与恢复</strong>并发、重试、幂等、补偿和回滚</article><article class="logic-card"><strong>7 测量与评估</strong>用什么数据、分母、指标和对照证明</article><article class="logic-card"><strong>8 迁移与改进</strong>需求变化时修改哪层，怎样防止回归</article></div>
+
+  <section class="phase">
+    <header><h2>阶段 A · Python 与真实系统代码所有权</h2><p>先取得编写、测试和诊断两套真实项目的能力，再把同一结构带入数学与模型机制。规划约 25–35 个正式会话。</p></header>
+    <article class="ring done"><div class="position">环 0<br>已验证</div><div><h3>系统判断基线</h3><p>底层逻辑：规则范围、状态、并发、恢复、重试、操作身份和职责边界。</p></div><div><h3>编程落点</h3><p>函数、错误列表、方法链、可变副作用、控制流和模块判断。</p></div><div class="gate"><strong>证据：</strong>LR 0001–0010；<a href="../lessons/0011-integrated-review-established-capabilities.html">综合复习 R1</a>。</div></article>
+    <article class="ring now"><div class="position">环 1<br>当前</div><div><h3>可执行 Python 与可靠节点</h3><p>底层逻辑：把状态、错误、失败和身份判断变成明确接口与控制流。</p><ol class="session-list"><li>会话 1“状态与允许行动”（已完成）</li><li><strong>会话 2“重试、防重复与批处理”（当前）</strong></li><li>会话 3“模块、诊断与授权边界”（未开始）：开头先做无答案间隔回忆，再学习模块责任与调用链、traceback 与测试诊断、模型候选与已授权行动三个问题</li></ol></div><div><h3>编程落点</h3><p>对象、引用、集合、函数、分支、循环、异常、类型标注、模块、调用链、测试和 traceback。</p></div><div class="gate"><strong>关口 A1：</strong>独立完成代码变式、失败诊断和模块定位；这三个会话只构成环 1，不是整个 Python 阶段。</div></article>
+    <article class="ring later"><div class="position">环 2</div><div><h3>Python 工程基础</h3><p>底层逻辑：接口、依赖、资源生命周期与同步/异步执行。</p></div><div><h3>编程落点</h3><p>包与导入、dataclass/Pydantic、迭代器、上下文管理器、文件/JSON/CSV、pytest fixture/mock、类型检查、日志、异步与任务取消。</p></div><div class="gate"><strong>关口 A2：</strong>独立完成一个中等跨模块功能及测试，能沿 traceback 定位失败。</div></article>
+    <article class="ring later"><div class="position">环 3</div><div><h3>Catalog 纵向切片</h3><p>底层逻辑：一件商品从输入、候选、硬门、状态到 Odoo 现实写入的完整生命周期。</p></div><div><h3>编程落点</h3><p>FastAPI、CSV、Decimal、ORM、事务、SKIP LOCKED、Worker、Dify、RPA/Odoo adapter、幂等、补偿与审计。</p></div><div class="gate"><strong>关口 A3：</strong>完成真实小需求，诊断并发或外部写入故障，核对现实结果。</div></article>
+    <article class="ring later"><div class="position">环 4</div><div><h3>Feedback 纵向切片</h3><p>底层逻辑：反馈从隐私边界进入候选、证据、裁决、聚类和人工审核。</p></div><div><h3>编程落点</h3><p>脱敏、会话/工单身份、缓存版本、evidence offset、规则路由、任务恢复、聚类、SOP/周报候选与审核。</p></div><div class="gate"><strong>关口 A4：</strong>迁移 Catalog 结构并解释隐私、证据、版本和候选晋级边界。</div></article>
+  </section>
+
+  <section class="phase">
+    <header><h2>阶段 B · 数学、张量与系统分析基础</h2><p>数学与物理既由项目问题牵引，也拥有独立关口；即使项目暂时不用，最终能力仍必须覆盖。规划约 25–35 个正式会话。</p></header>
+    <article class="ring support"><div class="position">环 5</div><div><h3>数学表示、概率与证据</h3><p>底层逻辑：现实对象、模型、变量、单位、分母、时间范围和结论强度必须分开。</p></div><div><h3>计算落点</h3><p>比例、增长率、分布、方差、置信区间、抽样偏差、条件概率、相关/因果、置信/风险；用 Python、NumPy 和图表核验。</p></div><div class="gate"><strong>关口 B1：</strong>指出一份数据支持多强的结论，并发现错误分母、抽样或因果推断。</div></article>
+    <article class="ring later"><div class="position">环 6</div><div><h3>线性代数与张量</h3><p>底层逻辑：基、线性变换、投影、模态和低维结构怎样表示复杂对象。</p></div><div><h3>计算落点</h3><p>向量/矩阵/张量、shape、轴、转置、reshape、广播、批量乘法、范数、距离、特征值、秩、SVD、低秩更新；NumPy/PyTorch。</p></div><div class="gate"><strong>关口 B2：</strong>给公式标形状、判断合法性、实现计算并定位广播或轴错误。</div></article>
+    <article class="ring later"><div class="position">环 7</div><div><h3>微积分与优化</h3><p>底层逻辑：局部变化怎样累积，目标怎样沿可计算方向改进。</p></div><div><h3>计算落点</h3><p>导数、偏导、梯度、雅可比、链式法则、局部线性化、计算图、数值梯度检查和最小梯度下降。</p></div><div class="gate"><strong>关口 B3：</strong>手算小例子、用代码核验梯度，并解释学习率或梯度错误。</div></article>
+    <article class="ring later"><div class="position">环 8</div><div><h3>动力系统与物理结构</h3><p>底层逻辑：状态—演化、局部—整体、模态—叠加、边界—不变量。</p></div><div><h3>计算落点</h3><p>微分方程、稳定性、反馈、复数相位、振子、能量、耦合模态、傅里叶、场、梯度/散度/旋度、变分、对称与守恒的数值小实验。</p></div><div class="gate"><strong>关口 B4：</strong>从方程和仿真解释稳定、模态或边界结果，不用类比替代计算。</div></article>
+    <article class="ring later"><div class="position">环 9</div><div><h3>多主体、规则与长期后果</h3><p>底层逻辑：多个行动者的局部选择怎样经激励、网络和延迟形成整体结果。</p></div><div><h3>计算落点</h3><p>策略/收益/均衡、传播/级联、机制设计、参与/退出、公平、Pareto、后悔值、排队、容量和调度；离散仿真与情景比较。</p></div><div class="gate"><strong>关口 B5：</strong>分析规则变化对用户、模型、运营者和受影响者的分配与长期反馈。</div></article>
+  </section>
+
+  <section class="phase">
+    <header><h2>阶段 C · 语言模型、Transformer、训练与数值机制</h2><p>从可计算的小模型进入 Transformer 和轻量微调，每个公式都必须能落实到形状与代码。规划约 20–25 个正式会话。</p></header>
+    <article class="ring later"><div class="position">环 10</div><div><h3>语言模型核心计算</h3><p>底层逻辑：序列联合概率怎样分解为逐 token 条件分布，概率为何不等于事实。</p></div><div><h3>计算落点</h3><p>token/词表/上下文、logits、softmax、对数概率、温度、贪心、top-k/top-p、自信息、熵、交叉熵、KL 和困惑度。</p></div><div class="gate"><strong>关口 C1：</strong>手算并编码下一 token 分布，解释解码变化和指标边界。</div></article>
+    <article class="ring later"><div class="position">环 11</div><div><h3>Transformer 机制</h3><p>底层逻辑：内容寻址、加权聚合、并行子空间和残差更新怎样形成上下文表示。</p></div><div><h3>计算落点</h3><p>Q/K/V、QKᵀ、√dₖ、mask、softmax 维度、V 加权、多头、输出投影、FFN、残差、归一化、位置、因果掩码和 KV cache。</p></div><div class="gate"><strong>关口 C2：</strong>实现最小 Transformer 前向传播，标注全部形状并修复故意植入的错误。</div></article>
+    <article class="ring later"><div class="position">环 12</div><div><h3>训练、LoRA 与数值计算</h3><p>底层逻辑：优化目标、数据分割、有限精度和资源约束共同决定可训练性与可用性。</p></div><div><h3>计算落点</h3><p>反向传播、mini-batch、SGD/动量/Adam、过拟合、泄漏、早停、正则化、LoRA rank/参数量、FP32/FP16/BF16、量化、稳定 softmax、显存估算。</p></div><div class="gate"><strong>关口 C3：</strong>开展或审查一次轻量微调，诊断训练曲线、NaN、显存或应用指标问题。</div></article>
+  </section>
+
+  <section class="phase">
+    <header><h2>阶段 D · RAG、工作流、Agent 与可靠交付</h2><p>把前三阶段的代码、数学、模型和系统结构汇合到可评估、可授权、可恢复的真实系统。规划约 20–30 个正式会话。</p></header>
+    <article class="ring later"><div class="position">环 13</div><div><h3>嵌入、检索与 RAG</h3><p>底层逻辑：表示、召回、排序、上下文和生成是不同组件，必须分别测量。</p></div><div><h3>编程落点</h3><p>点积/余弦/欧氏距离、精确/近似最近邻、解析、切分、元数据、索引版本、混合检索、重排、引用、Recall@k、MRR、nDCG 和测试集。</p></div><div class="gate"><strong>关口 D1：</strong>建立组件级 RAG 评估，定位查询、切分、索引、召回、排序、生成或引用错误。</div></article>
+    <article class="ring later"><div class="position">环 14</div><div><h3>API、工作流与 Agent</h3><p>底层逻辑：结构合法、内容正确、执行授权和现实结果是四个不同边界。</p></div><div><h3>编程落点</h3><p>JSON Schema、结构化输出、function calling、工具验证、状态机、持久状态、超时、重试、幂等、补偿、规划、路由、上下文、记忆、权限和终止。</p></div><div class="gate"><strong>关口 D2：</strong>为同一需求比较单次调用、固定工作流和 Agent，交付最小充分方案。</div></article>
+    <article class="ring later"><div class="position">环 15</div><div><h3>系统评估与可靠性</h3><p>底层逻辑：只有可重复测量、分类和回归，系统变化才可判断、停止与回滚。</p></div><div><h3>编程落点</h3><p>典型/边界/失败/对抗样本、人工与自动评分校准、质量/成本/平均与 P95 延迟/吞吐/成功率、日志、trace、版本矩阵、回归、SLO 和上线门槛。</p></div><div class="gate"><strong>关口 D3：</strong>运行可重复评估包，比较两个版本并作出有证据的上线或停止决定。</div></article>
+    <article class="ring later"><div class="position">环 16</div><div><h3>最终综合项目与论文阅读</h3><p>底层逻辑：从现实需求到受控变化，再到测量、故障、恢复和长期责任的完整闭环。</p></div><div><h3>交付内容</h3><p>接入 Catalog 或 Feedback 边界；用户主导架构、实现、评估、故障注入、人工复核、回滚和答辩；阅读论文并定位公式、张量、目标、实验和假设。</p></div><div class="gate"><strong>最终关口：</strong>通过<a href="0005-final-capabilities.html">最终能力契约</a>中的十项综合证据。</div></article>
+  </section>
+
+  <h2>十一项最终能力如何落到路线</h2>
+  <table class="map-table"><thead><tr><th>能力域</th><th>主要学习环</th><th>最终证据</th></tr></thead><tbody><tr><td>数学表示与证据</td><td>环 5，并贯穿环 13、15</td><td>结论强度审计与评估报告</td></tr><tr><td>微积分、线代与张量</td><td>环 6–7，并贯穿环 11–12</td><td>形状核验、梯度核验与代码排错</td></tr><tr><td>动力系统与物理</td><td>环 8</td><td>方程、仿真和稳定性解释</td></tr><tr><td>语言模型计算</td><td>环 10</td><td>概率与解码计算实验</td></tr><tr><td>Transformer</td><td>环 11</td><td>最小前向实现与 shape 排错</td></tr><tr><td>嵌入、检索与 RAG</td><td>环 6、13</td><td>RAG 组件评估包</td></tr><tr><td>优化、训练与 LoRA</td><td>环 7、12</td><td>轻量微调审查与训练诊断</td></tr><tr><td>数值精度与显存</td><td>环 12</td><td>数值故障和资源权衡报告</td></tr><tr><td>API、工作流与 Agent</td><td>环 1–4、14</td><td>受控工具工作流</td></tr><tr><td>多主体与长期后果</td><td>环 9，并贯穿环 14–16</td><td>规则变化与受影响者分析</td></tr><tr><td>评估与可靠性</td><td>环 15–16</td><td>回归、SLO、故障注入与回滚</td></tr></tbody></table>
+
+  <div class="evidence"><strong>统一晋级规则：</strong>接触和同例通过不能推进关口。每一环至少需要变式实现或计算、失败诊断和一次跨情境迁移；最终综合项目要求用户主导，而不是由 Codex 代做后验解释。</div>
+</main>
+</body>
+</html>

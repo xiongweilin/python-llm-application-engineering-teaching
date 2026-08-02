@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Python、数学、LLM、RAG 与 Agent 工程</title>
+  <style>
+    body{margin:0}main{max-width:1080px;margin:auto;padding:50px 22px 84px}h1{font-size:clamp(2.25rem,5.6vw,4.15rem);line-height:1.06;margin:.35rem 0 1rem}.lead{font-size:1.18rem;color:var(--muted);max-width:900px}.current,.goal,.card,.phase,.rule{border:1px solid var(--line);border-radius:17px;background:var(--card);padding:21px;box-shadow:var(--course-shadow)}.goal{margin:25px 0;border-left:7px solid #6b4b78;background:var(--purple)}.goal h2,.current h2{margin-top:0}.current{background:var(--gold);border:2px solid var(--accent);margin:25px 0}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}.button{display:inline-block;padding:10px 17px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);font-weight:800;text-decoration:none;background:#fff}.button.primary{background:var(--accent);color:#fff}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.summary strong{display:block;color:var(--accent);font-size:1.45rem}.phases{display:grid;gap:12px}.phase{display:grid;grid-template-columns:115px 1fr 160px;gap:16px;align-items:center}.phase.now{background:var(--gold);border:2px solid var(--accent)}.phase.done{background:var(--green)}.phase.later{background:var(--soft)}.phase strong{display:block}.phase .status{text-align:right;font-weight:800}.next-path,.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.next-path .card:first-child{background:var(--blue)}.rule{background:var(--blue)}.principle{margin:24px 0;padding:19px;border-left:6px solid var(--accent);border-radius:14px;background:var(--card)}button.shutdown{margin-top:28px;border:1px solid #7d2831;border-radius:999px;background:transparent;color:#7d2831;padding:10px 17px;font:inherit;font-weight:800;cursor:pointer}#shutdown-status{color:var(--muted);min-height:1.7em}footer{margin-top:45px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted)}@media(max-width:780px){.summary,.next-path,.rules{grid-template-columns:1fr}.phase{grid-template-columns:1fr}.phase .status{text-align:left}}@media print{body{background:#fff}main{padding:14px}.shutdown{display:none}}
+  </style>
+  <link rel="stylesheet" href="assets/course.css">
+  <script defer src="assets/course-context.js"></script>
+</head>
+<body data-page-kind="course-home" data-route-position="唯一课程入口">
+<main>
+  <header><div class="tag">唯一课程入口 · 四阶段十七环 · 真实项目与理论双向螺旋</div><h1>Python、数学、LLM、RAG 与 Agent 工程</h1><p class="lead">从当前 Python 起点出发，逐步取得两套真实项目的代码所有权，建立数学、张量、模型与系统机制，最后独立交付一个可靠、受控、可评估、可恢复的 LLM 工作流或 RAG Agent。</p></header>
+
+  <section class="goal"><h2>整门课程最终要达到什么</h2><p>你将能够从现实需求定义对象、规则、状态、受影响者和失败边界；理解关键概率、微积分、线性代数、张量、动力系统、语言模型和 Transformer 计算；独立实现 RAG、工作流和 Agent；并用测试、指标、trace、故障注入、人工复核、恢复和回滚证明系统行为。</p><p>最终还要能阅读论文和实现中的公式、张量、目标函数、实验与假设。课程不把“看完页面”或“自动检查通过”当成掌握。</p><div class="actions"><a class="button primary" href="reference/0005-final-capabilities.html">查看最终能力契约</a><a class="button" href="reference/0002-course-progress.html">查看完整课程路线</a></div></section>
+
+<section class="current"><h2>现在只做：阶段 A · 环 1 · 正式会话 2</h2><strong>重试、防重复与批处理</strong><p>先区分成功、暂时错误、永久错误和预算耗尽，用 Python 实现有限重试与停止；再按稳定操作身份与原子预留防止同一次操作被创建两次；最后区分行级与批次级规则并按错误契约累计错误。正式会话 1 已完成并保留。</p><div class="actions"><a class="button primary" href="lessons/0012-failure-retry-stop.html">开始当前正式会话</a><a class="button" href="lessons/0010-state-and-permitted-actions.html">复习已完成会话 1</a><a class="button" href="lessons/0011-integrated-review-established-capabilities.html">综合复习已有能力</a><a class="button" href="reference/0004-session-page-contract.html">查看学习会话规范</a></div></section>
+
+  <section class="summary"><div class="card"><strong>4 阶段</strong>代码所有权 → 数学系统 → 模型机制 → 可靠交付</div><div class="card"><strong>17 环</strong>每环都有底层逻辑、编程落点与关口</div><div class="card"><strong>约 90–120</strong>个正式会话的规划量级，逐批生成</div><div class="card"><strong>11 条</strong>已经验证并保留的学习记录</div></section>
+
+  <h2>四个能力阶段</h2>
+  <section class="phases"><article class="phase now"><div>阶段 A<br>环 0–4</div><div><strong>Python 与真实系统代码所有权</strong>可执行 Python、工程基础、Catalog 与 Feedback 纵向切片。</div><div class="status">当前：环 1</div></article><article class="phase later"><div>阶段 B<br>环 5–9</div><div><strong>数学、张量与系统分析</strong>证据判断、线性代数、微积分、动力系统、物理和多主体长期后果。</div><div class="status">尚未开始</div></article><article class="phase later"><div>阶段 C<br>环 10–12</div><div><strong>语言模型、Transformer、训练与数值</strong>从 token 概率到最小 Transformer、LoRA、精度与显存排错。</div><div class="status">尚未开始</div></article><article class="phase later"><div>阶段 D<br>环 13–16</div><div><strong>RAG、工作流、Agent 与可靠交付</strong>检索评估、工具权限、系统可靠性、综合项目与论文阅读。</div><div class="status">最终阶段</div></article></section>
+
+  <h2>本次会话的三个动作</h2><section class="next-path"><article class="card"><strong>1 · 建立双层解释</strong><p>先看状态变化的抽象结构，再逐行对应 Python 对象、语句、异常和控制流。</p></article><article class="card"><strong>2 · 连续完成三项任务</strong><p>辨认与预测、编写与验证、改变条件后迁移，网页逐项反馈。</p></article><article class="card"><strong>3 · 统一提交一次</strong><p>汇总预测、代码、运行证据、迁移解释和仍不确定之处。</p></article></section>
+
+  <div class="principle"><strong>顺序原则：</strong>项目问题可以提前触发数学或模型知识，但数学、物理、Transformer、训练数值、多主体和可靠性都有独立关口，不会因为项目暂时没用到而从路线中消失。</div>
+
+  <h2>每次学习都遵循</h2><section class="rules"><article class="rule"><strong>先定位与预测</strong><br>先知道当前属于哪个阶段、学习环和最终能力，再预测输入、输出、状态、形状或失败。</article><article class="rule"><strong>实现并验证</strong><br>阅读最小真实代码或公式，完成局部实现，用测试、计算或运行证据校正。</article><article class="rule"><strong>迁移后才推进</strong><br>改变条件、模块、数据、模型或项目仍能解释和修正，才推进关口。</article></section>
+
+  <div class="actions"><a class="button" href="reference/0001-first-terms.html">跨会话中文术语表</a><a class="button" href="reference/0003-model-system-action-card.html">模型—系统—行动边界卡</a><a class="button" href="reference/0002-course-progress.html">完整课程路线</a></div>
+
+  <button class="shutdown" id="shutdown" type="button">关闭课程服务器</button><p id="shutdown-status" role="status"></p>
+  <footer>课程服务只监听本机 <code>127.0.0.1:8765</code>。关闭服务不会删除浏览器中的练习答案。</footer>
+</main>
+<script>
+(() => {
+  const button = document.getElementById("shutdown");
+  const status = document.getElementById("shutdown-status");
+  const tokenStorageKey = "python-llm-course:shutdown-token";
+  const currentUrl = new URL(location.href);
+  const queryToken = currentUrl.searchParams.get("token") || "";
+  let token = queryToken;
+  let stored = false;
+  try {
+    if (queryToken) { sessionStorage.setItem(tokenStorageKey, queryToken); stored = true; }
+    else { token = sessionStorage.getItem(tokenStorageKey) || ""; }
+  } catch (error) {}
+  if (queryToken && stored) {
+    currentUrl.searchParams.delete("token");
+    history.replaceState(null, "", `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`);
+  }
+  button.addEventListener("click", async () => {
+    if (!token) { status.textContent = "请从 Windows 开始菜单的课程入口打开，再执行关闭。"; return; }
+    button.disabled = true;
+    status.textContent = "正在关闭课程服务器……";
+    try {
+      const response = await fetch(`/__course__/shutdown?token=${encodeURIComponent(token)}`, {method: "POST"});
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      try { sessionStorage.removeItem(tokenStorageKey); } catch (error) {}
+      status.textContent = "课程服务器已关闭。这个标签页可以关闭；下次从开始菜单重新打开。";
+    } catch (error) {
+      status.textContent = "未能确认关闭。请运行课程目录 runtime/关闭课程.vbs。";
+      button.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>

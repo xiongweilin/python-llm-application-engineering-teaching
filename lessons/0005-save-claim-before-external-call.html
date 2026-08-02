@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>已完成复习页：短事务与恢复责任</title>
+  <style>
+    :root{
+      --ink:#17223b;--muted:#5b6678;--paper:#f7f2e8;--card:#fffdf8;
+      --line:#d9d0c1;--accent:#a94730;--soft:#f3ded6;
+      --blue:#dceaf5;--green:#dff1e7;--yellow:#fff0c9;--red:#f6dddd;
+      --good:#176949;--bad:#982f2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--ink);line-height:1.75;font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;background:radial-gradient(circle at 12% 8%,#ead7ce 0,transparent 29rem),var(--paper)}
+    main{max-width:940px;margin:auto;padding:52px 24px 90px}
+    header{border-bottom:2px solid var(--ink);padding-bottom:28px}.tag{color:var(--accent);font-weight:800;letter-spacing:.08em}
+    h1{font-size:clamp(2rem,5vw,3.45rem);line-height:1.12;margin:10px 0 16px}h2{margin-top:44px;font-size:1.55rem}h3{margin-top:24px}
+    p,li{font-size:1.05rem}.lead{color:var(--muted);font-size:1.2rem;max-width:780px}
+    .notice,.card,.quiz,.rule,.optional{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:20px 0;box-shadow:0 8px 24px rgba(23,34,59,.06)}
+    .notice{border-left:6px solid var(--accent)}.rule{background:var(--soft);border-color:#d8a99d;font-size:1.14rem}
+    .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:28px 0}
+    .timeline div{min-height:120px;display:grid;place-items:center;text-align:center;border:1px solid var(--line);border-radius:14px;padding:10px;position:relative;font-weight:700;background:var(--card)}
+    .timeline div:not(:last-child)::after{content:"→";position:absolute;right:-14px;z-index:2;color:var(--accent);font-size:1.25rem}
+    .db{background:var(--blue)!important}.save{background:var(--green)!important}.external{background:var(--yellow)!important}.danger{background:var(--red)!important}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}.compare article{padding:20px;border-radius:15px}.short{background:var(--green)}.long{background:var(--red)}
+    code{font-family:"Cascadia Code",Consolas,monospace;background:#f0ebe1;padding:.12em .35em;border-radius:5px}
+    table{width:100%;border-collapse:collapse;background:var(--card)}th,td{border:1px solid var(--line);padding:13px;text-align:left;vertical-align:top}th{background:#eee7dc}
+    pre{background:#202a39;color:#eef3f8;border-radius:14px;padding:20px;overflow:auto;line-height:1.62}pre code{background:transparent;padding:0}
+    label{display:block;margin:10px 0}button{margin-top:12px;padding:10px 17px;border:0;border-radius:9px;background:var(--ink);color:white;font:inherit;font-weight:750;cursor:pointer}
+    button:hover{background:var(--accent)}.feedback{min-height:1.7em;margin-top:10px;font-weight:750}.ok{color:var(--good)}.no{color:var(--bad)}
+    .teacher{border:2px dashed var(--accent);border-radius:16px;padding:22px;background:#fffaf3}.optional{box-shadow:none;border-style:dashed;color:var(--muted)}
+    a{color:var(--accent)}footer{margin-top:48px;border-top:1px solid var(--line);padding-top:20px;color:var(--muted)}
+    @media(max-width:800px){.timeline,.compare{grid-template-columns:1fr}.timeline div:not(:last-child)::after{content:"↓";right:auto;bottom:-23px}}
+    @media print{body{background:white}main{padding:20px}button{display:none}.notice,.card,.quiz,.rule,.optional{box-shadow:none}}
+  </style>
+  <link rel="stylesheet" href="../assets/course.css">
+  <script defer src="../assets/course-context.js"></script>
+</head>
+<body data-page-kind="completed-review">
+<main>
+  <nav class="course-nav course-nav-global" aria-label="课程导航"><a class="primary" href="../index.html">课程首页</a><a href="0012-failure-retry-stop.html">当前正式会话 2</a><a href="../reference/0002-course-progress.html">完整路线</a></nav>
+  <div class="page-status"><strong>已完成能力复习页 · LR 0005</strong><br>这不是当前正式会话，无需重新作答或提交。它只用于复习短事务与恢复责任。</div>
+  <header>
+    <div class="tag">已完成能力复习 · 短事务与恢复</div>
+    <h1>为什么先保存“正在处理”，再调用人工智能？</h1>
+    <p class="lead">在数据库锁保护领取瞬间的能力之上，这项记录增加一个设计边界：短数据库事务和较慢的外部调用为什么要分开。</p>
+  </header>
+
+  <section class="notice">
+    <strong>本课新词：事务</strong>
+    <p><strong>事务（transaction）</strong>是数据库把一组相关操作当成一个整体处理。执行 <strong>确认保存（commit）</strong> 后，状态正式保存，当前行锁也会释放。</p>
+  </section>
+
+  <h2>1. 当前程序的真实顺序</h2>
+  <div class="timeline" aria-label="领取任务与外部调用顺序">
+    <div class="db">找到<br>等待文案商品</div>
+    <div class="db">锁住<br>这一行</div>
+    <div class="save">改成<br>正在生成文案</div>
+    <div class="save">确认保存<br>释放锁</div>
+    <div class="external">调用 Dify<br>等待文案</div>
+    <div>保存最终结果<br>或重试状态</div>
+  </div>
+  <p>项目的 Dify 请求最长可以等待 60 秒。数据库锁只保护前四个短步骤，不跟着外部请求一起等待。</p>
+
+  <h2>2. 为什么不一直锁到人工智能返回？</h2>
+  <div class="compare">
+    <article class="short">
+      <h3>短事务：当前做法</h3>
+      <ul>
+        <li>领取后立刻保存“正在生成文案”。</li>
+        <li>快速释放数据库锁。</li>
+        <li>其他后台程序可以继续领取下一件商品。</li>
+      </ul>
+    </article>
+    <article class="long">
+      <h3>长事务：一直持锁等待</h3>
+      <ul>
+        <li>外部服务慢时，锁也长期存在。</li>
+        <li>其他程序更容易等待或跳过大量记录。</li>
+        <li>数据库事务和网络不稳定性被绑在一起。</li>
+      </ul>
+    </article>
+  </div>
+
+  <section class="rule">
+    <strong>核心取舍：</strong>先保存“我已经领取”，可以缩短锁的时间；但程序随后突然退出时，商品可能停在“正在生成文案”。
+  </section>
+
+  <h2>3. 新的失败窗口</h2>
+  <p>假设程序刚完成确认保存，状态已经是“正在生成文案”，但还没收到 Dify 结果就崩溃：</p>
+  <div class="timeline" aria-label="程序中断后的陈旧状态">
+    <div class="save">状态已保存<br>正在生成文案</div>
+    <div class="external">准备调用<br>Dify</div>
+    <div class="danger">程序突然退出</div>
+    <div class="danger">没有最终结果</div>
+    <div class="danger">状态仍是<br>正在生成文案</div>
+    <div>需要恢复机制<br>重新排队</div>
+  </div>
+  <p>这种长期停在“正在处理”的任务叫<strong>陈旧任务（stale task）</strong>。</p>
+
+  <h2>4. 当前项目的证据边界</h2>
+  <table>
+    <thead><tr><th>已经确认的事实</th><th>目前没有确认的能力</th></tr></thead>
+    <tbody>
+      <tr><td>领取后先改成 <code>drafting</code>，再确认保存</td><td>没有找到自动扫描长期 <code>drafting</code> 的恢复函数</td></tr>
+      <tr><td>锁在事务结束时释放</td><td>不能声称进程崩溃后一定会自动恢复</td></tr>
+      <tr><td>Dify 失败被捕获时会重试，最多三次</td><td>这不覆盖程序在异常处理执行前直接退出的情况</td></tr>
+    </tbody>
+  </table>
+  <p>这是架构取舍，不是说当前代码一定会出问题。以后学习 Feedback 项目时，会看到它怎样回收长期停在处理状态的任务。</p>
+
+  <h2>5. 立即练习</h2>
+  <section class="quiz">
+    <h3>A. 为什么先确认保存？</h3>
+    <p>后台程序把状态改成“正在生成文案”后，先确认保存，再调用 Dify。主要好处是：</p>
+    <label><input type="radio" name="a" value="short"> 尽快释放数据库锁，让其他程序继续工作</label>
+    <label><input type="radio" name="a" value="quality"> 让人工智能生成的文案质量更高</label>
+    <label><input type="radio" name="a" value="free"> 让 Dify 调用免费</label>
+    <button type="button" onclick="checkA()">检查答案</button>
+    <div id="feedbackA" class="feedback" aria-live="polite"></div>
+  </section>
+
+  <section class="quiz">
+    <h3>B. 程序突然退出</h3>
+    <p>状态已经保存为“正在生成文案”，程序随后立刻崩溃。最需要补充的是：</p>
+    <label><input type="radio" name="b" value="ignore"> 什么也不做，它一定会自己恢复</label>
+    <label><input type="radio" name="b" value="recover"> 找出停留过久的任务并重新排队的恢复机制</label>
+    <label><input type="radio" name="b" value="llm"> 让人工智能修改数据库</label>
+    <button type="button" onclick="checkB()">检查答案</button>
+    <div id="feedbackB" class="feedback" aria-live="polite"></div>
+  </section>
+
+  <h2>6. 可选复习：用自己的话自述</h2>
+  <section class="teacher">
+    <ol>
+      <li>为什么程序不应该在等待较慢的 Dify 返回时一直占着数据库锁？</li>
+      <li>先保存“正在生成文案”再调用 Dify，会产生什么新的中断风险？需要哪类恢复机制？</li>
+    </ol>
+    <p>不要求使用“事务”等术语，只要说清楚锁的时间和程序突然退出后的状态。</p>
+  </section>
+
+  <section class="optional">
+    <strong>可选：真实源码位置</strong>
+    <p><code>catalog_app/worker.py:17-28</code> 领取、改状态并确认保存；<code>worker.py:30</code> 随后调用文案生成；<code>copywriter.py:20-34</code> 发出阻塞式 HTTP 请求，超时来自 <code>config.py:12</code> 的 60 秒设置。</p>
+  </section>
+
+  <h2>7. 来源</h2>
+  <ul>
+    <li>当前项目源码：<code>catalog_app/worker.py</code>、<code>catalog_app/copywriter.py</code>、<code>catalog_app/config.py</code></li>
+    <li>当前项目测试：<code>tests/test_worker.py</code></li>
+    <li><a href="../reference/0001-first-terms.html">跨会话中文术语总表</a></li>
+    <li><a href="https://www.postgresql.org/docs/current/explicit-locking.html#LOCKING-ROWS">PostgreSQL 官方文档：行锁在事务结束时释放</a></li>
+  </ul>
+
+  <footer>优秀架构不是“没有代价”，而是把收益、失败窗口和恢复责任都说清楚。</footer>
+</main>
+<script>
+  function result(id,ok,good,retry){const el=document.getElementById(id);el.className="feedback "+(ok?"ok":"no");el.textContent=ok?good:retry}
+  function checkA(){const s=document.querySelector('input[name="a"]:checked');result("feedbackA",s&&s.value==="short","正确：先确认保存可以尽快释放锁，让其他程序继续领取任务。","这个顺序主要影响数据库占用时间，不会直接改变文案质量或费用。")}
+  function checkB(){const s=document.querySelector('input[name="b"]:checked');result("feedbackB",s&&s.value==="recover","正确：需要识别停留过久的“正在处理”任务，并安全地重新排队。","程序直接退出时，后面的异常处理可能没有机会执行。")}
+</script>
+</body>
+</html>
