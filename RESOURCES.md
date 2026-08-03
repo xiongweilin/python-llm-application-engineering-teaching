@@ -44,20 +44,59 @@
   用于 ORM、Session、查询、事务和关系。
 - [PostgreSQL SELECT](https://www.postgresql.org/docs/current/sql-select.html)
   用于行锁、`FOR UPDATE` 与 `SKIP LOCKED` 的当前官方语义。
+### 概率、统计与统计决策
+
 - [OpenStax Statistics](https://openstax.org/books/statistics/pages/8-introduction)
-  用于抽样、估计、方差、置信区间和结论强度；进入阶段 B · 环 5 时配合小数据实验，不把公式复述当作统计判断。
+  用于抽样、点/区间估计、方差、置信区间、假设检验和结论强度；进入阶段 B · 环 5 时配合有限联合分布、校准与小数据实验，不把公式复述当作统计判断。
+- [MIT OpenCourseWare: Mathematical Statistics](https://ocw.mit.edu/courses/18-655-mathematical-statistics-spring-2016/pages/lecture-notes/)
+  用于统计模型、Bayes procedure、损失、风险和 decision-theoretic framework；主线只选支持有限后验期望损失与基本推断的章节，不把完整渐近理论列为关口。
+
+### 线性代数、微积分、凸优化与运筹
+
 - [MIT OpenCourseWare: Single Variable Calculus](https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/)
   用于导数、积分、局部近似、优化与微分方程入口；问题集和解答用于阶段 B 的计算证据。
 - [MIT OpenCourseWare: Multivariable Calculus](https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/)
-  用于偏导、梯度、链式法则、向量场、线积分、散度和旋度。
+  用于偏导、梯度、链式法则、Jacobian、Hessian、局部线性化和有限维优化；向量场、散度与旋度不再是主线毕业关口。
 - [MIT OpenCourseWare: Linear Algebra](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/)
   用于基、投影、特征值、秩、最小二乘和 SVD 的理论、计算与问题集。
+- [Boyd and Vandenberghe: Convex Optimization](https://web.stanford.edu/~boyd/cvxbook/index.html)
+  用于凸集/凸函数、约束优化、Lagrange duality 与 KKT；环 7 只选有限维、可计算部分并配合小型求解任务。
+- [Google OR-Tools: Minimum Cost Flows](https://developers.google.com/optimization/flow/mincostflow)
+  用于把容量、成本、供需和任务分配写成最小费用流，并在 Python 中检查解、binding capacity 与条件变化。
+- [Google OR-Tools: Linear, MIP and CP-SAT Examples](https://developers.google.com/optimization/examples/)
+  用于线性规划（LP）、混合整数规划（MIP）和 CP-SAT 的 Python 建模与求解；环 7 用它补足一般目标、整数变量、可行/最优状态和约束变化，不把最小费用流当作全部运筹模型。
+
+### 有限状态、序贯决策与在线学习
+
 - [MIT OpenCourseWare: Differential Equations](https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-iv-first-order-systems/)
-  用于状态空间、线性系统、相图、稳定性、模态与局部线性化。
-- [MIT OpenCourseWare: Vibrations and Waves](https://ocw.mit.edu/courses/8-03sc-physics-iii-vibrations-and-waves-fall-2016/pages/syllabus/)
-  用于振子、能量、耦合系统、正常模态、边界条件、波与傅里叶分解；物理结论必须由方程或实验核验。
+  保留用于状态空间、固定点、线性系统、稳定性和局部线性化；连续系统只作离散序贯模型的补充入口。
+- [Algorithms for Decision Making](https://www.algorithmsbook.com/files/dm.pdf)
+  用于有限 Markov 链、MDP、POMDP 信念状态、动态规划与决策算法；环 8 只要求有限小模型的手算、求解和迁移。
+- [Bandit Algorithms](https://banditalgs.com/about/)
+  用于探索—利用、UCB、Thompson sampling 和 regret；主线以 ε-greedy 加 UCB 或 Thompson sampling 二选一，完整理论界限进入扩展。
+
+### 实验设计与有限因果图
+
+- [Penn State STAT 503: Design of Experiments](https://online.stat.psu.edu/stat503/)
+  用于随机分配、实验设计、样本量、统计功效和多重比较；环 15 只选择与版本实验和有限样本判断直接相关的单元。
+- [statsmodels: Statistics](https://www.statsmodels.org/stable/stats.html)
+  用于在 Python 中计算统计功效、样本量和多重检验校正，并把计算输入、假设和输出与 estimand 分开记录。
+- [Always Valid Inference: Continuous Monitoring of A/B Tests](https://pubsonline.informs.org/doi/10.1287/opre.2021.2135)
+  用于解释固定样本检验被反复查看时为什么失效，以及序贯查看需要怎样的有效推断；主线要求识别偏差，不要求完整推导连续监控方法。
+- [DAGitty learning materials](https://dagitty.net/learn/index.html)
+  用于有限因果 DAG 中的路径、碰撞点、d-separation、背门路径和调整集练习；环 15 必须先手工说明路径与图结构假设，再用工具核验。
+- [Introduction to Causal Inference](https://www.bradyneal.com/Introduction_to_Causal_Inference-Aug25_2020-Neal.pdf)
+  用于估计目标（estimand）、潜在结果、因果图、混杂、选择偏差和调整入口；环 15 不展开完整 do-calculus、高维因果机器学习或一般动态处理制度。
+
+### 博弈与有限机制分析
+
 - [Open Yale Courses: Game Theory](https://oyc.yale.edu/economics/econ-159)
   用于策略、最佳反应、均衡、承诺、可信度与信息边界；后续再用项目中的权限、激励和退出情境迁移。
+- [Tim Roughgarden: Algorithmic Game Theory lecture notes](https://theory.stanford.edu/~tim/notes.html)
+  用于有限拍卖、VCG 实例、稳定匹配、机制基础和 no-regret 连接；主线只承担有限机制分析与实现，Myerson、多维/动态机制和复杂度理论列入研究扩展。
+
+### 张量、模型、RAG 与系统工程
+
 - [PyTorch tensor tutorial](https://docs.pytorch.org/tutorials/beginner/blitz/tensor_tutorial.html)
   用于 shape、axis、张量运算和 autograd 入门。
 - [PyTorch broadcasting semantics](https://docs.pytorch.org/docs/stable/notes/broadcasting.html)
@@ -68,8 +107,6 @@
   用于 SGD、动量、Adam 与优化器状态；具体行为进入相应会话时再以当前版本核验。
 - [PyTorch numerical accuracy](https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html)
   用于浮点有限精度、非结合性、极值、NaN/Inf、病态矩阵和不同批量计算的数值差异。
-- [PyTorch Automatic Mixed Precision](https://docs.pytorch.org/docs/stable/accelerator/amp.html)
-  用于 FP16/BF16、autocast、梯度缩放和精度—性能权衡。
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
   注意力与 Transformer 的原始论文入口；进入模型机制支线时使用。
 - [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://papers.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html)
@@ -88,6 +125,16 @@
   检索练习研究入口，用于先回忆、后反馈的设计。
 - [Distributed practice in verbal recall tasks](https://doi.org/10.1037/0033-2909.132.3.354)
   分散练习综述入口，用于隔开若干单元后的再次提取。
+
+## Research extensions
+
+- [PyTorch Automatic Mixed Precision](https://docs.pytorch.org/docs/stable/accelerator/amp.html)
+  FP16/BF16、autocast、梯度缩放和混合精度训练只在实际训练需求出现时进入，不承担环 12 主线关口。
+- [MIT OpenCourseWare: Vibrations and Waves](https://ocw.mit.edu/courses/8-03sc-physics-iii-vibrations-and-waves-fall-2016/pages/syllabus/)
+  振子、能量、耦合系统、正常模态、边界条件、波与傅里叶分解保留为数学物理与连续系统扩展，不再承担主线毕业关口。
+- 实分析、测度概率、一般随机过程、一般 POMDP、高级强化学习、高维统计与复杂因果识别：只有主线问题进入不可数空间、一般收敛/可测性或复杂识别时才选配资源。
+- 一般 Bayesian revelation principle、Myerson 最优拍卖、多维类型、动态机制、机制计算复杂度与近似：在完成有限机制分析与实现后进入。
+- 完整大模型预训练、架构研究、GPU 内核和分布式训练：保留为模型研究与高性能计算扩展。
 
 ## Wisdom (Communities)
 

@@ -24,10 +24,11 @@
 - `lessons/0012-failure-retry-stop.html`：当前正式学习会话 2。
 - 会话 3“模块、诊断与授权边界”尚未生成正式页；届时先做无答案间隔回忆，再学习模块责任、测试诊断和授权边界三个问题。
 - `practice/prototype-guided-session.html`：已完成选择的设计原型，不承担当前进度。
-- `reference/`：完整四阶段十七环路线、最终能力契约、跨会话总术语和有明确归属的参考卡。
+- `reference/`：完整四阶段十七环路线、最终能力摘要页、跨会话总术语和有明确归属的参考卡；毕业能力的唯一事实源仍是根目录的 `FINAL-CAPABILITY-CONTRACT.md`。
+- `docs/decisions/`：记录课程架构为什么这样修改；不替代能力契约或环级路线。
 - `learning-records/`：已经由表现证明的能力，不是学习日志。
 - `runtime/`：静默启停和自动验证脚本。
 
 每个正式会话和综合复习会话页面下方都有“本会话中文术语”；总术语表只用于跨会话复习。浏览器中的页面规范见 [学习会话页面规范](reference/0004-session-page-contract.html)，规范源文件为 [SESSION-PAGE-CONTRACT.md](SESSION-PAGE-CONTRACT.md)。
 
-完整设计见 [TEACHING-OVERVIEW.md](TEACHING-OVERVIEW.md)。课程采用项目与理论双向螺旋：真实任务可以提前触发数学或模型知识，但数学、物理、Transformer、训练数值、多主体和可靠性都有独立关口，不会因项目暂时没用到而删除。
+完整设计见 [TEACHING-OVERVIEW.md](TEACHING-OVERVIEW.md)。课程采用项目与理论双向螺旋，并以有限表示、有限维、可计算模型为数学主线：环 5 形成信念，环 7 完成单步选择，环 8 完成跨时间选择，环 9 分析多主体规则，环 14 接入权限与人工容量，环 15 验证真实效果。数学物理与一般化理论保留为研究扩展，不再作为主线毕业关口。

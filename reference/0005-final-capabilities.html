@@ -4,37 +4,39 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>最终能力契约</title>
+  <title>最终能力摘要</title>
   <style>
-    body{margin:0}main{max-width:1080px;margin:auto;padding:48px 22px 84px}.lead{font-size:1.15rem;color:var(--muted)}.goal,.boundary,.capability,.capstone{padding:21px;border:1px solid var(--line);border-radius:17px;background:var(--card);box-shadow:var(--course-shadow)}.goal{margin:24px 0;border-left:7px solid var(--accent);background:var(--gold)}.goal h2,.capstone h2{margin-top:0}.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.capability h2{font-size:1.18rem;margin:.1rem 0 .6rem;color:var(--accent)}.capability p{margin:.35rem 0}.capstone{margin-top:26px;background:var(--green)}.capstone li{margin:.55rem 0}.distinctions{padding:16px;border-radius:14px;background:var(--course-code);color:var(--course-code-ink);font:16px/1.8 Consolas,"Cascadia Code",monospace}.boundary{margin-top:20px;background:var(--purple)}@media(max-width:760px){.cap-grid{grid-template-columns:1fr}}
+    body{margin:0}main{max-width:1080px;margin:auto;padding:48px 22px 84px}.lead{font-size:1.15rem;color:var(--muted)}.goal,.boundary,.capability,.capstone,.scope{padding:21px;border:1px solid var(--line);border-radius:17px;background:var(--card);box-shadow:var(--course-shadow)}.goal{margin:24px 0;border-left:7px solid var(--accent);background:var(--gold)}.goal h2,.capstone h2,.scope h2{margin-top:0}.scope{margin:20px 0;background:var(--blue)}.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.capability h2{font-size:1.18rem;margin:.1rem 0 .6rem;color:var(--accent)}.capability p{margin:.35rem 0}.capstone{margin-top:26px;background:var(--green)}.capstone li{margin:.55rem 0}.distinctions{padding:16px;border-radius:14px;background:var(--course-code);color:var(--course-code-ink);font:16px/1.8 Consolas,"Cascadia Code",monospace}.boundary{margin-top:20px;background:var(--purple)}@media(max-width:760px){.cap-grid{grid-template-columns:1fr}}
   </style>
   <link rel="stylesheet" href="../assets/course.css">
   <script defer src="../assets/course-context.js"></script>
 </head>
-<body data-page-kind="reference" data-route-position="最终能力契约">
+<body data-page-kind="reference" data-route-position="最终能力摘要">
 <main>
-  <nav class="course-nav" aria-label="课程导航"><a class="primary" href="../index.html">课程首页</a><a href="0002-course-progress.html">完整课程路线</a><a href="../lessons/0012-failure-retry-stop.html">当前正式会话 2</a><a href="0004-session-page-contract.html">页面规范</a></nav>
-  <header><div class="tag">完整课程 · 唯一最终能力事实来源</div><h1>最终能力契约</h1><p class="lead">每个学习环、正式会话、练习和综合项目都必须服务于这里的能力；页面出现一个术语不等于已经覆盖，必须有练习、验证和迁移证据。</p></header>
+  <nav class="course-nav" aria-label="课程导航"><a class="primary" href="../index.html">课程首页</a><a href="0002-course-progress.html">完整课程路线</a><a href="../FINAL-CAPABILITY-CONTRACT.md">唯一最终能力事实源</a><a href="../lessons/0012-failure-retry-stop.html">当前正式会话 2</a><a href="0004-session-page-contract.html">页面规范</a></nav>
+  <header><div class="tag">完整课程 · 最终能力摘要</div><h1>最终能力摘要</h1><p class="lead">毕业能力的唯一事实来源是根目录的 <a href="../FINAL-CAPABILITY-CONTRACT.md">FINAL-CAPABILITY-CONTRACT.md</a>。本页只提供可浏览摘要；每个学习环、正式会话、练习和综合项目都必须服务于正式契约，页面出现术语不等于已经覆盖。</p></header>
 
-  <section class="goal"><h2>课程完成时能够做到</h2><p>独立设计、实现、评估和维护一个受控的 LLM 工作流或 RAG Agent；能够从现实需求定义对象、规则、状态、受影响者和失败边界，理解关键概率与张量计算，选择合适架构，控制权限与外部副作用，并用测试、指标、trace、故障注入、恢复和回滚证明系统行为。</p><p>同时能够阅读相关论文和实现，定位公式、张量形状、目标函数、实验结果与适用假设。</p></section>
+  <section class="goal"><h2>课程完成时能够做到</h2><p>独立设计、实现、评估和维护一个可靠、受控、可恢复的 LLM 工作流或 RAG Agent；在有限表示、有限维、可计算模型中正式表达、计算、实现和验证不确定性下的决策、序贯策略、人机分工与多主体机制，并把它们接入真实状态、权限、容量、评估、恢复和回滚边界。</p></section>
+
+  <section class="scope"><h2>主线建模原则</h2><p>主线使用有限概率空间、有限状态/行动/时间/类型、有限容量与任务集合、有限维连续优化，以及可枚举、求解、仿真或数值核验的模型。</p><div class="distinctions">有限 ≠ 只做离散数学<br>有限模型计算 ≠ 一般状态空间理论<br>仿真结果 ≠ 数学证明<br>数学最优行动 ≠ 组织允许执行</div></section>
 
   <div class="cap-grid">
-    <article class="capability"><h2>1 · 数学表示与证据判断</h2><p>区分现实对象、模型、符号、图表和计算结果；明确变量、参数、状态、单位、分母与时间范围；理解比例、增长率、分布、方差、置信区间和抽样偏差；区分相关、因果、模型置信、事件概率和行动风险。</p></article>
-    <article class="capability"><h2>2 · 微积分、线性代数与张量</h2><p>掌握导数、偏导、梯度、雅可比、局部线性化；向量、基、矩阵、投影、特征值；轴、转置、reshape、广播、批量矩阵乘法；秩、SVD 与低秩更新。能用 NumPy/PyTorch 核验形状。</p></article>
-    <article class="capability"><h2>3 · 动力系统与物理结构</h2><p>理解状态空间、微分方程、稳定性、反馈、相位、振子、能量、耦合模态、傅里叶、边界条件、标量场、向量场、梯度、散度、旋度、变分、对称性与守恒。</p></article>
-    <article class="capability"><h2>4 · 语言模型核心计算</h2><p>解释并计算 token、上下文、自回归、联合/条件/序列概率、logits、softmax、对数概率、温度、贪心、top-k、top-p、自信息、熵、交叉熵、KL 和困惑度。</p></article>
-    <article class="capability"><h2>5 · Transformer 机制</h2><p>掌握 Q/K/V 形状、QKᵀ、√dₖ、mask 和 softmax 维度、V 加权、多头注意力、输出投影、前馈、残差、归一化、位置表示、因果掩码、上下文窗口与 KV cache；能实现最小前向传播并排错。</p></article>
-    <article class="capability"><h2>6 · 嵌入、检索与 RAG</h2><p>比较距离与最近邻方法；设计解析、切分、元数据、索引和版本；计算 precision、recall、F1、Recall@k、MRR、nDCG；建立相关性标注测试集并执行组件级错误分解。</p></article>
-    <article class="capability"><h2>7 · 优化、训练与 LoRA</h2><p>理解计算图、链式法则、反向传播、梯度下降、mini-batch、学习率、动量、Adam、数据划分、过拟合、泄漏、早停和正则化；计算 LoRA 形状、rank 与参数量并诊断训练曲线。</p></article>
-    <article class="capability"><h2>8 · 数值精度、显存与排错</h2><p>理解浮点非结合性、FP32/FP16/BF16、量化、上溢、下溢、NaN、Inf、稳定 softmax、log-sum-exp、混合精度与显存构成；权衡精度、显存、延迟和吞吐。</p></article>
-    <article class="capability"><h2>9 · API、工作流与 Agent</h2><p>设计请求响应、JSON Schema、结构化输出、function calling、工具验证、状态机、超时、重试、幂等、补偿、人工复核、Agent 循环、规划、路由、记忆、权限、终止和副作用控制。</p></article>
-    <article class="capability"><h2>10 · 多主体、规则与长期后果</h2><p>理解策略、收益、最佳反应、均衡、网络传播、级联、反馈、延迟、路径依赖、机制设计、激励相容、参与约束、公平、Pareto、后悔值、排队、容量和调度。</p></article>
-    <article class="capability"><h2>11 · 评估与可靠性</h2><p>建立任务级、组件级和端到端评估；构造典型、边界、失败和对抗样本；校准人工与自动评分；测量成本、平均/P95 延迟、吞吐和成功率；维护版本、回归、SLO、停止和回滚。</p></article>
-    <article class="capability"><h2>贯穿全部能力的四条边界</h2><div class="distinctions">结构合法 ≠ 内容正确<br>内容正确 ≠ 有权执行<br>工具调用成功 ≠ 现实结果正确<br>模型输出 ≠ 已授权行动</div></article>
+    <article class="capability"><h2>1 · 数学语言、概率、统计与证据</h2><p>用集合、映射、量词、条件、证明和反例表达规则；建立有限概率模型，计算联合/条件分布、Bayes 后验、条件期望、方差/协方差、区间、校准（calibration）、布里尔分数（Brier score）、覆盖率和霍夫丁界（Hoeffding bound）的直接应用，并说明证据边界。</p></article>
+    <article class="capability"><h2>2 · 线性代数与张量计算</h2><p>使用向量、基、矩阵、线性变换、投影、特征值、秩、SVD 和低秩更新；标注并核验张量 shape、axis、转置、reshape、广播和批量矩阵乘法。</p></article>
+    <article class="capability"><h2>3 · 微积分、决策与约束优化</h2><p>计算梯度、雅可比矩阵（Jacobian）、海森矩阵（Hessian）和局部线性化；建立凸/约束、线性与含整数变量的有限维优化；定义并计算有限信息价值，把信念、行动、损失、容量、权限和公平写成单步决策，求解并解释起作用约束（binding constraint）。</p></article>
+    <article class="capability"><h2>4 · 状态演化、随机过程与序贯决策</h2><p>计算离散演化、固定点、稳定性、排队与有限马尔可夫链（Markov chain）；判断状态表示是否满足马尔可夫性质（Markov property），分析通信类、不可约、周期、平稳分布唯一性与收敛条件；建立和求解有限马尔可夫决策过程（MDP），完成小型部分可观测马尔可夫决策过程（POMDP）信念更新，并仿真一种多臂老虎机（bandit）策略。</p></article>
+    <article class="capability"><h2>5 · 语言模型核心计算</h2><p>定义并计算 token、上下文、自回归、联合/条件/序列概率、logits、softmax、对数概率、温度、top-k/top-p、自信息、熵、交叉熵、KL 和困惑度。</p></article>
+    <article class="capability"><h2>6 · Transformer 机制</h2><p>标注 Q/K/V、QKᵀ、mask、softmax、V 加权、多头、投影、FFN、残差、归一化、位置、因果掩码和 KV cache；实现最小前向传播并修复 shape、mask 或数值错误。</p></article>
+    <article class="capability"><h2>7 · 嵌入、检索与 RAG</h2><p>比较距离、最近邻、稠密/稀疏检索和重排；设计解析、切分、元数据、索引与版本；计算检索指标，建立相关性测试集并执行组件级错误分解。</p></article>
+    <article class="capability"><h2>8 · 优化训练、数值精度与计算排错</h2><p><strong>主线：</strong>计算图、反向传播、基本 SGD/动量/Adam、数据划分、过拟合/泄漏、基础曲线判断、浮点误差、NaN/Inf、稳定 softmax/log-sum-exp 和粗粒度资源估算；LoRA 只要求矩阵结构与参数量。<strong>扩展：</strong>系统 LoRA、混合精度、深入量化、精细显存和完整调参。</p></article>
+    <article class="capability"><h2>9 · API、工作流、Agent 与人机合作</h2><p>实现结构化输出、工具验证、状态、重试、幂等、补偿、规划、路由、记忆、权限与终止；把既有校准、风险—覆盖率、环 7 信息价值规则和人工容量接入自动、询问、升级、拒绝或延迟策略，并验证失准、拥塞、噪声和权限撤销下的降级。</p></article>
+    <article class="capability"><h2>10 · 博弈、信息与有限机制分析</h2><p>计算有限博弈与贝叶斯博弈（Bayesian game）的效用、最佳反应和纳什均衡；列出有限直接机制的分配/支付，穷举检查占优策略激励相容（DSIC）、贝叶斯激励相容（BIC）、个体理性（IR）、效率与预算，审计操纵、参与、退出和公平后果。</p></article>
+    <article class="capability"><h2>11 · 实验、因果评估与系统可靠性</h2><p>区分描述、统计和因果问题；定义估计目标（estimand）和平均处理效应（ATE），处理功效、多重比较与序贯查看；在有限因果有向无环图（DAG）中识别背门路径、碰撞点/后代、d-分离（d-separation）和候选调整集；建立任务/组件/端到端评估、trace、回归、SLO、停止和回滚。</p></article>
+    <article class="capability"><h2>贯穿全部能力的六条边界</h2><div class="distinctions">工作流状态 ≠ 环境状态 ≠ Agent 信念<br>结构合法 ≠ 内容正确<br>模型分数 ≠ 正确概率<br>内容正确 ≠ 有权执行<br>工具调用成功 ≠ 现实结果正确<br>模型输出 ≠ 已授权行动</div></article>
   </div>
 
-  <section class="capstone"><h2>最终综合项目的十项证据</h2><ol><li>定义现实对象、目标、受影响者和失败边界；</li><li>选择单次调用、工作流或 Agent；</li><li>设计结构化输出和工具接口；</li><li>实现检索、状态、权限和副作用控制；</li><li>建立组件级与端到端评估；</li><li>测量质量、成本、延迟和可靠性；</li><li>注入检索失败、超时、重复调用和错误参数；</li><li>解释失败原因及应修改的层；</li><li>提供人工复核、停止、恢复和回滚路径；</li><li>阅读相关论文与实现，定位公式、张量、目标函数、实验和假设。</li></ol></section>
-  <section class="boundary"><strong>能力边界：</strong>本课程为预训练和架构研究建立入口，但不替代完整的机器学习、深度学习、矩阵微积分、数值分析、GPU 并行与分布式训练课程。</section>
+  <section class="capstone"><h2>最终综合项目的六组证据</h2><ol><li><strong>决策：</strong>定义对象、状态、行动、损失、受影响者、容量、权限和失败边界。</li><li><strong>策略：</strong>选择架构并用校准或风险—覆盖率确定自动、询问、拒答和升级策略。</li><li><strong>序贯：</strong>构造并求解一个有限 MDP、排队模型或 bandit 仿真。</li><li><strong>机制：</strong>分析至少两个主体的效用、报告、操纵、参与、退出和分配后果。</li><li><strong>因果：</strong>给出估计目标、识别假设、评估方案和无法识别部分。</li><li><strong>工程：</strong>把实际运行策略接入状态、权限、trace、故障注入、人工复核、停止、恢复和回滚。</li></ol><p>序贯与机制证据允许使用和同一现实问题相连的离线有限模型、仿真或回放；不要求部署强化学习、拍卖、支付机制或复杂匹配。</p></section>
+  <section class="boundary"><strong>研究扩展：</strong>系统性 LoRA、FP16/BF16 混合精度、深入量化、精细显存与完整调参，完整实分析与测度概率、一般状态空间随机过程、一般 POMDP、高级强化学习、高维统计和复杂因果识别、一般 Bayesian mechanism、Myerson、多维/动态机制、复杂算法机制设计、数学物理与连续场，以及完整预训练、GPU 内核和分布式训练均不属于主线毕业关口。</section>
 </main>
 </body>
 </html>
