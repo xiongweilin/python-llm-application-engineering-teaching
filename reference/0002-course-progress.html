@@ -13,7 +13,7 @@
 </head>
 <body data-page-kind="reference" data-route-position="完整课程路线">
 <main>
-  <nav class="course-nav" aria-label="课程导航"><a class="primary" href="../index.html">课程首页</a><a href="../lessons/0012-failure-retry-stop.html">当前正式会话 2</a><a href="../lessons/0010-state-and-permitted-actions.html">已完成会话 1</a><a href="../lessons/0011-integrated-review-established-capabilities.html">综合复习</a><a href="0005-final-capabilities.html">最终能力摘要</a><a href="../FINAL-CAPABILITY-CONTRACT.md">唯一最终能力事实源</a><a href="0001-first-terms.html">总术语表</a><a href="0004-session-page-contract.html">页面规范</a></nav>
+  <nav class="course-nav" aria-label="课程导航"><a class="primary" href="../index.html">课程首页</a><a href="../lessons/0012-failure-retry-stop.html">当前正式会话 2</a><a href="../lessons/0010-state-and-permitted-actions.html">已完成会话 1</a><a href="../lessons/0011-integrated-review-established-capabilities.html">综合复习</a><a href="../FINAL-CAPABILITY-CONTRACT.md">最终能力契约</a><a href="0001-first-terms.html">总术语表</a><a href="../SESSION-PAGE-CONTRACT.md">页面规范</a></nav>
   <header><div class="tag">四个阶段 · 十七个学习环 · 当前位于阶段 A</div><h1>完整课程路线</h1><p class="lead">这张路线同时说明最终去向、当前坐标、每一环的底层逻辑、编程落点和通过关口。页面数量不是进度，能够解释、实现、诊断和迁移才是。</p></header>
 
   <section class="current"><strong>当前：阶段 A · 环 1 · 正式会话 2“重试、防重复与批处理”</strong><p>正式会话 1 已通过并形成 LR 0011；当前学习三个问题：失败分类、尝试预算和等待决定重试或停止；操作身份与原子预留防重复；行级与批次级规则及错误边界。已有 11 条学习记录继续有效。</p></section>
@@ -63,7 +63,24 @@
   <h2>十一项最终能力如何落到路线</h2>
   <table class="map-table"><thead><tr><th>能力域</th><th>主要学习环</th><th>最终证据</th></tr></thead><tbody><tr><td>数学语言、概率、统计与证据</td><td>环 5，并贯穿环 14–15</td><td>证明/反例、后验与校准审计</td></tr><tr><td>线性代数与张量计算</td><td>环 6，并贯穿环 11–13</td><td>形状核验、矩阵计算与代码排错</td></tr><tr><td>微积分、决策与约束优化</td><td>环 7，并贯穿环 12、14</td><td>受约束决策模型、求解与敏感性分析</td></tr><tr><td>状态演化、随机过程与序贯决策</td><td>环 8，并贯穿环 14、16</td><td>Markov 手算、MDP 求解与 bandit 仿真</td></tr><tr><td>语言模型核心计算</td><td>环 10</td><td>概率与解码计算实验</td></tr><tr><td>Transformer 机制</td><td>环 11</td><td>最小前向实现与 shape/mask 排错</td></tr><tr><td>嵌入、检索与 RAG</td><td>环 6、13</td><td>RAG 组件评估包</td></tr><tr><td>优化训练、数值精度与计算排错</td><td>环 7、12</td><td>最小训练计算、数值稳定与粗粒度资源判断</td></tr><tr><td>API、工作流、Agent 与人机合作</td><td>环 1–4、14</td><td>含升级策略和故障降级的受控 Agent</td></tr><tr><td>博弈、信息与有限机制分析</td><td>环 9，并贯穿环 14、16</td><td>IC/IR 穷举、操纵审计与机制实现</td></tr><tr><td>实验、因果评估与系统可靠性</td><td>环 5、15–16</td><td>estimand、因果边界、回归、SLO 与回滚</td></tr></tbody></table>
 
-  <div class="evidence"><strong>统一晋级规则：</strong>接触和同例通过不能推进关口。每一环至少需要变式实现或计算、失败诊断和一次跨情境迁移；最终综合项目要求用户主导，而不是由 Codex 代做后验解释。</div>
+  <h2 id="capability-gate-coverage">最终能力—关口覆盖索引</h2>
+  <p>本索引不重新定义最终能力；能力内容只以 <a href="../FINAL-CAPABILITY-CONTRACT.md">FINAL-CAPABILITY-CONTRACT.md</a> 为准。本表把每个能力域绑定到强制关口证据：上方各环的简短关口句是目标摘要，本表才是完整通过清单。缺少任一列出的证据时，不得仅因接触过“主线知识”而判定该能力域通过。</p>
+  <table class="map-table"><thead><tr><th>契约域</th><th>负责关口</th><th>必须取得的关口证据</th></tr></thead><tbody>
+    <tr data-capability="FC-01"><td>FC-01 · 数学语言、概率、统计与证据</td><td>B1，贯穿 D2–D3</td><td>用集合、映射、量词、必要/充分条件表达规则，并完成直接证明、反例或归纳；计算有限联合/边缘/条件分布、Bayes 后验、期望/条件期望、方差/协方差；解释 LLN/CLT 的条件；完成点估计、区间估计、基本检验及第一类/第二类错误；计算校准、Brier score、覆盖率、风险—覆盖率和 Hoeffding bound，并声明证据不支持的结论。</td></tr>
+    <tr data-capability="FC-02"><td>FC-02 · 线性代数与张量计算</td><td>B2，贯穿 C2、D1</td><td>计算向量、基、矩阵、线性变换、投影、特征值/特征向量、秩、SVD 和低秩更新；标注并核验 shape、axis、转置、reshape、广播和批量矩阵乘法；计算点积、范数、归一化、余弦和欧氏距离，并修复形状、轴或广播错误。</td></tr>
+    <tr data-capability="FC-03"><td>FC-03 · 微积分、决策与约束优化</td><td>B3，贯穿 C3、D2</td><td>计算导数、偏导、梯度、Jacobian、Hessian、链式法则和局部线性化，并完成数值梯度检查；识别凸集/凸函数，建立有限维约束优化、LP/MIP、网络流/匹配和 Pareto 模型，使用 Lagrange/KKT 分析候选解；建立含信念、行动、损失、容量、预算、权限和公平/服务约束的单步决策，计算信息价值、binding constraint，并在条件变化后重新求解。</td></tr>
+    <tr data-capability="FC-04"><td>FC-04 · 状态演化、随机过程与序贯决策</td><td>B4，贯穿 D2、最终项目</td><td>分析离散演化、固定点、稳定性、反馈、延迟、振荡和简单排队；手算有限 Markov 链的多步转移、通信类、周期、平稳分布和吸收状态，并区分唯一性与收敛；建立有限 MDP，写出 Bellman 方程并用策略/价值迭代求解；完成一次 POMDP 信念更新；仿真比较固定策略、ε-greedy 与 UCB/Thompson 至少一种并计算累积后悔；始终区分工作流状态、环境状态和 Agent 信念。</td></tr>
+    <tr data-capability="FC-05"><td>FC-05 · 语言模型核心计算</td><td>C1</td><td>定义并计算 token、词表、上下文、自回归与序列概率分解，手算 logits、softmax、对数概率和下一 token 分布；比较温度、贪心和 top-k/top-p；计算自信息、熵、交叉熵、KL 和困惑度，并解释概率与事实、困惑度与应用成功的边界。</td></tr>
+    <tr data-capability="FC-06"><td>FC-06 · Transformer 机制</td><td>C2</td><td>标注 Q/K/V 来源与形状，计算 QKᵀ、除以 √dₖ、mask、softmax 和 V 加权；解释多头、输出投影、FFN、残差、归一化、位置、因果掩码、上下文窗口和 KV cache；实现最小前向传播并修复 shape/mask 或数值错误。</td></tr>
+    <tr data-capability="FC-07"><td>FC-07 · 嵌入、检索与 RAG</td><td>B2、D1</td><td>比较点积、余弦和欧氏距离以及精确/近似最近邻、稠密/稀疏检索与重排；实现解析、切分、元数据、索引版本和测试集；计算 precision/recall/F1 与 Recall@k/MRR/nDCG；把故障定位到查询、切分、索引、召回、排序、上下文使用、生成或引用。</td></tr>
+    <tr data-capability="FC-08"><td>FC-08 · 优化训练、数值精度与计算排错</td><td>B3、C3</td><td>建立计算图并实现链式法则、反向传播、mini-batch 与 SGD/动量/Adam；区分训练/验证/测试，识别过拟合和泄漏，使用基础早停/正则化并区分训练损失与应用指标；计算 LoRA 矩阵结构、rank 和参数量；诊断浮点非结合性、上溢/下溢、NaN/Inf，使用稳定 softmax/log-sum-exp，并完成参数、激活、梯度和优化器状态的粗粒度资源估算。</td></tr>
+    <tr data-capability="FC-09"><td>FC-09 · API、工作流、Agent 与人机合作</td><td>A1–A4、D2</td><td>实现请求—响应契约、JSON Schema、结构化输出、function calling 和工具参数验证；实现状态机、持久状态、超时、重试/幂等/补偿、恢复、规划、路由、上下文、记忆与终止；把风险、信息价值、权限和人工容量接入自动/询问/审核/拒绝/延迟策略，记录策略版本，并在失准、拥塞、人工噪声、权限撤销或成本变化时安全降级。</td></tr>
+    <tr data-capability="FC-10"><td>FC-10 · 博弈、信息与有限机制分析</td><td>B5，贯穿 D2、最终项目</td><td>计算有限博弈的期望效用、最佳反应、纯/混合纳什均衡和重复互动激励；计算有限 Bayesian game 的贝叶斯—纳什均衡；列出有限直接机制的类型、报告、分配与支付，穷举 DSIC/BIC、IR、效率和预算平衡；实现一个有限拍卖、任务分配或稳定匹配并审计操纵、参与、退出、公平和受影响者后果。</td></tr>
+    <tr data-capability="FC-11"><td>FC-11 · 实验、因果评估与系统可靠性</td><td>B1、D3，贯穿最终项目</td><td>区分描述、统计和因果问题，定义 estimand/ATE，完成随机分配、样本量/统计功效、多重比较和序贯查看偏差分析；在有限 DAG 中识别因果/背门路径、碰撞点及后代、d-separation 和候选调整集并声明识别假设；建立任务/组件/端到端评估、典型/边界/失败/对抗样本、日志/trace/版本/回归，测量质量、成本、平均/P95 延迟、吞吐和成功率，并定义 SLO/上线门槛/停止/回滚。</td></tr>
+    <tr data-capability="CAPSTONE"><td>最终综合项目</td><td>最终关口</td><td>围绕同一个现实问题连接决策、策略、序贯、机制、因果、工程六组证据；离线模型必须绑定真实对象、数据、损失、容量与权限，实际接入部分必须具备持久状态、故障注入、人工复核、停止、恢复和回滚。</td></tr>
+  </tbody></table>
+
+  <div class="evidence"><strong>统一晋级规则：</strong>接触和同例通过不能推进关口。每一环至少需要变式实现或计算、失败诊断和一次跨情境迁移；十一项能力必须完成上表对应的强制证据，最终综合项目要求用户主导，而不是由 Codex 代做后验解释。</div>
 </main>
 </body>
 </html>

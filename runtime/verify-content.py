@@ -30,6 +30,13 @@ STALE_ACTIVE_ROUTE_TEXT = (
     "六会话是首段",
     "状态与 Python 控制",
 )
+RETIRED_CONTENT_FILES = (
+    "MISSION.md",
+    "TEACHING-OVERVIEW.md",
+    "SESSION-DESIGN-PROPOSAL.md",
+    "reference/0004-session-page-contract.html",
+    "reference/0005-final-capabilities.html",
+)
 
 
 class PageParser(HTMLParser):
@@ -96,8 +103,6 @@ def main() -> int:
         ROOT / "reference" / "0001-first-terms.html",
         ROOT / "reference" / "0002-course-progress.html",
         ROOT / "reference" / "0003-model-system-action-card.html",
-        ROOT / "reference" / "0004-session-page-contract.html",
-        ROOT / "reference" / "0005-final-capabilities.html",
         ROOT / "lessons" / "0010-state-and-permitted-actions.html",
         ROOT / "lessons" / "0011-integrated-review-established-capabilities.html",
         ROOT / "lessons" / "0012-failure-retry-stop.html",
@@ -109,6 +114,9 @@ def main() -> int:
     for path in required:
         if not path.is_file():
             failures.append(f"missing required file: {path.relative_to(ROOT)}")
+    for relative in RETIRED_CONTENT_FILES:
+        if (ROOT / relative).exists():
+            failures.append(f"retired duplicate content file still exists: {relative}")
 
     shared_css_path = ROOT / "assets" / "course.css"
     if shared_css_path.is_file():
@@ -121,20 +129,15 @@ def main() -> int:
             failures.append("unbalanced braces in assets/course.css")
 
     required_text = {
-        ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "重试、防重复与批处理", "11 条", "17 环", "约 90–125", "最终能力摘要", "唯一最终能力事实源", "数学、决策与多主体系统", "连续完成三个问题", "三个问题共九项任务", "127.0.0.1:8766"),
-        ROOT / "README.md": ("重试、防重复与批处理", "三个不同问题", "三个问题共九项任务", "模块、诊断与授权边界"),
-        ROOT / "MISSION.md": ("## 唯一最终目标", "## 最终能力域", "四阶段、十七环", "FINAL-CAPABILITY-CONTRACT.md", "共九项任务"),
+        ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "重试、防重复与批处理", "11 条", "17 环", "约 90–125", "最终能力契约", "数学、决策与多主体系统", "对象、输入、规则和责任边界", "连续完成三个问题", "三个问题共九项任务", "127.0.0.1:8766"),
+        ROOT / "README.md": ("重试、防重复与批处理", "三个不同问题", "三个问题共九项任务", "模块、诊断与授权边界", "活动文档保持最小且充分", "最终能力—关口覆盖索引"),
         ROOT / "FINAL-CAPABILITY-CONTRACT.md": ("## 主线建模原则", "## 1. 数学语言、概率、统计与证据", "## 2. 线性代数与张量计算", "## 3. 微积分、决策与约束优化", "## 4. 状态演化、随机过程与序贯决策", "## 5. 语言模型核心计算", "## 6. Transformer 机制", "## 7. 嵌入、检索与 RAG", "## 8. 优化训练、数值精度与计算排错", "**主线核心：**", "**按需扩展：**", "不要求每位学习者实际开展系统性微调实验", "通信类", "平稳分布", "碰撞点（collider）", "d-分离（d-separation）", "离线有限模型、仿真或回放分析", "## 9. API、工作流、Agent 与人机合作", "## 10. 博弈、信息与有限机制分析", "## 11. 实验、因果评估与系统可靠性", "## 最终综合项目", "## 研究扩展范围"),
-        ROOT / "TEACHING-OVERVIEW.md": ("四阶段、十七环", "项目与理论怎样交织", "有限模型优先与责任主轴", "约 90–125 个正式会话", "三个问题共九项任务", "穷举、求解器或策略迁移", "系统 LoRA 实验"),
-        ROOT / "reference" / "0002-course-progress.html": ("四个阶段", "十七个学习环", "约 90–125", "环 0", "环 16", "会话 2“重试、防重复与批处理”", "会话 3“模块、诊断与授权边界”", "数学语言、概率、统计与证据", "线性代数与张量", "微积分、决策与约束优化", "状态演化、随机过程与序贯决策", "博弈、信息与有限机制分析", "语言模型核心计算", "Transformer 机制", "训练与数值核心", "按需扩展", "不要求实际完成系统微调", "嵌入、检索与 RAG", "Agent、运行决策与人机合作", "实验、因果评估与系统可靠性", "背门路径", "碰撞点（collider）", "唯一最终能力事实源", "离线有限模型、仿真或回放", "最终综合项目与论文阅读", "十一项最终能力如何落到路线"),
-        ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", 'data-page-kind="reference"', 'data-route-position="跨会话中文术语总表"', "最终能力摘要", "唯一最终能力事实源", "正式会话 1：状态与允许行动", "正式会话 2：重试、防重复与批处理", "部分函数", "指数退避"),
-        ROOT / "NOTES.md": ("粒度层级固定", "三个不同问题", "A“专注隧道”", "纵向切片", "会话 3“模块、诊断与授权边界”", "共九项任务"),
-        ROOT / "RESOURCES.md": ("商品上架自动化项目", "客户反馈项目", "教育领域模型", "统计决策", "凸优化与运筹", "Linear, MIP and CP-SAT Examples", "有限状态、序贯决策与在线学习", "实验设计与有限因果图", "Always Valid Inference", "DAGitty learning materials", "博弈与有限机制分析", "Research extensions"),
-        ROOT / "reference" / "0004-session-page-contract.html": ("学习会话页面规范", "唯一最终能力事实源 → 阶段 → 学习环", "最终能力摘要", "每个问题完整经过七步", "三个问题的正式会话共有九个任务", "模块、诊断与授权边界", "四阶段十七环", "证据边界"),
-        ROOT / "reference" / "0005-final-capabilities.html": ("最终能力摘要", "唯一事实来源", "数学语言、概率、统计与证据", "Transformer 机制", "博弈、信息与有限机制分析", "最终综合项目的六组证据", "离线有限模型、仿真或回放"),
-        ROOT / "SESSION-PAGE-CONTRACT.md": ("唯一最终能力事实源 → 阶段 → 学习环", "最终能力摘要", "本会话中文术语", "综合复习会话", "候选参考页", "模块、诊断与授权边界", "四阶段、十七环"),
-        ROOT / "SESSION-DESIGN-PROPOSAL.md": ("状态：历史设计提案", "不再是当前课程规则或路线", "SESSION-PAGE-CONTRACT.md"),
-        ROOT / "docs" / "decisions" / "0001-finite-computable-curriculum-core.md": ("## 状态", "已接受", "有限表示、有限维、可计算优先", "## 未采用的方案", "## 后果"),
+        ROOT / "reference" / "0002-course-progress.html": ("四个阶段", "十七个学习环", "约 90–125", "环 0", "环 16", "会话 2“重试、防重复与批处理”", "会话 3“模块、诊断与授权边界”", "数学语言、概率、统计与证据", "线性代数与张量", "微积分、决策与约束优化", "状态演化、随机过程与序贯决策", "博弈、信息与有限机制分析", "语言模型核心计算", "Transformer 机制", "训练与数值核心", "按需扩展", "不要求实际完成系统微调", "嵌入、检索与 RAG", "Agent、运行决策与人机合作", "实验、因果评估与系统可靠性", "背门路径", "碰撞点（collider）", "最终能力契约", "离线有限模型、仿真或回放", "最终综合项目与论文阅读", "十一项最终能力如何落到路线", "最终能力—关口覆盖索引"),
+        ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", 'data-page-kind="reference"', 'data-route-position="跨会话中文术语总表"', "最终能力契约", "正式会话 1：状态与允许行动", "正式会话 2：重试、防重复与批处理", "部分函数", "指数退避"),
+        ROOT / "NOTES.md": ("粒度层级固定", "三个不同问题", "A“专注隧道”", "纵向切片", "会话 3“模块、诊断与授权边界”", "共九项任务", "活动文档保持最小且充分"),
+        ROOT / "RESOURCES.md": ("商品上架自动化项目", "客户反馈项目", "教育领域模型", "统计决策", "凸优化与运筹", "Linear, MIP and CP-SAT Examples", "有限状态、序贯决策与在线学习", "实验设计与有限因果图", "Always Valid Inference", "DAGitty learning materials", "博弈与有限机制分析", "LoRA 的矩阵结构、rank 和参数量属于环 12 主线", "Research extensions"),
+        ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-03", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "综合复习会话", "候选参考页", "模块、诊断与授权边界", "四阶段、十七环"),
+        ROOT / "docs" / "decisions" / "0001-finite-computable-curriculum-core.md": ("## 状态", "已接受", "有限表示、有限维、可计算优先", "主线知识", "完整证据清单", "## 未采用的方案", "## 后果"),
     }
     for path, markers in required_text.items():
         text = path.read_text(encoding="utf-8")
@@ -149,11 +152,40 @@ def main() -> int:
     if route.count("通过关口") < 6:
         failures.append("modified rings must retain six explicit passing gates")
 
+    coverage_rows = {
+        capability: body
+        for capability, body in re.findall(
+            r'<tr data-capability="([A-Z]+-?[0-9]*)">(.*?)</tr>', route, flags=re.DOTALL
+        )
+    }
+    expected_coverage = {
+        "FC-01": ("LLN/CLT", "第一类/第二类错误", "校准", "Hoeffding bound"),
+        "FC-02": ("投影", "特征值/特征向量", "SVD", "广播"),
+        "FC-03": ("Jacobian", "Hessian", "LP/MIP", "Lagrange/KKT", "信息价值"),
+        "FC-04": ("Markov", "MDP", "POMDP", "UCB/Thompson", "简单排队"),
+        "FC-05": ("top-k/top-p", "交叉熵", "KL", "困惑度"),
+        "FC-06": ("Q/K/V", "√dₖ", "KV cache", "shape/mask"),
+        "FC-07": ("精确/近似最近邻", "切分", "索引版本", "Recall@k/MRR/nDCG"),
+        "FC-08": ("反向传播", "SGD/动量/Adam", "LoRA", "log-sum-exp", "粗粒度资源估算"),
+        "FC-09": ("JSON Schema", "重试/幂等/补偿", "人工容量", "安全降级"),
+        "FC-10": ("纯/混合纳什均衡", "贝叶斯—纳什均衡", "DSIC/BIC", "IR", "稳定匹配"),
+        "FC-11": ("estimand/ATE", "统计功效", "背门路径", "碰撞点", "SLO/上线门槛/停止/回滚"),
+        "CAPSTONE": ("决策、策略、序贯、机制、因果、工程六组证据", "持久状态", "故障注入"),
+    }
+    if set(coverage_rows) != set(expected_coverage):
+        failures.append(
+            f"capability-gate coverage rows mismatch: expected {sorted(expected_coverage)}, got {sorted(coverage_rows)}"
+        )
+    for capability, markers in expected_coverage.items():
+        row = coverage_rows.get(capability, "")
+        for marker in markers:
+            if marker not in row:
+                failures.append(f"capability-gate coverage missing {capability}: {marker}")
+
     active_scope_files = (
         ROOT / "index.html",
-        ROOT / "MISSION.md",
+        ROOT / "README.md",
         ROOT / "NOTES.md",
-        ROOT / "TEACHING-OVERVIEW.md",
         ROOT / "reference" / "0002-course-progress.html",
     )
     for path in active_scope_files:
@@ -166,7 +198,7 @@ def main() -> int:
         failures.append("terms page must declare page kind and route position")
 
     boundary_card = (ROOT / "reference" / "0003-model-system-action-card.html").read_text(encoding="utf-8")
-    for marker in ('data-route-position="阶段 A · 环 1 · 正式会话 3 · 问题三参考卡"', "最终能力摘要", "唯一最终能力事实源"):
+    for marker in ('data-route-position="阶段 A · 环 1 · 正式会话 3 · 问题三参考卡"', "最终能力契约"):
         if marker not in boundary_card:
             failures.append(f"boundary card missing page identity or capability entry: {marker}")
 
@@ -178,7 +210,7 @@ def main() -> int:
     context_script_path = ROOT / "assets" / "course-context.js"
     if context_script_path.is_file():
         context_script = context_script_path.read_text(encoding="utf-8")
-        for marker in ("最终目标", "当前位置", "完整路线", "最终能力摘要", "唯一最终能力事实源", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线"):
+        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线"):
             if marker not in context_script:
                 failures.append(f"missing shared course-context marker: {marker}")
         check_node_syntax(context_script, context_script_path, 1, failures)
@@ -323,7 +355,6 @@ def main() -> int:
         ROOT / "SESSION-PAGE-CONTRACT.md",
         ROOT / "NOTES.md",
         ROOT / "reference" / "0002-course-progress.html",
-        ROOT / "reference" / "0004-session-page-contract.html",
     )
     for path in session_three_sources:
         text = path.read_text(encoding="utf-8")
@@ -333,9 +364,7 @@ def main() -> int:
 
     active_route_files = (
         ROOT / "README.md",
-        ROOT / "MISSION.md",
         ROOT / "NOTES.md",
-        ROOT / "TEACHING-OVERVIEW.md",
         ROOT / "index.html",
         ROOT / "assets" / "course-context.js",
         ROOT / "SESSION-PAGE-CONTRACT.md",
@@ -413,8 +442,8 @@ def main() -> int:
             if script.strip():
                 check_node_syntax(script, page, number, failures)
 
-    if len(pages) != 20:
-        failures.append(f"expected 20 HTML pages, found {len(pages)}")
+    if len(pages) != 18:
+        failures.append(f"expected 18 HTML pages, found {len(pages)}")
 
     for page, parser in pages.items():
         for href in parser.links:

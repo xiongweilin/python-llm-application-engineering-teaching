@@ -21,8 +21,6 @@
     "0001-first-terms.html": "全课程 · 跨会话术语参考",
     "0002-course-progress.html": "全课程 · 四阶段十七环完整路线",
     "0003-model-system-action-card.html": "阶段 A · 环 1 · 正式会话 3 · 问题三参考卡",
-    "0004-session-page-contract.html": "全课程 · 学习会话页面规范",
-    "0005-final-capabilities.html": "全课程 · 最终能力摘要",
   };
   const inSubdirectory = /\/(lessons|practice|reference)\//.test(location.pathname);
   const prefix = inSubdirectory ? "../" : "";
@@ -30,6 +28,6 @@
   const bar = document.createElement("aside");
   bar.className = "course-context-bar";
   bar.setAttribute("aria-label", "全课程统一目标与当前位置");
-  bar.innerHTML = `<div><strong>最终目标</strong><span>独立交付可靠、受控、可恢复的 LLM 工作流或 RAG Agent，并在可计算模型中验证决策、序贯策略、人机分工与有限机制。</span></div><div><strong>当前位置</strong><span>${position}</span></div><nav aria-label="全课程入口"><a href="${prefix}reference/0002-course-progress.html">完整路线</a><a href="${prefix}reference/0005-final-capabilities.html">最终能力摘要</a><a href="${prefix}FINAL-CAPABILITY-CONTRACT.md">唯一最终能力事实源</a></nav>`;
+  bar.innerHTML = `<div><strong>最终目标</strong><span>独立交付可靠、受控、可恢复的 LLM 工作流或 RAG Agent，并在可计算模型中验证决策、序贯策略、人机分工与有限机制。</span></div><div><strong>当前位置</strong><span>${position}</span></div><nav aria-label="全课程入口"><a href="${prefix}reference/0002-course-progress.html">完整路线</a><a href="${prefix}FINAL-CAPABILITY-CONTRACT.md">最终能力契约</a></nav>`;
   main.prepend(bar);
 })();

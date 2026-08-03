@@ -112,7 +112,7 @@
 - [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://papers.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html)
   RAG 的原始论文入口，用于区分参数记忆、检索和生成。
 - [LoRA](https://arxiv.org/abs/2106.09685)
-  低秩适配原始论文；仅在评估表明需要微调时进入。
+  低秩适配原始论文；LoRA 的矩阵结构、rank 和参数量属于环 12 主线，可用论文中的定义与公式建立计算证据。实际适配器训练、系统性微调实验和调参仅在评估表明需要微调时进入按需扩展。
 - [Introduction to Information Retrieval](https://nlp.stanford.edu/IR-book/)
   检索、评分和评价指标的教材入口。
 - [OpenAI Structured model outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
