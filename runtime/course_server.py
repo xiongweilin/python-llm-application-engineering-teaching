@@ -45,7 +45,7 @@ class CourseRequestHandler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--port", type=int, default=8766)
     parser.add_argument("--token", required=True)
     parser.add_argument("--state-file", type=Path, required=True)
     parser.add_argument("--url-file", type=Path, required=True)

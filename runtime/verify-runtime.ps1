@@ -1,20 +1,23 @@
 [CmdletBinding()]
 param(
     [ValidateRange(1, 65534)]
-    [int]$LauncherPort = 8878,
+    [int]$LauncherPort = 8767,
     [ValidateRange(2, 65535)]
-    [int]$ShutdownPort = 8879
+    [int]$ShutdownPort = 8768
 )
 
 $ErrorActionPreference = 'Stop'
 $courseRoot = Split-Path -Parent $PSScriptRoot
 $openScript = Join-Path $PSScriptRoot 'open-course.ps1'
 $closeScript = Join-Path $PSScriptRoot 'close-course.ps1'
+$shortcutInstaller = Join-Path $PSScriptRoot 'install-start-menu-shortcut.ps1'
 $serverScript = Join-Path $PSScriptRoot 'course_server.py'
 $indexPath = Join-Path $courseRoot 'index.html'
-$temporaryDirectory = Join-Path $env:TEMP 'ratio-course-runtime-verification'
+$temporaryDirectory = Join-Path $env:TEMP ('ratio-course-runtime-verification-' + [guid]::NewGuid().ToString('N'))
 $testStatePath = Join-Path $temporaryDirectory 'server.json'
 $testUrlPath = Join-Path $temporaryDirectory 'launch.url'
+$testShortcutPath = Join-Path $temporaryDirectory 'Python 与 LLM 应用工程.lnk'
+$testShortcutBackupDirectory = Join-Path $temporaryDirectory 'shortcut-backups'
 
 function Get-ListenerCount([int]$Port) {
     return @(Get-NetTCPConnection -LocalAddress '127.0.0.1' -LocalPort $Port -State Listen -ErrorAction SilentlyContinue).Count
@@ -38,9 +41,26 @@ if ((Get-ListenerCount $LauncherPort) -ne 0 -or (Get-ListenerCount $ShutdownPort
 $expectedHash = (Get-FileHash -LiteralPath $indexPath -Algorithm SHA256).Hash
 $launcherResult = $null
 $shutdownResult = $null
+$shortcutResult = $null
 $directProcess = $null
 
 try {
+    New-Item -ItemType Directory -Path $temporaryDirectory -Force | Out-Null
+    & pwsh -NoProfile -NonInteractive -File $shortcutInstaller -ShortcutPath $testShortcutPath -BackupDirectory $testShortcutBackupDirectory -Quiet
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $testShortcutPath -PathType Leaf)) {
+        throw '开始菜单快捷方式安装器未生成候选入口。'
+    }
+    $shell = New-Object -ComObject WScript.Shell
+    $testShortcut = $shell.CreateShortcut($testShortcutPath)
+    & pwsh -NoProfile -NonInteractive -File $shortcutInstaller -ShortcutPath $testShortcutPath -BackupDirectory $testShortcutBackupDirectory -Quiet
+    if ($LASTEXITCODE -ne 0) { throw '开始菜单快捷方式安装器重复运行失败。' }
+    $shortcutResult = [pscustomobject]@{
+        TargetIsWscript = $testShortcut.TargetPath -eq (Join-Path $env:WINDIR 'System32\wscript.exe')
+        LauncherIsCurrent = $testShortcut.Arguments -eq ('"' + (Join-Path $PSScriptRoot '打开课程.vbs') + '"')
+        WorkingDirectoryIsCurrent = $testShortcut.WorkingDirectory -eq $courseRoot
+        SecondRunCreatedBackup = @(Get-ChildItem -LiteralPath $testShortcutBackupDirectory -File -ErrorAction SilentlyContinue).Count -ne 0
+    }
+
     & pwsh -NoProfile -NonInteractive -File $openScript -Port $LauncherPort -NoBrowser -Quiet
     if ($LASTEXITCODE -ne 0) { throw "启动器退出码为 $LASTEXITCODE。" }
     $served = Get-IndexHash $LauncherPort
@@ -63,7 +83,6 @@ try {
         throw '关闭器没有完整停止测试服务。'
     }
 
-    New-Item -ItemType Directory -Path $temporaryDirectory -Force | Out-Null
     Remove-Item -LiteralPath $testStatePath, $testUrlPath -Force -ErrorAction SilentlyContinue
     $pythonPath = [string]@(& python -c 'import sys; print(sys.executable)')[0]
     if ($LASTEXITCODE -ne 0 -or -not $pythonPath) { throw '未找到 Python。' }
@@ -112,6 +131,10 @@ try {
         $launcherResult.MarkdownStatus -eq 200 -and
         $launcherResult.MarkdownContentType -match 'text/markdown;\s*charset=utf-8' -and
         $launcherResult.MarkdownChinesePresent -and
+        $shortcutResult.TargetIsWscript -and
+        $shortcutResult.LauncherIsCurrent -and
+        $shortcutResult.WorkingDirectoryIsCurrent -and
+        -not $shortcutResult.SecondRunCreatedBackup -and
         $shutdownResult.WrongTokenStatus -eq 403 -and
         $shutdownResult.ListenerAfterWrongToken -eq 1 -and
         $shutdownResult.CorrectTokenStatus -eq 200 -and
@@ -121,6 +144,7 @@ try {
 
     [pscustomobject]@{
         Passed = $passed
+        StartMenuShortcut = $shortcutResult
         Launcher = $launcherResult
         ShutdownEndpoint = $shutdownResult
     } | ConvertTo-Json -Depth 4
@@ -133,5 +157,7 @@ finally {
     if ($null -ne $directProcess -and -not $directProcess.HasExited) {
         Stop-Process -Id $directProcess.Id -Force -ErrorAction SilentlyContinue
     }
-    Remove-Item -LiteralPath $testStatePath, $testUrlPath -Force -ErrorAction SilentlyContinue
+    if (Test-Path -LiteralPath $temporaryDirectory) {
+        Remove-Item -LiteralPath $temporaryDirectory -Recurse -Force -ErrorAction SilentlyContinue
+    }
 }

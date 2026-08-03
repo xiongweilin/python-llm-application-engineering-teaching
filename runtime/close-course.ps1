@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [ValidateRange(1, 65535)]
-    [int]$Port = 8765,
+    [int]$Port = 8766,
     [switch]$Quiet
 )
 
