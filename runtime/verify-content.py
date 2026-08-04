@@ -122,9 +122,11 @@ def main() -> int:
     shared_css_path = ROOT / "assets" / "course.css"
     if shared_css_path.is_file():
         shared_css = shared_css_path.read_text(encoding="utf-8")
-        for marker in ("--course-accent", "--course-card-alpha: 0", "--course-control-alpha: 0", "--course-border-alpha: 0", "--course-text-alpha: 1", "--course-video-brightness: 0.8", "--course-video-veil-alpha: 0.1", "--course-shadow: none", "rgb(255 253 248 / var(--course-card-alpha))", "rgb(24 36 52 / var(--course-card-alpha))", "rgb(25 37 54 / var(--course-text-alpha))", "rgb(255 255 255 / var(--course-control-alpha))", "rgb(24 36 52 / var(--course-video-veil-alpha))", "filter: brightness(var(--course-video-brightness))", "main *:not(#course-foreground-surface)::before", "background-color: transparent", "scrollbar-width: none", "main *::-webkit-scrollbar", ".course-nav", ".course-context-bar", ".course-background-video", ".course-background-overlay", "opacity: 0.7", "prefers-reduced-motion: reduce", ".question-button", ".page-status", ".session-terms", ".term-grid", ".session-controls", ".prototype-switcher", ".completion", "textarea", "@media"):
+        for marker in ("--course-accent", "--course-card-alpha: 0", "--course-control-alpha: 0", "--course-border-alpha: 0", "--course-text-alpha: 1", "--course-video-brightness: 0.8", "--course-video-veil-alpha: 0.1", "--course-shadow: none", "rgb(255 253 248 / var(--course-card-alpha))", "rgb(24 36 52 / var(--course-card-alpha))", "rgb(25 37 54 / var(--course-text-alpha))", "rgb(255 255 255 / var(--course-control-alpha))", "rgb(24 36 52 / var(--course-video-veil-alpha))", "filter: brightness(var(--course-video-brightness))", "main *:not(#course-foreground-surface)::before", "background-color: transparent", "scrollbar-width: auto", "scrollbar-color: transparent transparent", "main *::-webkit-scrollbar", "main *::-webkit-scrollbar-thumb", "height: 12px", ".course-nav", ".course-context-bar", ".course-background-video", ".course-background-overlay", "opacity: 0.7", "prefers-reduced-motion: reduce", ".question-button", ".page-status", ".session-terms", ".term-grid", ".session-controls", ".prototype-switcher", ".completion", "textarea", "@media"):
             if marker not in shared_css:
                 failures.append(f"missing shared CSS marker: {marker}")
+        if "scrollbar-width: none" in shared_css:
+            failures.append("shared CSS removes scrollbar interaction instead of only hiding its colors")
         without_comments = re.sub(r"/\*.*?\*/", "", shared_css, flags=re.DOTALL)
         if without_comments.count("{") != without_comments.count("}"):
             failures.append("unbalanced braces in assets/course.css")
@@ -215,7 +217,7 @@ def main() -> int:
     context_script_path = ROOT / "assets" / "course-context.js"
     if context_script_path.is_file():
         context_script = context_script_path.read_text(encoding="utf-8")
-        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线", "course-background-video", "assets/course-background.mp4", "prefers-reduced-motion: reduce", "visibilitychange", "video.muted = true", "video.loop = true"):
+        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线", "course-background-video", "assets/course-background.mp4", "prefers-reduced-motion: reduce", "visibilitychange", "video.muted = true", "video.loop = true", ".step-strip, .chain, .logic-path", "maxScrollLeft", "event.preventDefault()", "passive: false"):
             if marker not in context_script:
                 failures.append(f"missing shared course-context marker: {marker}")
         check_node_syntax(context_script, context_script_path, 1, failures)

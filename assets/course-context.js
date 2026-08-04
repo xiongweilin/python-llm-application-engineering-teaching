@@ -34,6 +34,22 @@
     });
   }
 
+  const horizontalScrollers = main.querySelectorAll(".step-strip, .chain, .logic-path");
+  for (const scroller of horizontalScrollers) {
+    if (!scroller.hasAttribute("tabindex")) scroller.tabIndex = 0;
+    scroller.addEventListener("wheel", (event) => {
+      if (event.ctrlKey || event.shiftKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
+      const maxScrollLeft = scroller.scrollWidth - scroller.clientWidth;
+      if (maxScrollLeft <= 0) return;
+      const delta = event.deltaY;
+      const atStart = scroller.scrollLeft <= 0;
+      const atEnd = scroller.scrollLeft >= maxScrollLeft - 1;
+      if ((delta < 0 && atStart) || (delta > 0 && atEnd)) return;
+      scroller.scrollLeft = Math.max(0, Math.min(maxScrollLeft, scroller.scrollLeft + delta));
+      event.preventDefault();
+    }, { passive: false });
+  }
+
   if (document.querySelector(".course-context-bar")) return;
   const positions = {
     "index.html": "唯一课程入口",

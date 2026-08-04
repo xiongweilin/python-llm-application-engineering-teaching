@@ -122,12 +122,19 @@ main *:not(#course-foreground-surface)::after {
 }
 
 main * {
-  scrollbar-width: none;
+  scrollbar-width: auto;
+  scrollbar-color: transparent transparent;
 }
 
 main *::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 12px;
+  height: 12px;
+}
+
+main *::-webkit-scrollbar-track,
+main *::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-color: transparent;
 }
 
 header {
