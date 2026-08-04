@@ -2,23 +2,28 @@
 
 :root {
   color-scheme: light;
-  --course-card-alpha: 0.7;
+  --course-card-alpha: 0;
+  --course-text-alpha: 0.7;
   --course-bg: #f3efe6;
   --course-surface: rgb(255 253 248 / var(--course-card-alpha));
   --course-surface-soft: rgb(238 232 221 / var(--course-card-alpha));
-  --course-ink: #192536;
-  --course-muted: #637080;
+  --course-ink: rgb(25 37 54 / var(--course-text-alpha));
+  --course-muted: rgb(99 112 128 / var(--course-text-alpha));
   --course-border: #d8cebd;
   --course-accent: #8f3d30;
   --course-accent-strong: #713027;
   --course-teal: #2f7072;
+  --course-accent-text: rgb(143 61 48 / var(--course-text-alpha));
+  --course-accent-strong-text: rgb(113 48 39 / var(--course-text-alpha));
+  --course-teal-text: rgb(47 112 114 / var(--course-text-alpha));
+  --course-white-text: rgb(255 255 255 / var(--course-text-alpha));
   --course-gold: rgb(247 231 173 / var(--course-card-alpha));
   --course-blue: rgb(223 237 240 / var(--course-card-alpha));
   --course-green: rgb(225 238 227 / var(--course-card-alpha));
   --course-purple: rgb(238 229 239 / var(--course-card-alpha));
   --course-red: rgb(247 223 218 / var(--course-card-alpha));
   --course-code: rgb(24 36 52 / var(--course-card-alpha));
-  --course-code-ink: #eef4f5;
+  --course-code-ink: rgb(238 244 245 / var(--course-text-alpha));
   --course-shadow: 0 16px 42px rgba(28, 38, 51, 0.08);
   --course-radius: 18px;
 
@@ -28,13 +33,13 @@
   --paper: var(--course-bg);
   --card: var(--course-surface);
   --line: var(--course-border);
-  --accent: var(--course-accent);
-  --accent-2: var(--course-teal);
+  --accent: var(--course-accent-text);
+  --accent-2: var(--course-teal-text);
   --soft: var(--course-surface-soft);
   --bg: var(--course-bg);
   --panel: var(--course-surface);
   --panel-2: var(--course-surface-soft);
-  --warn: #9b6a16;
+  --warn: rgb(155 106 22 / var(--course-text-alpha));
   --gold: var(--course-gold);
   --blue: var(--course-blue);
   --green: var(--course-green);
@@ -136,17 +141,17 @@ p, li { line-height: 1.72; }
 .syntax-label,
 .reflection-label,
 .lesson-layer-tag {
-  color: var(--course-accent) !important;
+  color: var(--course-accent-text) !important;
   font-weight: 850 !important;
   letter-spacing: 0.065em;
 }
 
 a {
-  color: var(--course-accent);
+  color: var(--course-accent-text);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
-a:hover { color: var(--course-accent-strong); }
+a:hover { color: var(--course-accent-strong-text); }
 
 .course-nav,
 .nav {
@@ -195,7 +200,7 @@ a:hover { color: var(--course-accent-strong); }
   padding: 8px 14px !important;
   border: 1px solid var(--course-accent) !important;
   border-radius: 999px !important;
-  color: var(--course-accent) !important;
+  color: var(--course-accent-text) !important;
   background: rgba(255, 253, 248, 0.88) !important;
   font-weight: 800 !important;
   text-decoration: none !important;
@@ -205,7 +210,7 @@ a:hover { color: var(--course-accent-strong); }
 .course-nav a:hover,
 .nav a:hover,
 .button:hover {
-  color: var(--course-accent-strong) !important;
+  color: var(--course-accent-strong-text) !important;
   border-color: var(--course-accent-strong) !important;
   background: #fff !important;
 }
@@ -213,7 +218,7 @@ a:hover { color: var(--course-accent-strong); }
 .course-nav a.primary,
 .nav a.primary,
 .button.primary {
-  color: #fff !important;
+  color: var(--course-white-text) !important;
   background: var(--course-accent) !important;
 }
 
@@ -263,7 +268,7 @@ main :is(
   box-shadow: var(--course-shadow);
 }
 
-.page-status strong { color: var(--course-accent); }
+.page-status strong { color: var(--course-accent-text); }
 body[data-page-kind="candidate-reference"] .page-status {
   border-left-color: #a686a6;
   background: var(--course-purple);
@@ -284,7 +289,7 @@ body[data-page-kind="candidate-reference"] .page-status {
   font-size: 0.91rem;
 }
 .course-context-bar > div { display: grid; gap: 2px; }
-.course-context-bar strong { color: var(--course-accent); }
+.course-context-bar strong { color: var(--course-accent-text); }
 .course-context-bar span { color: var(--course-ink); }
 .course-context-bar nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
 .course-context-bar a {
@@ -292,7 +297,7 @@ body[data-page-kind="candidate-reference"] .page-status {
   border: 1px solid var(--course-accent);
   border-radius: 999px;
   background: var(--course-surface);
-  color: var(--course-accent);
+  color: var(--course-accent-text);
   font-weight: 800;
   text-decoration: none;
 }
@@ -394,7 +399,7 @@ select {
 }
 
 textarea::placeholder,
-input::placeholder { color: #aebbc8 !important; }
+input::placeholder { color: rgb(174 187 200 / var(--course-text-alpha)) !important; }
 
 textarea:focus,
 input:focus,
@@ -412,7 +417,7 @@ button.action,
 .toolbar button {
   min-height: 40px;
   padding: 9px 14px !important;
-  color: #fff !important;
+  color: var(--course-white-text) !important;
   background: var(--course-accent) !important;
   border: 1px solid var(--course-accent) !important;
   border-radius: 999px !important;
@@ -429,14 +434,14 @@ button.action:hover,
 button.secondary,
 button.action:not(.primary),
 .toolbar button.secondary {
-  color: var(--course-accent) !important;
+  color: var(--course-accent-text) !important;
   background: transparent !important;
 }
 
 button.danger,
 button.shutdown,
 .toolbar button.danger {
-  color: #8a3134 !important;
+  color: rgb(138 49 52 / var(--course-text-alpha)) !important;
   background: transparent !important;
   border-color: #a95458 !important;
 }
@@ -464,7 +469,7 @@ details {
   color: var(--course-muted) !important;
   border-color: var(--course-border) !important;
 }
-summary { color: var(--course-teal) !important; }
+summary { color: var(--course-teal-text) !important; }
 
 .choice,
 .examples,
@@ -475,8 +480,8 @@ summary { color: var(--course-teal) !important; }
   border-color: var(--course-border) !important;
 }
 
-.feedback.correct { color: #245e3d !important; background: var(--course-green) !important; }
-.feedback.incorrect { color: #7a312a !important; background: var(--course-red) !important; }
+.feedback.correct { color: rgb(36 94 61 / var(--course-text-alpha)) !important; background: var(--course-green) !important; }
+.feedback.incorrect { color: rgb(122 49 42 / var(--course-text-alpha)) !important; background: var(--course-red) !important; }
 
 #checker-output {
   color: var(--course-code-ink) !important;

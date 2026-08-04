@@ -122,7 +122,7 @@ def main() -> int:
     shared_css_path = ROOT / "assets" / "course.css"
     if shared_css_path.is_file():
         shared_css = shared_css_path.read_text(encoding="utf-8")
-        for marker in ("--course-accent", "--course-card-alpha: 0.7", "rgb(255 253 248 / var(--course-card-alpha))", "rgb(24 36 52 / var(--course-card-alpha))", ".course-nav", ".course-context-bar", ".course-background-video", ".course-background-overlay", "opacity: 0.7", "prefers-reduced-motion: reduce", ".question-button", ".page-status", ".session-terms", ".term-grid", "textarea", "@media"):
+        for marker in ("--course-accent", "--course-card-alpha: 0", "--course-text-alpha: 0.7", "rgb(255 253 248 / var(--course-card-alpha))", "rgb(24 36 52 / var(--course-card-alpha))", "rgb(25 37 54 / var(--course-text-alpha))", ".course-nav", ".course-context-bar", ".course-background-video", ".course-background-overlay", "opacity: 0.7", "prefers-reduced-motion: reduce", ".question-button", ".page-status", ".session-terms", ".term-grid", "textarea", "@media"):
             if marker not in shared_css:
                 failures.append(f"missing shared CSS marker: {marker}")
         without_comments = re.sub(r"/\*.*?\*/", "", shared_css, flags=re.DOTALL)
