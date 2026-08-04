@@ -5,6 +5,7 @@
   --course-card-alpha: 0;
   --course-control-alpha: 0;
   --course-text-alpha: 0.7;
+  --course-video-veil-alpha: 0.16;
   --course-bg: #f3efe6;
   --course-surface: rgb(255 253 248 / var(--course-card-alpha));
   --course-surface-soft: rgb(238 232 221 / var(--course-card-alpha));
@@ -88,7 +89,7 @@ body {
 
 .course-background-overlay {
   z-index: -1;
-  background: rgba(243, 239, 230, 0.42);
+  background: rgb(243 239 230 / var(--course-video-veil-alpha));
 }
 
 main {
