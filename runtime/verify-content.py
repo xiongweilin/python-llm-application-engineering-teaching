@@ -283,6 +283,8 @@ def main() -> int:
             'data-session-id="S02"',
             'data-step="0"',
             'data-step="22"',
+            'data-step-target="0"',
+            'data-step-target="22"',
             'data-task="1"',
             'data-task="9"',
             'id="retry-core-code"',
@@ -310,6 +312,9 @@ def main() -> int:
             '批次总数量不能超过100',
             '本会话中文术语',
             'localStorage.setItem(STORAGE_PREFIX',
+            'aria-current","step"',
+            'stepStrip.scrollTo',
+            'chips.forEach((chip,index)=>chip.addEventListener("click"',
             'function buildWorkerSource()',
             'CHECK_MODE',
             '达到标准后老师直接给出下一会话',
@@ -320,6 +325,11 @@ def main() -> int:
         for marker in markers:
             if marker not in text:
                 failures.append(f"missing interaction marker in {path.relative_to(ROOT)}: {marker}")
+
+    session_two = (ROOT / "lessons" / "0012-failure-retry-stop.html").read_text(encoding="utf-8")
+    step_targets = [int(value) for value in re.findall(r'data-step-target="(\d+)"', session_two)]
+    if step_targets != list(range(23)):
+        failures.append(f"session 2 clickable step targets must be exactly 0..22, got {step_targets}")
 
     prototype = (ROOT / "practice" / "prototype-guided-session.html").read_text(encoding="utf-8")
     if "localStorage" in prototype or "sessionStorage" in prototype:
