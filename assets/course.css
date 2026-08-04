@@ -55,15 +55,38 @@ html {
 
 body {
   margin: 0 !important;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
   color: var(--course-ink) !important;
-  background:
-    radial-gradient(circle at 92% 2%, rgba(78, 132, 137, 0.14), transparent 30rem),
-    radial-gradient(circle at 4% 16%, rgba(143, 61, 48, 0.08), transparent 26rem),
-    var(--course-bg) !important;
+  background: transparent !important;
   font: 16px/1.72 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif !important;
 }
 
+.course-background-video,
+.course-background-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.course-background-video {
+  z-index: -2;
+  object-fit: cover;
+  opacity: 0.7;
+  background: var(--course-bg);
+}
+
+.course-background-overlay {
+  z-index: -1;
+  background: rgba(243, 239, 230, 0.42);
+}
+
 main {
+  position: relative;
+  z-index: 0;
   width: min(1060px, calc(100% - 36px));
   max-width: 1060px !important;
   margin: 0 auto !important;
@@ -483,8 +506,21 @@ footer {
   button, button.action, .toolbar button { width: 100%; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  body {
+    background:
+      radial-gradient(circle at 92% 2%, rgba(78, 132, 137, 0.14), transparent 30rem),
+      radial-gradient(circle at 4% 16%, rgba(143, 61, 48, 0.08), transparent 26rem),
+      var(--course-bg) !important;
+  }
+  .course-background-video,
+  .course-background-overlay { display: none !important; }
+}
+
 @media print {
   body { background: #fff !important; }
+  .course-background-video,
+  .course-background-overlay { display: none !important; }
   main, main.shell { width: 100% !important; max-width: none !important; padding: 12px !important; }
   .course-nav, .nav, .shutdown, .course-context-bar nav { display: none !important; }
   main :is(.card, .notice, .progress, .quiz, .rule, .optional, .recall, .current, .stage, .loop, .step, .phase, .knowledge-model, .roadmap, .sidebar, .workspace, .checker, .reflection-card, .answer-card, .source, .task, .panel, .code-card, .model-card, .lesson-layer, .evidence, .rhythm, .principle, .warning, .feedback-flow) { box-shadow: none !important; }

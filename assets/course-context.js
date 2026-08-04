@@ -1,7 +1,40 @@
 (() => {
   const main = document.querySelector("main");
-  if (!main || document.querySelector(".course-context-bar")) return;
+  if (!main) return;
   const filename = location.pathname.split("/").pop() || "index.html";
+  const inSubdirectory = /\/(lessons|practice|reference)\//.test(location.pathname);
+  const prefix = inSubdirectory ? "../" : "";
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reducedMotion && !document.querySelector(".course-background-video")) {
+    const video = document.createElement("video");
+    video.className = "course-background-video";
+    video.src = `${prefix}assets/course-background.mp4`;
+    video.autoplay = true;
+    video.defaultMuted = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("aria-hidden", "true");
+    video.tabIndex = -1;
+
+    const overlay = document.createElement("div");
+    overlay.className = "course-background-overlay";
+    overlay.setAttribute("aria-hidden", "true");
+
+    document.body.prepend(overlay);
+    document.body.prepend(video);
+    video.play().catch(() => {});
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) video.pause();
+      else video.play().catch(() => {});
+    });
+  }
+
+  if (document.querySelector(".course-context-bar")) return;
   const positions = {
     "index.html": "唯一课程入口",
     "0001-deterministic-gate.html": "阶段 A · 环 0 · 已验证能力 LR 0001 细节",
@@ -22,8 +55,6 @@
     "0002-course-progress.html": "全课程 · 四阶段十七环完整路线",
     "0003-model-system-action-card.html": "阶段 A · 环 1 · 正式会话 3 · 问题三参考卡",
   };
-  const inSubdirectory = /\/(lessons|practice|reference)\//.test(location.pathname);
-  const prefix = inSubdirectory ? "../" : "";
   const position = document.body.dataset.routePosition || positions[filename] || "课程支持页面";
   const bar = document.createElement("aside");
   bar.className = "course-context-bar";

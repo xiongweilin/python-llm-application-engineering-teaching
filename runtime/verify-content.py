@@ -99,6 +99,7 @@ def main() -> int:
         ROOT / "index.html",
         ROOT / "assets" / "course.css",
         ROOT / "assets" / "course-context.js",
+        ROOT / "assets" / "course-background.mp4",
         ROOT / "practice" / "0001-python-basics-playground.html",
         ROOT / "reference" / "0001-first-terms.html",
         ROOT / "reference" / "0002-course-progress.html",
@@ -121,12 +122,16 @@ def main() -> int:
     shared_css_path = ROOT / "assets" / "course.css"
     if shared_css_path.is_file():
         shared_css = shared_css_path.read_text(encoding="utf-8")
-        for marker in ("--course-accent", ".course-nav", ".course-context-bar", ".question-button", ".page-status", ".session-terms", ".term-grid", "textarea", "@media"):
+        for marker in ("--course-accent", ".course-nav", ".course-context-bar", ".course-background-video", ".course-background-overlay", "opacity: 0.7", "prefers-reduced-motion: reduce", ".question-button", ".page-status", ".session-terms", ".term-grid", "textarea", "@media"):
             if marker not in shared_css:
                 failures.append(f"missing shared CSS marker: {marker}")
         without_comments = re.sub(r"/\*.*?\*/", "", shared_css, flags=re.DOTALL)
         if without_comments.count("{") != without_comments.count("}"):
             failures.append("unbalanced braces in assets/course.css")
+
+    background_video_path = ROOT / "assets" / "course-background.mp4"
+    if background_video_path.is_file() and background_video_path.stat().st_size < 100_000:
+        failures.append("shared course background video is unexpectedly small")
 
     required_text = {
         ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "重试、防重复与批处理", "11 条", "17 环", "约 90–125", "最终能力契约", "数学、决策与多主体系统", "对象、输入、规则和责任边界", "连续完成三个问题", "三个问题共九项任务", "127.0.0.1:8766"),
@@ -210,7 +215,7 @@ def main() -> int:
     context_script_path = ROOT / "assets" / "course-context.js"
     if context_script_path.is_file():
         context_script = context_script_path.read_text(encoding="utf-8")
-        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线"):
+        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线", "course-background-video", "assets/course-background.mp4", "prefers-reduced-motion: reduce", "visibilitychange", "video.muted = true", "video.loop = true"):
             if marker not in context_script:
                 failures.append(f"missing shared course-context marker: {marker}")
         check_node_syntax(context_script, context_script_path, 1, failures)
