@@ -2,21 +2,22 @@
 
 :root {
   color-scheme: light;
+  --course-card-alpha: 0.7;
   --course-bg: #f3efe6;
-  --course-surface: #fffdf8;
-  --course-surface-soft: #eee8dd;
+  --course-surface: rgb(255 253 248 / var(--course-card-alpha));
+  --course-surface-soft: rgb(238 232 221 / var(--course-card-alpha));
   --course-ink: #192536;
   --course-muted: #637080;
   --course-border: #d8cebd;
   --course-accent: #8f3d30;
   --course-accent-strong: #713027;
   --course-teal: #2f7072;
-  --course-gold: #f7e7ad;
-  --course-blue: #dfedf0;
-  --course-green: #e1eee3;
-  --course-purple: #eee5ef;
-  --course-red: #f7dfda;
-  --course-code: #182434;
+  --course-gold: rgb(247 231 173 / var(--course-card-alpha));
+  --course-blue: rgb(223 237 240 / var(--course-card-alpha));
+  --course-green: rgb(225 238 227 / var(--course-card-alpha));
+  --course-purple: rgb(238 229 239 / var(--course-card-alpha));
+  --course-red: rgb(247 223 218 / var(--course-card-alpha));
+  --course-code: rgb(24 36 52 / var(--course-card-alpha));
   --course-code-ink: #eef4f5;
   --course-shadow: 0 16px 42px rgba(28, 38, 51, 0.08);
   --course-radius: 18px;
@@ -470,7 +471,7 @@ summary { color: var(--course-teal) !important; }
 .mini-lesson,
 .transfer {
   color: var(--course-ink) !important;
-  background: rgba(223, 237, 240, 0.55) !important;
+  background: var(--course-blue) !important;
   border-color: var(--course-border) !important;
 }
 
