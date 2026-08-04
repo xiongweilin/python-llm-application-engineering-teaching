@@ -3,6 +3,7 @@
 :root {
   color-scheme: light;
   --course-card-alpha: 0;
+  --course-control-alpha: 0;
   --course-text-alpha: 0.7;
   --course-bg: #f3efe6;
   --course-surface: rgb(255 253 248 / var(--course-card-alpha));
@@ -447,6 +448,29 @@ button.shutdown,
 }
 
 button:disabled { opacity: 0.55; cursor: wait; }
+
+/* Buttons, navigation pills, and horizontal control/progress bars share the
+   same fully transparent surface without changing their text or borders. */
+.course-nav a,
+.nav a,
+.button,
+.course-context-bar a,
+.question-button,
+.roadmap-step,
+button,
+button.action,
+.check-btn,
+.toolbar button,
+.page-status,
+.course-context-bar,
+.step-strip,
+.step-chip,
+.session-controls,
+.prototype-switcher,
+.completion,
+.completion span {
+  background: rgb(255 255 255 / var(--course-control-alpha)) !important;
+}
 
 table {
   width: 100%;
