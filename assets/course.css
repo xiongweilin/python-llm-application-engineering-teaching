@@ -91,7 +91,7 @@ body {
 
 .course-background-overlay {
   z-index: -1;
-  background: rgb(243 239 230 / var(--course-video-veil-alpha));
+  background: rgb(24 36 52 / var(--course-video-veil-alpha));
 }
 
 main {
