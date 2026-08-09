@@ -101,7 +101,7 @@
   用于 shape、axis、张量运算和 autograd 入门。
 - [PyTorch broadcasting semantics](https://docs.pytorch.org/docs/stable/notes/broadcasting.html)
   用于判断广播表达式为何成立或失败。
-- [PyTorch autograd tutorial](https://docs.pytorch.org/tutorials/beginner/basics/autograd_tutorial.html)
+- [PyTorch autograd tutorial](https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html)
   用于计算图、链式法则、反向传播、梯度累积和 Jacobian 乘积的可运行核验。
 - [PyTorch optimizers](https://docs.pytorch.org/docs/stable/optim)
   用于 SGD、动量、Adam 与优化器状态；具体行为进入相应会话时再以当前版本核验。
