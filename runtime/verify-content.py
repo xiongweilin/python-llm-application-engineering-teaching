@@ -4,11 +4,9 @@ from __future__ import annotations
 
 import re
 import subprocess
-import sys
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
-
 
 ROOT = Path(__file__).resolve().parent.parent
 BANNED_TEXT = (
