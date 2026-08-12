@@ -2,17 +2,17 @@
 
 ## Knowledge
 
-- Local: `D:\infrastructure\compose\catalog-ops-automation`
-  Catalog 当前源码、测试、配置和 ADR。用于验证真实模块、调用链、状态、并发、幂等、RPA 和 Odoo 行为。
-- Local: `D:\infrastructure\compose\catalog-ops-automation\README.md`
-  Catalog 的架构、模块和关键节点导览。用于选择阅读入口；具体事实仍回到当前源码和测试核验。
-- Local: `D:\infrastructure\compose\catalog-ops-automation\docs\adr`
+- Local: `D:\infrastructure\compose\commerce-orchestrator`
+  Commerce Orchestrator 当前源码、测试、配置和 ADR。用于验证真实模块、调用链、状态、工作流编排、幂等、审批、Odoo/Shopify 外部写入与对账。
+- Local: `D:\infrastructure\compose\commerce-orchestrator\README.md`
+  Commerce Orchestrator 的架构、模块和关键节点导览。用于选择阅读入口；具体事实仍回到当前源码和测试核验。
+- Local: `D:\infrastructure\compose\commerce-orchestrator\docs\adr`
   当前运行边界、验证入口与真实回放说明。涉及运行时行为时先核对项目当前状态。
-- Local: `D:\infrastructure\compose\feedback-analysis-agent`
-  Feedback 当前源码、测试、配置和 ADR。用于验证会话、隐私、证据、裁决、恢复、聚类、评测与候选晋级。
-- Local: `D:\infrastructure\compose\feedback-analysis-agent\README.md`
-  Feedback 的架构、数据流、模块和关键节点导览。用于建立学习顺序，不替代源码证据。
-- Local: `D:\infrastructure\compose\feedback-analysis-agent\docs\adr`
+- Local: `D:\download\agent\varin-agent`
+  varin-agent 当前源码、测试、配置和 ADR。用于验证命令/权限/计划/执行、状态机、SQLite ledger、上下文缓存、LiteLLM 网关与 e2e/holdout 证据。
+- Local: `D:\download\agent\varin-agent\docs\README.md`
+  varin-agent 的架构、模块和关键节点导览。用于建立学习顺序，不替代源码证据。
+- Local: `D:\download\agent\varin-agent\docs\adr`
   项目定位、当前证据、数据边界和验证入口。
 - Local: `D:\download\ratio\领域模型\计算机领域模型.md`
   用于区分程序、状态、控制流、数据流、接口、并发、持久化、反馈和运行证据。
