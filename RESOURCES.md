@@ -8,27 +8,27 @@
   Commerce Orchestrator 的架构、模块和关键节点导览。用于选择阅读入口；具体事实仍回到当前源码和测试核验。
 - Local: `D:\infrastructure\compose\commerce-orchestrator\docs\adr`
   ADR 0001–0015 记录当前运行边界、单一主线（API 受理 → inbox relay → DBOS v2 workflow → effect seam → 对账）与数据所有权；`docs/runbooks/` 与 `docs/contracts/` 承载验证入口与契约。涉及运行时行为时先核对项目当前状态。
-- Local: `D:\download\agent\deepseek-harness`
+- Local: `D:\agent\dsh-varin`
   dsh-varin（基于 DeepSeek Harness 修改）当前源码、测试、配置和决策记录。用于验证插件式 Agent 的会话与持久化、工具执行、权限/审批、沙箱、目标/计划、Web UI 与恢复证据。
-- Local: `D:\download\agent\deepseek-harness\README.md`
+- Local: `D:\agent\dsh-varin\README.md`
   dsh-varin 的定位、CLI（`dsh web` / `headless` / `plugin`）与入口导览。用于建立学习顺序，不替代源码证据。
-- Local: `D:\download\agent\deepseek-harness\docs\architecture.md`
+- Local: `D:\agent\dsh-varin\docs\architecture.md`
   dsh-varin 的架构、模块和关键节点导览；`docs/subsystems/` 承载子系统说明，`.agents/notes/` 承载决策记录。
-- Local: `D:\download\ratio\领域模型\计算机领域模型.md`
+- Local: `D:\agent\ratio\领域模型\计算机领域模型.md`
   用于区分程序、状态、控制流、数据流、接口、并发、持久化、反馈和运行证据。
-- Local: `D:\download\ratio\领域模型\教育领域模型.md`
+- Local: `D:\agent\ratio\领域模型\教育领域模型.md`
   用于安排激活、分化、连接、稳定、迁移、提示退出和能力证据；课程不能用教学活动替代学习。
-- Local: `D:\download\ratio\领域模型\数学领域模型.md`
+- Local: `D:\agent\ratio\领域模型\数学领域模型.md`
   用于数量、近似、概率、向量、优化和证据边界；具体算法仍需教材、代码与实验支持。
-- Local: `D:\download\ratio\领域模型\组织制度领域模型.md`
+- Local: `D:\agent\ratio\领域模型\组织制度领域模型.md`
   用于理解分工、接口、授权、规则、问责、候选晋级和退出，不把技术执行能力误作决定权。
-- Local: `D:\download\ratio\有限宇宙\跨领域共同结构.md`
+- Local: `D:\agent\ratio\有限宇宙\跨领域共同结构.md`
   用于识别状态—转移、顺序—依赖、反馈、瓶颈、尺度和路径依赖；类比只产生候选，不证明机制相同。
-- Local: `D:\download\ratio\有限宇宙\有限变化实践.md`
+- Local: `D:\agent\ratio\有限宇宙\有限变化实践.md`
   用于把改动组织为目的、权限、方案、执行、验证、恢复和退出的循环，并随副作用风险提高程序强度。
-- Local: `D:\download\ratio\有限宇宙\有限智能.md`
+- Local: `D:\agent\ratio\有限宇宙\有限智能.md`
   用于区分结构传承、直接经验、可调用能力与情境校正。
-- Local: `D:\download\ratio\有限宇宙\证据与演化语义.md`
+- Local: `D:\agent\ratio\有限宇宙\证据与演化语义.md`
   候选规范，仅用于区分材料、观察、陈述、决定、修订和结果，以及版本变化后的重新验证；不得视为项目正式契约。
 - [Python Tutorial](https://docs.python.org/zh-cn/3/tutorial/)
   Python 官方中文教程。用于控制流、函数、数据结构、模块、异常、类和迭代器。

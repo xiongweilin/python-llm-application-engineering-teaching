@@ -419,11 +419,11 @@ def main() -> int:
             failures.append(f"missing immediate quiz feedback in {lesson.relative_to(ROOT)}")
 
     local_sources = (
-        Path(r"D:\download\ratio\电商工作流项目\README.md"),
-        Path(r"D:\download\agent\deepseek-harness\README.md"),
-        Path(r"D:\download\ratio\领域模型\计算机领域模型.md"),
-        Path(r"D:\download\ratio\领域模型\教育领域模型.md"),
-        Path(r"D:\download\ratio\有限宇宙\有限变化实践.md"),
+        Path(r"D:\agent\ratio\电商工作流项目\README.md"),
+        Path(r"D:\agent\dsh-varin\README.md"),
+        Path(r"D:\agent\ratio\领域模型\计算机领域模型.md"),
+        Path(r"D:\agent\ratio\领域模型\教育领域模型.md"),
+        Path(r"D:\agent\ratio\有限宇宙\有限变化实践.md"),
     )
     for path in local_sources:
         if not path.is_file():
