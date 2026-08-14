@@ -3,17 +3,17 @@
 ## Knowledge
 
 - Local: `D:\infrastructure\compose\commerce-orchestrator`
-  Commerce Orchestrator 当前源码、测试、配置和 ADR。用于验证真实模块、调用链、状态、工作流编排、幂等、审批、Odoo/Shopify 外部写入与对账。
+  Commerce Orchestrator 当前源码、测试、配置和 ADR。仓库分为 backend（FastAPI + DBOS）、console（Next.js 运营控制台）、services（catalog/feedback）与 infra（监控）；用于验证真实模块、调用链、状态、工作流编排、幂等、审批、Odoo/Shopify 外部写入与对账。
 - Local: `D:\infrastructure\compose\commerce-orchestrator\README.md`
   Commerce Orchestrator 的架构、模块和关键节点导览。用于选择阅读入口；具体事实仍回到当前源码和测试核验。
 - Local: `D:\infrastructure\compose\commerce-orchestrator\docs\adr`
-  当前运行边界、验证入口与真实回放说明。涉及运行时行为时先核对项目当前状态。
-- Local: `D:\download\agent\varin-agent`
-  varin-agent 当前源码、测试、配置和 ADR。用于验证命令/权限/计划/执行、状态机、SQLite ledger、上下文缓存、LiteLLM 网关与 e2e/holdout 证据。
-- Local: `D:\download\agent\varin-agent\docs\README.md`
-  varin-agent 的架构、模块和关键节点导览。用于建立学习顺序，不替代源码证据。
-- Local: `D:\download\agent\varin-agent\docs\adr`
-  项目定位、当前证据、数据边界和验证入口。
+  ADR 0001–0015 记录当前运行边界、单一主线（API 受理 → inbox relay → DBOS v2 workflow → effect seam → 对账）与数据所有权；`docs/runbooks/` 与 `docs/contracts/` 承载验证入口与契约。涉及运行时行为时先核对项目当前状态。
+- Local: `D:\download\agent\deepseek-harness`
+  dsh-varin（基于 DeepSeek Harness 修改）当前源码、测试、配置和决策记录。用于验证插件式 Agent 的会话与持久化、工具执行、权限/审批、沙箱、目标/计划、Web UI 与恢复证据。
+- Local: `D:\download\agent\deepseek-harness\README.md`
+  dsh-varin 的定位、CLI（`dsh web` / `headless` / `plugin`）与入口导览。用于建立学习顺序，不替代源码证据。
+- Local: `D:\download\agent\deepseek-harness\docs\architecture.md`
+  dsh-varin 的架构、模块和关键节点导览；`docs/subsystems/` 承载子系统说明，`.agents/notes/` 承载决策记录。
 - Local: `D:\download\ratio\领域模型\计算机领域模型.md`
   用于区分程序、状态、控制流、数据流、接口、并发、持久化、反馈和运行证据。
 - Local: `D:\download\ratio\领域模型\教育领域模型.md`
