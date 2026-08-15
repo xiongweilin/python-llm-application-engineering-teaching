@@ -1,22 +1,22 @@
-# Python 动手练习
+# Python Hands-on Exercises
 
-## 当前状态
+## Current status
 
-课程已经恢复推进。三种原型的选择结果是：以 A“专注隧道”为主，加入详细的抽象底层逻辑和具体 Python 细节，并保留极简位置提示。当前正式入口是 `../lessons/0012-failure-retry-stop.html`。
+The course has resumed progress. Of the three prototypes, the choice was A "focused tunnel" as the main line, adding detailed abstract underlying logic and concrete Python details, and keeping minimal location hints. The current formal entry is `../lessons/0012-failure-retry-stop.html`.
 
-- A · 专注隧道：一次只显示一个步骤；
-- B · 教练工作台：路线常驻，材料集中；
-- C · 渐进讲义：解释连续，任务按需展开。
+- A · Focused tunnel: shows only one step at a time;
+- B · Coach workbench: route resident, materials centralized;
+- C · Progressive handout: explanations continuous, tasks expand on demand.
 
-`prototype-guided-session.html` 不保存答案、不计入学习进度，现已退出活动入口。
+`prototype-guided-session.html` saves no answers, counts for no learning progress, and has left the active entry.
 
-## 已有证据怎样保留
+## How existing evidence is retained
 
-`0001-python-basics-playground.html` 保留第 1–2 题的本地答案与自动检查结果，默认打开第 2 题，不再把第 3 题显示为当前动作。课程服务器统一使用 `http://127.0.0.1:8766` 来源。旧 `8765` 来源中的浏览器数据不会被删除，但浏览器不会自动把不同端口的本地数据合并。
+`0001-python-basics-playground.html` keeps the local answers and auto-check results of problems 1–2, opens on problem 2 by default, and no longer shows problem 3 as the current action. The course server uniformly uses the `http://127.0.0.1:8766` origin. Browser data under the old `8765` origin is not deleted, but the browser will not automatically merge local data from different ports.
 
-兼容的本地文件也继续保留：
+Compatible local files also remain:
 
-- `practice_0001_answers.py`：已有或备用的 Python 作答文件；
-- `check_practice_0001.py`：零依赖本地检查器。
+- `practice_0001_answers.py`: existing or fallback Python answer file;
+- `check_practice_0001.py`: zero-dependency local checker.
 
-这些文件只用于保留和核对既有证据，不决定后续课程的题数、顺序或互动频率。
+These files are only for retaining and cross-checking existing evidence; they do not determine the problem count, order, or interaction frequency of later lessons.
