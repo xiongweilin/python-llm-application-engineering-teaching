@@ -11,10 +11,10 @@
     `backend/app/services/workflows.py`（Idempotency-Key：replay / 409 conflict / in-progress）、
     `backend/app/services/state_machines.py`（行级规则、错误契约与允许转移）。
   ADR 0001–0015 记录当前运行边界、单一主线（API 受理 → inbox relay → DBOS v2 workflow → effect seam → 对账）与数据所有权；`docs/runbooks/` 与 `docs/contracts/` 承载验证入口与契约。涉及运行时行为时先核对项目当前状态。
-- Local: DeepSeek Harness（dsh-varin 的改造上游；本地未检出）
-  dsh-varin 基于 [DeepSeek Harness](https://github.com/deepseek-ai/DeepSeek-Harness) 修改；
-  2026-08-17 起本地无 `D:\agent\dsh-varin` 检出，引用统一改指上游。用于验证插件式 Agent 的
-  会话与持久化、工具执行、权限/审批、沙箱、目标/计划、Web UI 与恢复证据。
+- Local: `D:\agent\deepseek-harness`
+  官方 [DeepSeek Harness](https://github.com/deepseek-ai/DeepSeek-Harness) 仓库本地检出
+  （DeepSeek AI 开源的插件式 Agent harness，`dsh`；开发预览期，存在兼容性破坏变更）。
+  用于验证插件式 Agent 的会话与持久化、工具执行、权限/审批、沙箱、目标/计划、Web UI 与恢复证据。
 - Local: `D:\agent\ratio\领域模型\计算机领域模型.md`
   用于区分程序、状态、控制流、数据流、接口、并发、持久化、反馈和运行证据。
 - Local: `D:\agent\ratio\领域模型\教育领域模型.md`
