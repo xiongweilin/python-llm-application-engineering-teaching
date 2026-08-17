@@ -7,13 +7,14 @@
 - Local: `D:\infrastructure\compose\commerce-orchestrator\README.md`
   Commerce Orchestrator 的架构、模块和关键节点导览。用于选择阅读入口；具体事实仍回到当前源码和测试核验。
 - Local: `D:\infrastructure\compose\commerce-orchestrator\docs\adr`
+  - 会话 2 迁移可选实例：`backend/app/services/outbox_inbox.py`（失败分类/尝试预算/指数退避/停止条件）、
+    `backend/app/services/workflows.py`（Idempotency-Key：replay / 409 conflict / in-progress）、
+    `backend/app/services/state_machines.py`（行级规则、错误契约与允许转移）。
   ADR 0001–0015 记录当前运行边界、单一主线（API 受理 → inbox relay → DBOS v2 workflow → effect seam → 对账）与数据所有权；`docs/runbooks/` 与 `docs/contracts/` 承载验证入口与契约。涉及运行时行为时先核对项目当前状态。
-- Local: `D:\agent\dsh-varin`
-  dsh-varin（基于 DeepSeek Harness 修改）当前源码、测试、配置和决策记录。用于验证插件式 Agent 的会话与持久化、工具执行、权限/审批、沙箱、目标/计划、Web UI 与恢复证据。
-- Local: `D:\agent\dsh-varin\README.md`
-  dsh-varin 的定位、CLI（`dsh web` / `headless` / `plugin`）与入口导览。用于建立学习顺序，不替代源码证据。
-- Local: `D:\agent\dsh-varin\docs\architecture.md`
-  dsh-varin 的架构、模块和关键节点导览；`docs/subsystems/` 承载子系统说明，`.agents/notes/` 承载决策记录。
+- Local: DeepSeek Harness（dsh-varin 的改造上游；本地未检出）
+  dsh-varin 基于 [DeepSeek Harness](https://github.com/deepseek-ai/DeepSeek-Harness) 修改；
+  2026-08-17 起本地无 `D:\agent\dsh-varin` 检出，引用统一改指上游。用于验证插件式 Agent 的
+  会话与持久化、工具执行、权限/审批、沙箱、目标/计划、Web UI 与恢复证据。
 - Local: `D:\agent\ratio\领域模型\计算机领域模型.md`
   用于区分程序、状态、控制流、数据流、接口、并发、持久化、反馈和运行证据。
 - Local: `D:\agent\ratio\领域模型\教育领域模型.md`
@@ -28,8 +29,9 @@
   用于把改动组织为目的、权限、方案、执行、验证、恢复和退出的循环，并随副作用风险提高程序强度。
 - Local: `D:\agent\ratio\有限宇宙\有限智能.md`
   用于区分结构传承、直接经验、可调用能力与情境校正。
-- Local: `D:\agent\ratio\有限宇宙\证据与演化语义.md`
-  候选规范，仅用于区分材料、观察、陈述、决定、修订和结果，以及版本变化后的重新验证；不得视为项目正式契约。
+- Local: `D:\agent\ratio\有限宇宙\控制平面.md`
+  记录语义规范（由《证据与演化语义》于 2026-08-06 晋升合并，official 1.0.0），用于区分材料、
+  观察、陈述、决定、修订和结果，以及版本变化后的重新验证。
 - [Python Tutorial](https://docs.python.org/zh-cn/3/tutorial/)
   Python 官方中文教程。用于控制流、函数、数据结构、模块、异常、类和迭代器。
 - [Python Standard Library](https://docs.python.org/zh-cn/3/library/)
