@@ -8,12 +8,12 @@
   <style>
     .session-header{margin-bottom:20px}.session-header .lead{font-size:1.12rem}.session-meta{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}.session-meta span{padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-weight:750}
     .orientation,.step-panel,.task-card,.submission-card,.layer-card{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--course-shadow)}.orientation{border-left:7px solid var(--accent);background:var(--gold)}.orientation h2,.step-panel h2,.task-card h2{margin-top:0}
-    .step-strip{display:grid;grid-template-columns:repeat(23,minmax(92px,1fr));gap:7px;margin:20px 0;overflow-x:auto;padding-bottom:5px}.step-chip{padding:8px 7px!important;border:1px solid var(--line);border-radius:11px!important;background:var(--soft);color:var(--ink)!important;text-align:center;font-size:.8rem;font-weight:760;white-space:nowrap;cursor:pointer}.step-chip.active{background:var(--gold);border-color:#c89e3e}.step-chip.done{background:var(--green)}
+    .step-strip{display:grid;grid-template-columns:repeat(23,minmax(92px,1fr));gap:7px;margin:20px 0;overflow-x:auto;padding-bottom:5px}.step-chip{padding:8px 7px!important;border:1px solid var(--line);border-radius:11px!important;background:var(--soft);color:var(--ink)!important;text-align:center;font-size:.8rem;font-weight:760;white-space:nowrap;cursor:pointer}.step-chip.active{background:var(--gold);border-color:#c89e3e}.step-chip.done{background:var(--green)}.step-chip[hidden]{display:none}
     .session-step[hidden]{display:none}.step-kicker{color:var(--accent);font-weight:850;letter-spacing:.04em}.current-action{margin:16px 0;padding:14px 16px;border-left:5px solid var(--accent-2);border-radius:12px;background:var(--blue)}
     .logic-grid,.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin:18px 0}.layer-card{padding:17px}.layer-card h3{margin:.1rem 0 .5rem}.layer-tag{color:var(--accent);font-size:.82rem;font-weight:850}.decision-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:17px 0}.decision-flow div{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:center}.decision-flow strong{display:block;color:var(--accent)}
     .boundary{padding:15px 17px;border:1px solid #a686a6;border-radius:14px;background:var(--purple)}.trace-table{width:100%;margin:16px 0}.question-set{display:grid;gap:14px}.question-row{padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--blue)}.question-row label,.answer-label{display:block;font-weight:800;margin:14px 0 7px}.question-row select{width:100%;padding:10px 12px}
     .editor{width:100%;min-height:340px;padding:16px;resize:vertical;font:15px/1.55 Consolas,"Cascadia Code",monospace}.explanation,.task-card textarea:not(.editor),.submission-card textarea{width:100%;min-height:120px;padding:14px;resize:vertical}.feedback-box{min-height:3rem;margin-top:12px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;background:var(--soft);white-space:pre-wrap}.feedback-box.pass{background:var(--green)}.feedback-box.fail{background:var(--red)}
-    .hint-stack details{margin-top:10px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}.session-controls{position:sticky;z-index:10;bottom:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:20px;padding:10px 12px;border:1px solid #344456;border-radius:999px;background:var(--course-code);box-shadow:0 16px 34px rgba(0,0,0,.22)}.session-controls .progress-label{color:#fff;text-align:center;font-weight:800}.session-controls .next{justify-self:end}.session-controls .previous{justify-self:start}.submission-card{background:var(--green)}.submission-card input[type="number"]{width:140px;padding:10px 12px}.save-state{color:var(--muted);font-size:.9rem}
+    .hint-stack details{margin-top:10px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}.hint-stack details[data-hint-level="answer"]{border-color:#a686a6;background:var(--purple)}.path-mode{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}.path-mode button{margin:0}.path-mode button.active{outline:3px solid color-mix(in srgb,var(--accent) 28%,transparent)}.path-mode-status{margin:9px 0 0;color:var(--muted)}.session-controls{position:sticky;z-index:10;bottom:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:20px;padding:10px 12px;border:1px solid #344456;border-radius:999px;background:var(--course-code);box-shadow:0 16px 34px rgba(0,0,0,.22)}.session-controls .progress-label{color:#fff;text-align:center;font-weight:800}.session-controls .next{justify-self:end}.session-controls .previous{justify-self:start}.submission-card{background:var(--green)}.submission-card input[type="number"]{width:140px;padding:10px 12px}.save-state{color:var(--muted);font-size:.9rem}
     @media(max-width:760px){.logic-grid,.detail-grid,.decision-flow{grid-template-columns:1fr}.session-controls{grid-template-columns:1fr 1fr;border-radius:18px}.session-controls .progress-label{grid-column:1/-1;grid-row:1}.session-controls button{width:100%}.step-strip{grid-template-columns:repeat(23,106px)}}
   </style>
   <link rel="stylesheet" href="../assets/course.css">
@@ -25,12 +25,12 @@
   <header class="session-header">
     <div class="tag">阶段 A · 环 1 · 正式学习会话 2/3</div>
     <h1>重试、防重复与批处理</h1>
-    <p class="lead">本会话保留 23 步、9 个任务，但每题先看具体示范和执行轨迹，再在近完整脚手架上修正一个局部，最后只改变一个小条件。可见代码逐行旁注，说明每行的对象、控制流和放置原因。当前目标是可靠地读懂、运行和修改代码，不要求从空白页设计完整方案。</p>
-    <div class="session-meta"><span>目标体量 30–45 分钟</span><span>3 个不同问题</span><span>每题 7 步</span><span>9 个引导式任务</span><span>示范 → 逐行旁注 → 局部修正 → 小变化</span><span id="save-state" class="save-state">答案自动保存在本机浏览器</span></div>
-    <p class="save-state">这是本会话的示范优先版本；旧版本草稿仍保留在浏览器中，但不会自动混入本次练习。</p>
+    <p class="lead">正式证据仍保留 23 步、9 个任务；默认先走 12 个高价值动作：三组“预测 → 局部修正 → 有界变化”，最后统一解释。完整讲解模式仍可随时打开定向、Python 细节和问题小结。可见代码逐行旁注，语法帮助按需出现，语义答案放在折叠提示中。</p>
+    <div class="session-meta"><span>目标体量 30–45 分钟</span><span>3 个不同问题</span><span>每题 7 步</span><span>9 个引导式任务</span><span>建议路径 12 个动作</span><span id="save-state" class="save-state">答案自动保存在本机浏览器</span></div>
+    <p class="save-state">这是面向“结构记忆仍在、语法调用暂时失效”学习者的再激活版本；使用近完整脚手架，不要求从空白页设计完整方案。旧版本草稿仍保留在浏览器中，但不会自动混入本次练习。</p>
   </header>
 
-    <section class="orientation"><h2>本次会话结构</h2><p><strong>问题一：</strong>失败、重试与停止——控制一次失败操作是否再次执行。</p><p><strong>问题二：</strong>操作身份与防重复——控制同一次业务意图是否被创建两次。</p><p><strong>问题三：</strong>批处理与错误边界——控制规则需要看一行还是整批，以及怎样累计错误。</p><p><strong>每个问题都完整经过：</strong>定向 → 教师示范与底层逻辑 → Python 细节 → 预测 → 局部修正 → 一个有界变化 → 小结。</p><p><strong>学习方式：</strong>先看已经运行过的例子，再沿着每行旁注阅读对象、控制流和副作用，最后只修改明确标记的一处；旁注会先告诉你“这一行读取或产生什么”，再说明它为什么放在这里。如果卡住，先回看输入、输出和执行轨迹，不需要凭空猜完整设计。</p></section>
+  <section class="orientation"><h2>本次会话结构</h2><p><strong>问题一：</strong>失败、重试与停止——控制一次失败操作是否再次执行。</p><p><strong>问题二：</strong>操作身份与防重复——控制同一次业务意图是否被创建两次。</p><p><strong>问题三：</strong>批处理与错误边界——控制规则需要看一行还是整批，以及怎样累计错误。</p><p><strong>完整证据链：</strong>每个问题仍经过定向 → 教师示范与底层逻辑 → Python 细节 → 预测 → 局部修正 → 一个有界变化 → 小结；默认路径只把最能证明能力的动作放在前面，其余步骤按需展开。</p><p><strong>学习方式：</strong>先看已经运行过的例子，再沿着每行旁注阅读对象、控制流和副作用，旁注先解释每行读取或产生什么；语法卡解决“怎么写”，预测和边界题保留“为什么这样写”。如果卡住，先回看输入、输出和执行轨迹，不需要凭空猜完整设计。</p><p class="save-state">教学顺序仍是示范 → 逐行旁注 → 局部修正 → 小变化。</p><div class="path-mode" role="group" aria-label="会话路径模式"><button id="core-path" type="button">建议路径（12 个动作）</button><button id="full-path" class="secondary" type="button">完整讲解（23 步）</button></div><p id="path-mode-status" class="path-mode-status">正在使用建议路径；需要更多解释时可切换到完整讲解。</p></section>
   <div class="step-strip" aria-label="会话步骤">
     <button class="step-chip active" type="button" data-step-target="0">地图</button>
     <button class="step-chip" type="button" data-step-target="1">1 定向</button><button class="step-chip" type="button" data-step-target="2">1 示范</button><button class="step-chip" type="button" data-step-target="3">1 Python</button><button class="step-chip" type="button" data-step-target="4">1 预测</button><button class="step-chip" type="button" data-step-target="5">1 局部修正</button><button class="step-chip" type="button" data-step-target="6">1 小变化</button><button class="step-chip" type="button" data-step-target="7">1 小结</button>
@@ -89,7 +89,8 @@
 
   <section class="session-step task-card" data-step="5" data-task="2" hidden>
     <div class="step-kicker">问题一 · 第 5/7 步 · 任务 2/3 · 局部修正</div><h2>修正示范代码中的一个等待错误</h2>
-    <p>下面的控制流已经完整提供；只把标记的等待值从 <code>0</code> 改成固定等待 <code>1</code>，然后运行检查。</p>
+    <p>下面的控制流已经完整提供；先根据示范轨迹决定固定等待值，再只修改等待调用这一处。忘记函数调用写法时，展开语法卡；不要改循环或异常分支。</p>
+    <div class="hint-stack"><details data-hint-level="syntax"><summary>语法卡：把一个值交给等待函数</summary><p><code>sleep_fn(值)</code> 会调用传入的等待函数，并把括号内的值交给测试记录。这里不需要新增变量。</p></details><details data-hint-level="reasoning"><summary>结构提示：先判断固定规则</summary><p>示范中相邻两次调用之间的等待相同；最后一次失败后不等待。先写出这条规则，再修改数字。</p></details><details data-hint-level="answer"><summary>提交后再看：参考修改</summary><p>参考实现把等待值改成示范中的固定值 <code>1</code>。</p></details></div>
     <textarea id="retry-core-code" class="editor" data-save spellcheck="false">class TemporaryError(Exception):  # 给暂时失败一个可以被 except 识别的类型
     pass  # 这里不增加行为；类名本身就是失败分类标签
 
@@ -107,14 +108,15 @@ def run_with_retry(operation, max_attempts: int, sleep_fn):  # 接收操作、�
         except TemporaryError:  # 暂时失败先进入预算判断
             if attempt == max_attempts:  # 最后一轮失败时已经没有下一次调用
                 raise  # 保留最后一次暂时错误，不再等待
-            sleep_fn(0)  # 只修改这一处：把 0 改成固定等待 1</textarea>
+            sleep_fn(0)  # 当前值只是占位；依据上方固定等待规则决定这一处的参数</textarea>
 </textarea>
     <div class="checker-actions"><button id="check-retry-core" type="button">检查局部修正</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><p id="checker-status" class="lesson-status">首次运行需要加载浏览器版 Python，可能需要几十秒。</p><pre id="retry-core-output">尚未运行。</pre>
   </section>
 
   <section class="session-step task-card" data-step="6" data-task="3" hidden>
     <div class="step-kicker">问题一 · 第 6/7 步 · 任务 3/3 · 有界变化</div><h2>只改变等待规则：改为指数退避</h2>
-    <p>控制流已经保持不变。新要求只有一处：第一次重试前等待 1，第二次等待 2，第三次等待 4；停止边界不变。只修改标记的等待表达式。</p>
+    <p>控制流已经保持不变。新要求只有一处：第一次重试前等待 1，第二次等待 2，第三次等待 4；停止边界不变。先把 <code>attempt</code> 和等待值配对，再只修改等待表达式。</p>
+    <div class="hint-stack"><details data-hint-level="syntax"><summary>语法卡：让参数参与计算</summary><p>函数调用的参数可以是表达式，例如 <code>sleep_fn(某个计算式)</code>；<code>attempt</code> 保存当前轮次编号。</p></details><details data-hint-level="reasoning"><summary>结构提示：只改变等待策略</summary><p>列出 <code>attempt=1,2,3</code> 时应得到的等待值，确认循环、成功返回、永久错误和最后一次停止都不变。</p></details><details data-hint-level="answer"><summary>提交后再看：参考表达式</summary><p>一种参考写法是 <code>sleep_fn(2 ** (attempt - 1))</code>；关键不是背公式，而是让轮次映射到 <code>1、2、4</code>。</p></details></div>
     <textarea id="retry-transfer-code" class="editor" data-save spellcheck="false">class TemporaryError(Exception):  # 暂时失败的标签，供下面的 except 精确识别
     pass  # 类体没有额外行为；先保留最小定义
 
@@ -132,8 +134,8 @@ def run_with_retry(operation, max_attempts: int, sleep_fn):  # 控制调用次�
         except TemporaryError:  # 暂时错误才允许进入等待分支
             if attempt == max_attempts:  # 最后一轮没有下一次重试
                 raise  # 最后一次失败不等待，直接结束
-            # 只修改这一行：等待 1、2、4……
-            sleep_fn(1)  # 这里把固定等待改成 2 ** (attempt - 1)</textarea>
+            # 只修改这一行：让等待值随 attempt 产生 1、2、4……
+            sleep_fn(1)  # 当前仍是固定值；根据上方轮次映射决定表达式</textarea>
 </textarea>
     <div class="checker-actions"><button id="check-retry-transfer" type="button">检查有界变化</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="retry-transfer-output">尚未运行。</pre>
     <label class="answer-label" for="retry-transfer-explanation">用句式说明：控制流保持……；只有等待规则变成……</label><textarea id="retry-transfer-explanation" data-save placeholder="保持不变的是尝试上限、永久错误分支和最后一次失败的停止；变化的是……"></textarea>
@@ -179,7 +181,8 @@ return create_fn(operation_id)  # 首次预留成功后才产生一次创建副�
 
   <section class="session-step task-card" data-step="12" data-task="5" hidden>
     <div class="step-kicker">问题二 · 第 5/7 步 · 任务 2/3 · 局部修正</div><h2>修正示范代码中的异常类型</h2>
-    <p>下面的顺序已经写好；只把过宽的异常捕获改成表示重复的 <code>DuplicateOperation</code>，然后运行检查。</p>
+    <p>下面的顺序已经写好；把过宽的异常捕获缩小为“身份已存在”这一类，再运行检查。不要把数据库不可用也当成重复。</p>
+    <div class="hint-stack"><details data-hint-level="syntax"><summary>语法卡：只捕获一种异常</summary><p>窄异常分支的形式是 <code>except 某个异常类型:</code>。异常类已经在上方定义；这里要选择与业务含义匹配的类型。</p></details><details data-hint-level="reasoning"><summary>结构提示：重复和故障不是一回事</summary><p>重复时可以返回已有结果；数据库故障应该继续向外报告。检查当前分支会把哪些不同原因合并。</p></details><details data-hint-level="answer"><summary>提交后再看：参考分支</summary><p>参考实现只捕获 <code>DuplicateOperation</code>，其他异常保持原类型继续抛出。</p></details></div>
     <textarea id="identity-core-code" class="editor" data-save spellcheck="false">class DuplicateOperation(Exception):  # 只为“身份已存在”建立一个可识别类型
     pass  # 这里不执行任何动作，异常类只负责分类
 
@@ -188,7 +191,7 @@ def import_once(operation_id: str, reserve_fn, create_fn):  # 先预留身份，
         raise ValueError("operation_id 不能为空")  # 在副作用发生前报告输入错误
     try:  # 把可能报告重复的预留调用单独包住
         reserve_fn(operation_id)  # 预留成功表示当前调用取得创建资格
-    except Exception:  # 只修改这一处：不能把所有异常都当成重复
+    except Exception:  # 当前捕获范围过宽；先判断哪一类错误可以被视为“重复”
         return "duplicate"  # 当前临时写法会吞掉真正的数据库故障
     return create_fn(operation_id)  # 只有预留成功才执行一次创建</textarea>
 </textarea>
@@ -197,7 +200,8 @@ def import_once(operation_id: str, reserve_fn, create_fn):  # 先预留身份，
 
   <section class="session-step task-card" data-step="13" data-task="6" hidden>
     <div class="step-kicker">问题二 · 第 6/7 步 · 任务 3/3 · 有界变化</div><h2>只改变重复分支：返回已有任务</h2>
-    <p>首次调用的顺序保持不变。新要求只有一处：重复时不再返回字符串 <code>"duplicate"</code>，改为调用 <code>get_existing_fn(operation_id)</code> 返回已有任务。</p>
+    <p>首次调用的顺序保持不变。新要求只有一处：重复时不再只返回状态字符串，而是返回已有任务。先判断应该在哪一条路径调用查询函数，再修改这一处。</p>
+    <div class="hint-stack"><details data-hint-level="syntax"><summary>语法卡：把函数调用结果返回出去</summary><p>可以直接写 <code>return 函数名(参数)</code>，表示把该函数的结果作为当前函数结果交给调用者。</p></details><details data-hint-level="reasoning"><summary>结构提示：首次路径不能改变</summary><p>预留成功仍然只能走创建；只有捕获到重复身份时，才读取已有任务。</p></details><details data-hint-level="answer"><summary>提交后再看：参考修改</summary><p>参考实现把重复分支改为 <code>return get_existing_fn(operation_id)</code>。</p></details></div>
     <textarea id="identity-transfer-code" class="editor" data-save spellcheck="false">class DuplicateOperation(Exception):  # 用类型区分“重复”与其他数据库失败
     pass  # 类体保持空白，因为分类本身已经足够
 
@@ -207,7 +211,7 @@ def import_or_get(operation_id: str, reserve_fn, create_fn, get_existing_fn):  #
     try:  # 预留仍然是首次/重复分流点
         reserve_fn(operation_id)  # 预留成功意味着可以创建新任务
     except DuplicateOperation:  # 只有重复身份才改变返回路径
-        return "duplicate"  # 只修改这一处：改为 get_existing_fn(operation_id)
+        return "duplicate"  # 当前只返回状态字符串；任务要求重复时交回已有任务
     return create_fn(operation_id)  # 首次调用仍然只创建一次</textarea>
 </textarea>
     <div class="checker-actions"><button id="check-identity-transfer" type="button">检查有界变化</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="identity-transfer-output">尚未运行。</pre>
@@ -253,13 +257,14 @@ def import_or_get(operation_id: str, reserve_fn, create_fn, get_existing_fn):  #
 
   <section class="session-step task-card" data-step="19" data-task="8" hidden>
     <div class="step-kicker">问题三 · 第 5/7 步 · 任务 2/3 · 局部修正</div><h2>修正示范代码中会漏掉错误的分支</h2>
-    <p>下面的循环、行号和错误文本已经提供；只把第二个判断从 <code>elif</code> 改成独立的 <code>if</code>，让同一行的两个错误都能保留。</p>
+    <p>下面的循环、行号和错误文本已经提供；先找出会让第二个独立规则被跳过的分支，再只修改这一处。目标是同一行的两个错误都能保留。</p>
+    <div class="hint-stack"><details data-hint-level="syntax"><summary>语法卡：两个独立条件</summary><p>独立判断的形式是 <code>if 条件:</code>；<code>elif</code> 只有在前一个 <code>if</code> 不成立时才会检查。</p></details><details data-hint-level="reasoning"><summary>结构提示：同一行可以同时违反两条规则</summary><p>当价格和数量都为 0 时，两条错误都应该追加；想想哪种分支结构允许第二次检查继续执行。</p></details><details data-hint-level="answer"><summary>提交后再看：参考修改</summary><p>参考实现让数量规则使用独立的 <code>if</code>，不再挂在价格规则的互斥分支上。</p></details></div>
     <textarea id="rows-core-code" class="editor" data-save spellcheck="false">def validate_rows(rows: list[dict]) -> list[str]:  # 接收整批行，返回有顺序的错误文本列表
     errors = []  # 用一个可变列表累计所有发现，而不是遇到第一条就返回
     for index, row in enumerate(rows, start=1):  # 同时取得从 1 开始的行号和当前行
         if row["price"] &lt;= 0:  # 第一个规则只读取当前行的 price
             errors.append(f"第{index}行：价格必须大于0")  # 记录价格错误并继续检查
-        elif row["quantity"] &lt;= 0:  # 只修改这一处：两个规则必须独立，改成 if
+        elif row["quantity"] &lt;= 0:  # 当前写法会在价格命中时跳过数量规则
             errors.append(f"第{index}行：数量必须大于0")  # 数量规则也应在同一行继续运行
     return errors  # 遍历完成后一次性返回按执行顺序累计的错误</textarea>
 </textarea>
@@ -268,7 +273,8 @@ def import_or_get(operation_id: str, reserve_fn, create_fn, get_existing_fn):  #
 
   <section class="session-step task-card" data-step="20" data-task="9" hidden>
     <div class="step-kicker">问题三 · 第 6/7 步 · 任务 3/3 · 有界变化</div><h2>只增加一个批次级条件</h2>
-    <p>行级验证函数保持不变。新要求只有两项局部变化：空批次返回固定错误；总数量达到上限时仍然允许，超过上限才追加批次错误。</p>
+    <p>行级验证函数保持不变。新要求只有两项局部变化：空批次返回固定错误；总数量达到上限时仍然允许，超过上限才追加批次错误。先做边界判断，再修改比较符。</p>
+    <div class="hint-stack"><details data-hint-level="syntax"><summary>语法卡：比较边界</summary><p><code>&gt;</code> 表示严格超过，<code>&gt;=</code> 表示达到或超过。比较符本身决定边界是否包含。</p></details><details data-hint-level="reasoning"><summary>结构提示：把自然语言翻译成集合边界</summary><p>题目说“达到上限仍然允许”，因此只有超过上限才追加错误。先用 <code>total_quantity=max_total_quantity</code> 这个具体值检验。</p></details><details data-hint-level="answer"><summary>提交后再看：参考比较符</summary><p>参考实现使用严格超过的比较，达到上限的批次不会被拒绝。</p></details></div>
     <textarea id="batch-transfer-code" class="editor" data-save spellcheck="false">def validate_rows(rows: list[dict]) -> list[str]:  # 复用已经学过的行级检查，不在这里重写规则
     errors = []  # 每一批都从新的错误列表开始
     for index, row in enumerate(rows, start=1):  # 行级规则只能看到当前 row
@@ -283,7 +289,7 @@ def validate_batch(rows: list[dict], max_total_quantity: int) -> list[str]:  # �
         return ["批次不能为空"]  # 直接返回批次级输入错误
     errors = validate_rows(rows)  # 先保留所有行级错误，顺序不能丢
     total_quantity = sum(row["quantity"] for row in rows)  # 只有看完全部行才能求总量
-    if total_quantity &gt;= max_total_quantity:  # 只修改这一处：达到上限仍然允许，改成 >
+    if total_quantity &gt;= max_total_quantity:  # 当前比较符的边界需要依据题意重新判断
         errors.append(f"批次总数量不能超过{max_total_quantity}")  # 把批次错误追加在行级错误之后
     return errors  # 返回合并后的完整错误列表</textarea>
 </textarea>
@@ -298,11 +304,11 @@ def validate_batch(rows: list[dict], max_total_quantity: int) -> list[str]:  # �
 
   <section class="session-step submission-card" data-step="22" hidden>
     <div class="step-kicker">会话统一提交</div><h2>一次提交三个引导式问题</h2>
-    <div class="current-action"><strong>现在只做：</strong>说明三个问题分别看过什么示范、修正了哪一处，再记录实际用时并复制。</div>
+    <div class="current-action"><strong>现在只做：</strong>说明三个问题分别看过什么示范、修正了哪一处，再记录实际用时并复制。无需证明自己记住每个语法；说明你如何查询并接回即可。</div>
     <label class="answer-label" for="session-boundaries">按句式说明三个问题各自的示范、局部修正和有界变化</label><textarea id="session-boundaries" data-save placeholder="问题一示范……；我修正……；小变化是……。问题二……。问题三……。"></textarea>
     <label class="answer-label" for="uncertainty">仍不确定、容易混淆或想追问的地方</label><textarea id="uncertainty" data-save placeholder="可以写“暂时没有”。"></textarea>
     <label class="answer-label" for="actual-minutes">本次实际投入分钟数</label><input id="actual-minutes" type="number" min="1" max="240" data-save placeholder="例如 36">
-    <div class="actions"><button id="copy-submission" type="button">复制本次完整提交</button></div><div id="copy-status" class="feedback-box">复制内容包括九个引导式任务证据、三个问题小结和实际用时。</div>
+    <div class="actions"><button id="copy-submission" type="button">复制本次完整提交</button></div><div id="copy-status" class="feedback-box">复制内容包括九个引导式任务证据、三个问题小结、使用过的帮助级别和实际用时。</div>
     <p><strong>学习日内连续推进：</strong>达到标准后老师直接给出下一会话；首页、路线、术语表和看板等引用页面等你说“今天的课程就学到这里”后再统一更新。</p>
   </section>
 
@@ -319,12 +325,19 @@ def validate_batch(rows: list[dict], max_total_quantity: int) -> list[str]:  # �
 
 <script>
 (() => {
-  const STORAGE_PREFIX = "course-session-0012-v5-guided-";
+  const STORAGE_PREFIX = "course-session-0012-v6-reactivation-";
   const PYODIDE_BASE = "https://cdn.jsdelivr.net/pyodide/v314.0.2/full/";
   const stepNames = ["会话地图","问题一·定向","问题一·示范","问题一·Python","问题一·预测","问题一·局部修正","问题一·有界变化","问题一·小结","问题二·定向","问题二·示范","问题二·Python","问题二·预测","问题二·局部修正","问题二·有界变化","问题二·小结","问题三·定向","问题三·示范","问题三·Python","问题三·预测","问题三·局部修正","问题三·有界变化","问题三·小结","统一提交"];
   const steps=[...document.querySelectorAll(".session-step")],chips=[...document.querySelectorAll(".step-chip")],stepStrip=document.querySelector(".step-strip");
   const previousButton=document.getElementById("previous-step"),nextButton=document.getElementById("next-step"),progressLabel=document.getElementById("progress-label"),saveState=document.getElementById("save-state");
-  let currentStep=Math.min(steps.length-1,Math.max(0,Number(localStorage.getItem(STORAGE_PREFIX+"step")||0)));
+  const corePathButton=document.getElementById("core-path"),fullPathButton=document.getElementById("full-path"),pathModeStatus=document.getElementById("path-mode-status");
+  const coreStepIndices=[0,4,5,6,11,12,13,18,19,20,21,22];
+  const allStepIndices=steps.map((_,index)=>index);
+  const pathModeKey=STORAGE_PREFIX+"path-mode";
+  let pathMode=localStorage.getItem(pathModeKey)==="full"?"full":"core";
+  function pathIndices(){return pathMode==="core"?coreStepIndices:allStepIndices;}
+  function normalizeStep(value){const indices=pathIndices();if(indices.includes(value))return value;const next=indices.find(index=>index>=value);return next===undefined?indices[indices.length-1]:next;}
+  let currentStep=normalizeStep(Math.min(steps.length-1,Math.max(0,Number(localStorage.getItem(STORAGE_PREFIX+"step")||0))));
 
   const CHECKER_PY=String.raw`
 import ast, contextlib, io, json, traceback
@@ -458,10 +471,14 @@ let runtimePromise=null;
 async function getRuntime(id){if(runtimePromise===null){self.postMessage({type:"runtime-loading",id});runtimePromise=loadPyodide({indexURL:PYODIDE_BASE});}const p=await runtimePromise;self.postMessage({type:"runtime-ready",id});return p;}
 self.onmessage=async event=>{const {id,mode,code}=event.data;try{const p=await getRuntime(id);p.globals.set("USER_CODE",code);p.globals.set("CHECK_MODE",mode);const result=await p.runPythonAsync(CHECKER_PY);self.postMessage({type:"result",id,mode,report:JSON.parse(result)});}catch(error){self.postMessage({type:"worker-error",id,error:error?.message||String(error)});}};`;}
 
-  function renderStep(){steps.forEach((s,i)=>{s.hidden=i!==currentStep;});chips.forEach((c,i)=>{c.classList.toggle("active",i===currentStep);c.classList.toggle("done",i<currentStep);if(i===currentStep)c.setAttribute("aria-current","step");else c.removeAttribute("aria-current");});previousButton.disabled=currentStep===0;nextButton.disabled=currentStep===steps.length-1;nextButton.textContent=currentStep===steps.length-2?"进入统一提交":"下一步";progressLabel.textContent=`第 ${currentStep+1}/${steps.length} 步 · ${stepNames[currentStep]}`;localStorage.setItem(STORAGE_PREFIX+"step",String(currentStep));const activeChip=chips[currentStep];if(activeChip&&stepStrip){const left=activeChip.offsetLeft-(stepStrip.clientWidth-activeChip.clientWidth)/2;stepStrip.scrollTo({left:Math.max(0,left),behavior:"smooth"});}const activeStep=steps[currentStep];if(activeStep){const top=currentStep===0?0:Math.max(0,activeStep.getBoundingClientRect().top+window.scrollY-24);window.scrollTo({top,behavior:"smooth"});}}
+  function renderStep(){const indices=pathIndices();const position=indices.indexOf(currentStep);const visible=new Set(indices);steps.forEach((s,i)=>{s.hidden=i!==currentStep;});chips.forEach((c,i)=>{c.hidden=!visible.has(i);c.classList.toggle("active",i===currentStep);c.classList.toggle("done",visible.has(i)&&indices.indexOf(i)<position);if(i===currentStep)c.setAttribute("aria-current","step");else c.removeAttribute("aria-current");});previousButton.disabled=position<=0;nextButton.disabled=position===indices.length-1;nextButton.textContent=position===indices.length-2?"进入统一提交":"下一步";progressLabel.textContent=pathMode==="core"?`第 ${position+1}/${indices.length} 个建议动作 · ${stepNames[currentStep]}`:`第 ${position+1}/${indices.length} 个完整步骤 · ${stepNames[currentStep]}`;pathModeStatus.textContent=pathMode==="core"?"正在使用建议路径：先完成预测、局部修正和有界变化；解释步骤可随时展开。":"正在使用完整讲解：定向、Python 细节和问题小结全部显示。";corePathButton.classList.toggle("active",pathMode==="core");fullPathButton.classList.toggle("active",pathMode==="full");localStorage.setItem(STORAGE_PREFIX+"step",String(currentStep));const activeChip=chips[currentStep];if(activeChip&&stepStrip){const left=activeChip.offsetLeft-(stepStrip.clientWidth-activeChip.clientWidth)/2;stepStrip.scrollTo({left:Math.max(0,left),behavior:"smooth"});}const activeStep=steps[currentStep];if(activeStep){const top=currentStep===0?0:Math.max(0,activeStep.getBoundingClientRect().top+window.scrollY-24);window.scrollTo({top,behavior:"smooth"});}}
+  function setPathMode(nextMode){pathMode=nextMode==="full"?"full":"core";currentStep=normalizeStep(currentStep);localStorage.setItem(pathModeKey,pathMode);renderStep();}
+  corePathButton.addEventListener("click",()=>setPathMode("core"));
+  fullPathButton.addEventListener("click",()=>setPathMode("full"));
   chips.forEach((chip,index)=>chip.addEventListener("click",()=>{currentStep=index;renderStep();}));
-  previousButton.addEventListener("click",()=>{if(currentStep>0){currentStep--;renderStep();}});nextButton.addEventListener("click",()=>{if(currentStep<steps.length-1){currentStep++;renderStep();}});
+  previousButton.addEventListener("click",()=>{const indices=pathIndices();const position=indices.indexOf(currentStep);if(position>0){currentStep=indices[position-1];renderStep();}});nextButton.addEventListener("click",()=>{const indices=pathIndices();const position=indices.indexOf(currentStep);if(position<indices.length-1){currentStep=indices[position+1];renderStep();}});
   document.querySelectorAll("[data-save]").forEach(field=>{const saved=localStorage.getItem(STORAGE_PREFIX+field.id);if(saved!==null)field.value=saved;field.addEventListener("input",()=>{localStorage.setItem(STORAGE_PREFIX+field.id,field.value);saveState.textContent=`已自动保存 ${new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}`;});});
+  document.querySelectorAll(".hint-stack details[data-hint-level]").forEach(detail=>detail.addEventListener("toggle",()=>{if(detail.open){const key=STORAGE_PREFIX+"hint-"+detail.dataset.hintLevel;localStorage.setItem(key,String(Number(localStorage.getItem(key)||0)+1));}}));
   function feedback(el,passed,text){el.textContent=text;el.classList.toggle("pass",passed);el.classList.toggle("fail",!passed);}
   [["p1","p1-prediction"],["p2","p2-prediction"],["p3","p3-prediction"]].forEach(([prefix,id])=>{document.getElementById(`check-${prefix}-prediction`).addEventListener("click",()=>{const passed=document.getElementById(id).value==="correct";const out=document.getElementById(`${prefix}-prediction-feedback`);feedback(out,passed,passed?"预测正确。":"再沿控制流逐句判断。");localStorage.setItem(STORAGE_PREFIX+`${prefix}-prediction-evidence`,out.textContent);});});
 
@@ -476,7 +493,10 @@ self.onmessage=async event=>{const {id,mode,code}=event.data;try{const p=await g
   stopButtons.forEach(button=>button.addEventListener("click",()=>{clearTimer();if(active)feedback(active.output,false,"已由你停止运行；代码仍已保存。");active=null;setStopDisabled(true);dispose();}));
   async function copyText(text){try{await navigator.clipboard.writeText(text);}catch{const helper=document.createElement("textarea");helper.value=text;helper.style.position="fixed";helper.style.opacity="0";document.body.appendChild(helper);helper.select();document.execCommand("copy");helper.remove();}}
   function value(id){return document.getElementById(id).value.trim();}
-  document.getElementById("copy-submission").addEventListener("click",async()=>{const submission=`请检查正式学习会话“重试、防重复与批处理”（示范优先、局部补全版本）。
+  function hintCounts(){return ["syntax","reasoning","answer"].map(level=>`${level}=${localStorage.getItem(STORAGE_PREFIX+"hint-"+level)||0}`).join(", ");}
+  document.getElementById("copy-submission").addEventListener("click",async()=>{const submission=`请检查正式学习会话“重试、防重复与批处理”（再激活、示范与局部补全版本）。
+路径模式：${pathMode==="core"?"建议路径（12 个动作）":"完整讲解（23 步）"}
+帮助使用次数：${hintCounts()}
 
 问题一·失败、重试与停止（先看执行轨迹，再修正局部代码）
 预测：${value("p1-prediction")||"（未选择）"}
@@ -544,7 +564,7 @@ ${value("session-boundaries")||"（未填写）"}
 仍不确定之处：
 ${value("uncertainty")||"（暂时没有）"}
 
-本次实际投入：${value("actual-minutes")||"（未填写）"} 分钟`;await copyText(submission);feedback(document.getElementById("copy-status"),true,"23 步、九个引导式任务的完整会话已经复制。");});
+  本次实际投入：${value("actual-minutes")||"（未填写）"} 分钟`;await copyText(submission);feedback(document.getElementById("copy-status"),true,`${pathMode==="core"?"建议路径 12 个动作":"完整讲解 23 步"}与九个引导式任务的完整会话已经复制；帮助使用也已记录。`);});
   document.querySelectorAll(".editor").forEach(editor=>editor.addEventListener("keydown",event=>{if(event.key==="Tab"){event.preventDefault();const start=editor.selectionStart;editor.setRangeText("    ",start,editor.selectionEnd,"end");editor.dispatchEvent(new Event("input"));}}));
   renderStep();
 })();
