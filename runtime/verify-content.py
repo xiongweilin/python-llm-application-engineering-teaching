@@ -113,6 +113,7 @@ def main() -> int:
         ROOT / "docs" / "decisions" / "0004-map-before-expression-edit.md",
         ROOT / "docs" / "decisions" / "0005-phase-a-translation-layer-and-diagnostic-help.md",
         ROOT / "docs" / "decisions" / "0006-phase-a-semantic-types-and-non-echo-evidence.md",
+        ROOT / "docs" / "decisions" / "0007-phase-a-whole-work-unit-cycle.md",
     )
     for path in required:
         if not path.is_file():
@@ -138,20 +139,21 @@ def main() -> int:
         failures.append("shared course background image is unexpectedly small")
 
     required_text = {
-        ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "重试、防重复与批处理", "11 条", "17 环", "约 90–125", "最终能力契约", "数学、决策与多主体系统", "现实含义", "程序责任", "editable locus", "每题只保留一个主要未知量", "三个问题共九项引导式任务", "127.0.0.1:8766"),
-        ROOT / "README.md": ("Retry, deduplication, and batching", "three distinct problems", "all nine guided tasks across the three problems", "worked example", "near-complete scaffold", "explicit editable locus", "reality → program responsibility → code location → Python form → learner action → runtime evidence", "each quantity receives a semantic type", "answer-echo items are rejected", "line-by-line comments", "suggested path", "full-explanation path", "syntax cards", "Modules, diagnostics, and authorization boundaries", "Active documents stay minimal but sufficient", "final-capability-to-gate coverage index"),
+        ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "受控重试：一个完整工作单元", "11 条", "17 环", "约 90–125", "最终能力契约", "数学、决策与多主体系统", "现实含义", "程序责任", "editable locus", "三个证据阶段", "完整重建", "127.0.0.1:8766"),
+        ROOT / "README.md": ("Controlled retry: one complete work unit", "single complete retry work unit", "pattern acquisition", "controlled variation", "transfer/chunking", "worked trace", "editable loci", "R/T/P/M/D/X", "prediction-before-runtime", "line-by-line comments", "Modules, diagnostics, and authorization boundaries", "Active documents stay minimal but sufficient", "final-capability-to-gate coverage index"),
         ROOT / "FINAL-CAPABILITY-CONTRACT.md": ("## 主线建模原则", "## 1. 数学语言、概率、统计与证据", "## 2. 线性代数与张量计算", "## 3. 微积分、决策与约束优化", "## 4. 状态演化、随机过程与序贯决策", "## 5. 语言模型核心计算", "## 6. Transformer 机制", "## 7. 嵌入、检索与 RAG", "## 8. 优化训练、数值精度与计算排错", "**主线核心：**", "**按需扩展：**", "不要求每位学习者实际开展系统性微调实验", "通信类", "平稳分布", "碰撞点（collider）", "d-分离（d-separation）", "离线有限模型、仿真或回放分析", "## 9. API、工作流、Agent 与人机合作", "## 10. 博弈、信息与有限机制分析", "## 11. 实验、因果评估与系统可靠性", "## 最终综合项目", "## 研究扩展范围"),
-        ROOT / "reference" / "0002-course-progress.html": ("四个阶段", "十七个学习环", "约 90–125", "环 0", "环 16", "会话 2“重试、防重复与批处理”", "每题先看示范和执行轨迹", "翻译层", "每题只保留一个主要未知量", "候选值", "当前阶段相称的条件变化", "会话 3“模块、诊断与授权边界”", "数学语言、概率、统计与证据", "线性代数与张量", "微积分、决策与约束优化", "状态演化、随机过程与序贯决策", "博弈、信息与有限机制分析", "语言模型核心计算", "Transformer 机制", "训练与数值核心", "按需扩展", "不要求实际完成系统微调", "嵌入、检索与 RAG", "Agent、运行决策与人机合作", "实验、因果评估与系统可靠性", "背门路径", "碰撞点（collider）", "最终能力契约", "离线有限模型、仿真或回放", "最终综合项目与论文阅读", "十一项最终能力如何落到路线", "最终能力—关口覆盖索引"),
-        ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", 'data-page-kind="reference"', 'data-route-position="跨会话中文术语总表"', "最终能力契约", "正式会话 1：状态与允许行动", "正式会话 2：重试、防重复与批处理", "部分函数", "指数退避"),
-        ROOT / "NOTES.md": ("粒度层级固定", "三个不同问题", "A“专注隧道”", "纵向切片", "会话 3“模块、诊断与授权边界”", "共九项任务", "示范优先、局部补全和有界变化", "逐行旁注", "再激活型学习者", "editable locus", "现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证", "pass", "阶段 A 出题注意事项", "候选值", "禁止答案回显题", "建议路径", "活动文档保持最小且充分"),
+        ROOT / "reference" / "0002-course-progress.html": ("四个阶段", "十七个学习环", "约 90–125", "环 0", "环 16", "会话 2“受控重试：完整工作单元”", "完整范例与运行轨迹", "完整重建", "受控变化", "迁移与组块化", "候选值", "当前阶段相称的条件变化", "会话 3“模块、诊断与授权边界”", "数学语言、概率、统计与证据", "线性代数与张量", "微积分、决策与约束优化", "状态演化、随机过程与序贯决策", "博弈、信息与有限机制分析", "语言模型核心计算", "Transformer 机制", "训练与数值核心", "按需扩展", "不要求实际完成系统微调", "嵌入、检索与 RAG", "Agent、运行决策与人机合作", "实验、因果评估与系统可靠性", "背门路径", "碰撞点（collider）", "最终能力契约", "离线有限模型、仿真或回放", "最终综合项目与论文阅读", "十一项最终能力如何落到路线", "最终能力—关口覆盖索引"),
+        ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", 'data-page-kind="reference"', 'data-route-position="跨会话中文术语总表"', "最终能力契约", "正式会话 1：状态与允许行动", "正式会话 2：受控重试", "完整重建", "指数退避"),
+        ROOT / "NOTES.md": ("完整、可观察、可验证的工程工作单元", "模式获得", "受控变化", "迁移与组块化", "A1", "纵向切片", "会话 3“模块、诊断与授权边界”", "R/T/P/M/D/X", "逐行旁注", "再激活型学习者", "editable locus", "现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证", "pass", "阶段 A 出题审查", "候选值", "禁止答案回显题", "完整重建", "活动文档保持最小且充分"),
         ROOT / "RESOURCES.md": ("Commerce Orchestrator", "DeepSeek Harness", "教育领域模型", "统计决策", "凸优化与运筹", "Linear, MIP and CP-SAT Examples", "有限状态、序贯决策与在线学习", "实验设计与有限因果图", "Always Valid Inference", "DAGitty learning materials", "博弈与有限机制分析", "LoRA 的矩阵结构、rank 和参数量属于环 12 主线", "Research extensions"),
-        ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-18", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "综合复习会话", "候选参考页", "模块、诊断与授权边界", "四阶段、十七环", "教学坡度", "教师示范 → 共同追踪输入/输出 → 局部补全", "再激活型学习者支持", "现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证", "术语来源协议", "三种难度分离", "五类帮助", "editable locus", "第一次出现 `pass`", "可观察的对应关系/映射", "唯一表达式位置", "阶段 A 出题注意事项", "唯一未知量", "候选值", "建议路径", "完整讲解", "逐行旁注", "不要求学习者从空白页自行设计"),
+        ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-18", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "完整、可观察、可验证的工程工作单元", "主要完整工作单元", "完整范例与运行轨迹", "完整模仿", "完整重建", "受控变化", "新情境迁移", "稳定骨架与可变参数", "阶段 A 的证据坡度", "R = Recognize", "T = Trace", "P = Produce", "M = Modify", "D = Diagnose", "X = Transfer", "阶段 A 注意事项", "唯一未知量", "预测必须先于运行验证", "五类帮助", "scrollIntoView", "模块、诊断与授权边界", "四阶段、十七环"),
         ROOT / "docs" / "decisions" / "0001-finite-computable-curriculum-core.md": ("## 状态", "已接受", "有限表示、有限维、可计算优先", "主线知识", "完整证据清单", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0002-guided-teaching-before-independent-transfer.md": ("## 状态", "示范优先、局部补全、有限迁移", "教师示范 → 共同追踪输入/输出 → 局部补全", "逐行旁注", "不能只给术语、规则和空白函数", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0003-reactivation-learner-and-fading-support.md": ("## 状态", "再激活型学习者", "结构记忆仍在、符号检索失败", "帮助逐步淡出", "建议路径", "完整讲解", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0004-map-before-expression-edit.md": ("## 状态", "attempt", "等待序列", "可观察对应关系/映射", "唯一可编辑位置", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0005-phase-a-translation-layer-and-diagnostic-help.md": ("## 状态", "现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证", "术语来源", "三种难度", "五类帮助", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0006-phase-a-semantic-types-and-non-echo-evidence.md": ("## 状态", "attempt", "delay", "是否等待", "候选值", "唯一未知量", "## 未采用的方案", "## 后果"),
+        ROOT / "docs" / "decisions" / "0007-phase-a-whole-work-unit-cycle.md": ("## 状态", "完整、可观察、可验证的工程工作单元", "模式获得", "受控变化", "迁移与组块化", "完整重建", "R/T/P/M/D/X", "## 未采用的方案", "## 后果"),
     }
     for path, markers in required_text.items():
         text = path.read_text(encoding="utf-8")
@@ -315,52 +317,38 @@ def main() -> int:
             'data-page-kind="formal-session"',
             'data-session-id="S02"',
             'data-step="0"',
-            'data-step="22"',
+            'data-step="4"',
             'data-step-target="0"',
-            'data-step-target="22"',
+            'data-step-target="4"',
             'data-task="1"',
-            'data-task="9"',
-            'id="retry-core-code"',
+            'data-task="3"',
+            'id="retry-rebuild-code"',
             'id="retry-transfer-code"',
-            'id="identity-core-code"',
-            'id="identity-transfer-code"',
-            'id="rows-core-code"',
-            'id="batch-transfer-code"',
-            'id="session-boundaries"',
             'id="actual-minutes"',
             'id="copy-submission"',
             'TemporaryError',
             'PermanentError',
             'sleep_fn',
             '指数退避',
-            '3 个不同问题',
-            '每题 7 步',
-            '9 个引导式任务',
+            '1 个主要工作单元',
+            '3 类能力证据',
+            '模式获得',
+            '受控变化',
+            '迁移与组块化',
             '现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证',
-            '对象、量、单位和时序先直接说明',
-            '教师示范与底层逻辑',
-            '近完整脚手架',
-            '不要求从空白页设计完整方案',
-            'course-session-0012-v6-reactivation-',
-            '建议路径（12 个动作）',
-            '完整讲解（23 步）',
-            'locked-code',
-            'retry-core-wait',
-            'data-editable-locus="retry-core-wait"',
-            '唯一可修改位置',
-            'pass</code> 先解释一次',
-            'retry-policy-next-delay',
-            'retry-policy-boundary',
-            'check-retry-policy',
-            'retry-transfer-expression',
-            'data-editable-locus="retry-transfer-expression"',
-            '表达式在哪里？',
-            'syncRetryTransferSource',
+            'course-session-0012-v7-whole-work-unit-',
+            'retry-imitation-code',
+            'retry-rebuild-code',
+            'retry-variation-code',
+            'policy-next-delay',
+            'policy-last-wait',
+            'check-policy',
+            'policy-expression',
+            'data-editable-locus="policy-expression"',
+            'scrollIntoView({behavior: "smooth", block: "start"})',
             'data-hint-level="syntax"',
             'data-hint-level="reasoning"',
             'data-hint-level="answer"',
-            'hintCounts()',
-            '阶段 A 翻译地图',
             '当前任务帮助（五类分开）',
             'data-help-kind="task"',
             'data-help-kind="locus"',
@@ -368,29 +356,12 @@ def main() -> int:
             'data-help-kind="reasoning"',
             'data-help-kind="answer"',
             '现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证',
-            'data-editable-locus="identity-core-exception"',
-            'data-editable-locus="identity-transfer-return"',
-            'data-editable-locus="rows-core-branch"',
-            'data-editable-locus="batch-transfer-operator"',
-            'syncLoci',
-            '先沿着一次具体运行读时序',
             '阶段 A 注意事项',
             '候选时长不等于一定发生的等待',
-            'batch-boundary-prediction',
-            '只改异常类型这一处',
-            'import_once',
-            'import_or_get',
-            'DuplicateOperation',
-            'validate_rows',
-            'validate_batch',
-            'operation_id',
-            '批次总数量不能超过100',
             '本会话中文术语',
             'localStorage.setItem(STORAGE_PREFIX',
-            'aria-current","step"',
-            'stepStrip.scrollTo',
-            'activeStep.getBoundingClientRect',
-            'chips.forEach((chip,index)=>chip.addEventListener("click"',
+            'aria-current", "step"',
+            'chips.forEach((chip, index) => chip.addEventListener("click"',
             'function buildWorkerSource()',
             'CHECK_MODE',
             '达到标准后老师直接给出下一会话',
@@ -406,8 +377,8 @@ def main() -> int:
     if 'window.scrollTo({top:0,behavior:"smooth"});}' in session_two:
         failures.append("session 2 must scroll to the active step instead of always returning to the page top")
     step_targets = [int(value) for value in re.findall(r'data-step-target="(\d+)"', session_two)]
-    if step_targets != list(range(23)):
-        failures.append(f"session 2 clickable step targets must be exactly 0..22, got {step_targets}")
+    if step_targets != list(range(5)):
+        failures.append(f"session 2 clickable stage targets must be exactly 0..4, got {step_targets}")
 
     prototype = (ROOT / "practice" / "prototype-guided-session.html").read_text(encoding="utf-8")
     if "localStorage" in prototype or "sessionStorage" in prototype:
@@ -478,15 +449,12 @@ def main() -> int:
         failures.append("completed formal session must retain exactly three related tasks")
 
     formal_session = (ROOT / "lessons" / "0012-failure-retry-stop.html").read_text(encoding="utf-8")
-    if formal_session.count('data-task="') != 9:
-        failures.append("formal session must contain nine tasks across three problems")
-    if formal_session.count('class="session-step') != 23:
-        failures.append("formal session 2 must contain exactly twenty-three steps")
-    if formal_session.count('class="step-chip') != 23:
-        failures.append("formal session 2 step strip must contain exactly twenty-three chips")
-    for problem_name in ("问题一", "问题二", "问题三"):
-        if formal_session.count(f"{problem_name} · 第") != 7:
-            failures.append(f"formal session 2 must give {problem_name} exactly seven steps")
+    if formal_session.count("任务 1 ·") != 1 or formal_session.count("任务 2 ·") != 1 or formal_session.count("任务 3 ·") != 1:
+        failures.append("formal session 2 must contain the three complete-work-unit evidence stages")
+    if formal_session.count('class="session-step') != 5:
+        failures.append("formal session 2 must contain five focus stages including map and submission")
+    if formal_session.count('class="stage-chip') != 5:
+        failures.append("formal session 2 stage strip must contain five chips")
 
     review_session = (ROOT / "lessons" / "0011-integrated-review-established-capabilities.html").read_text(encoding="utf-8")
     if review_session.count('data-task="') != 3:

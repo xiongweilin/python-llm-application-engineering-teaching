@@ -5,13 +5,13 @@ This is the only active course. The Windows Start-menu entry is **Python & LLM A
 ## How to continue now
 
 1. Open the course entry in the Start menu.
-2. Open formal learning session 2 "Retry, deduplication, and batching".
-3. Choose the session path: the suggested path presents about 12 high-value actions first; the full-explanation path keeps all 23 steps available for review. Both paths use the same evidence.
-4. Complete the three distinct problems in order; each problem retains the seven-step contract — orientation, underlying logic, Python details, prediction, guided local completion, one bounded change, and summary — while the suggested path reduces navigation friction.
-5. Each problem starts with a worked example and an execution trace. The code tasks provide a near-complete scaffold and identify one explicit editable locus; existing code is shown read-only, syntax cards are available on demand, and semantic answers stay in collapsible hints. This session does not require designing a solution from a blank page.
-6. Once all nine guided tasks across the three problems are done, copy the full evidence on the summary page, including which help level you used and what remains uncertain, and interact with the teacher only once.
+2. Open formal learning session 2 "Controlled retry: one complete work unit".
+3. Work through the single complete retry work unit: foundation and worked trace, full imitation, full reconstruction, one controlled variation, then transfer to a new fetch scenario.
+4. The three task stages are evidence stages — pattern acquisition, controlled variation, and transfer/chunking — rather than three unrelated problems. Full imitation is practice, not independent mastery evidence.
+5. Each stage shows line-by-line comments, semantic types, a prediction-before-runtime check, explicit editable loci, syntax cards, and a gradually fading reconstruction scaffold. The session does not require designing a solution from a blank page without a behavior contract.
+6. Copy the complete work-unit evidence on the summary page, including R/T/P/M/D/X evidence, help levels used, runtime results, and what remains uncertain; interact with the teacher only once.
 
-The learning evidence already formed by problems 1–2 is retained. Prototypes A/B/C have left the active entry; the formal session uses A's single-step skeleton and adds detailed abstract logic and concrete programming explanations.
+Previously formed learning evidence is retained. Prototypes A/B/C have left the active entry; the formal session uses a single-step focus skeleton and adds detailed abstract logic and concrete programming explanations.
 
 If the repository location changes, run `pwsh -NoProfile -NonInteractive -File .\runtime\install-start-menu-shortcut.ps1` to idempotently create or update the Start-menu entry. Before replacing the old entry, the script keeps a rollback backup in the local course-state directory.
 
@@ -27,8 +27,8 @@ Active documents stay minimal but sufficient: each fact type has one owner, hist
 - `practice/`: runnable Python exercises with tight feedback.
 - `lessons/0010-state-and-permitted-actions.html`: completed formal learning session 1.
 - `lessons/0011-integrated-review-established-capabilities.html`: single comprehensive review entry for the 10 established capabilities.
-- `lessons/0012-failure-retry-stop.html`: current formal learning session 2.
-- Session 3 "Modules, diagnostics, and authorization boundaries" has no formal page yet; when it does, start with spaced recall without answers, then study the three problems of module responsibility, test diagnostics, and authorization boundaries.
+- `lessons/0012-failure-retry-stop.html`: current formal learning session 2, one complete retry work unit.
+- Session 3 "Modules, diagnostics, and authorization boundaries" has no formal page yet; when it does, start with spaced recall without answers, then study one complete diagnostic work unit at a time.
 - `practice/prototype-guided-session.html`: the selected design prototype, not carrying current progress.
 - `reference/0002-course-progress.html`: the single source of truth for the four-stage seventeen-ring structure, ring-level responsibilities, gates, and the final-capability-to-gate coverage index.
 - `SESSION-PAGE-CONTRACT.md`: the single specification for formal-session page structure.

@@ -53,7 +53,7 @@
     "0009-output-is-not-action.html": "阶段 A · 环 1 · 正式会话 3 · 问题三候选材料",
     "0010-state-and-permitted-actions.html": "阶段 A · 环 1 · 正式会话 1（已完成）",
     "0011-integrated-review-established-capabilities.html": "阶段 A · 环 0 · 综合复习 R1",
-    "0012-failure-retry-stop.html": "阶段 A · 环 1 · 正式会话 2（当前）",
+    "0012-failure-retry-stop.html": "阶段 A · 环 1 · 正式会话 2 · 受控重试工作单元（当前）",
     "0001-python-basics-playground.html": "阶段 A · 环 1 · Python 补充练习",
     "prototype-guided-session.html": "教学设计归档 · 不承担课程进度",
     "0001-first-terms.html": "全课程 · 跨会话术语参考",

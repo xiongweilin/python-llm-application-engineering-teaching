@@ -76,7 +76,7 @@
   </section>
 
   <section class="group">
-    <h2>正式会话 2：重试、防重复与批处理</h2>
+    <h2>正式会话 2：受控重试：完整工作单元</h2><p>本页包含当前工作单元的完整重建、指数退避候选值和停止边界术语。</p>
     <div class="term"><div class="name">暂时错误<br><code>TemporaryError</code></div><div>原因可能随时间消失，因此允许在预算内等待后再次尝试。</div></div>
     <div class="term"><div class="name">永久错误<br><code>PermanentError</code></div><div>当前条件不变时重试通常无效，应立即抛出并停止。</div></div>
     <div class="term"><div class="name">尝试预算<br><code>retry budget</code></div><div>自动执行最多允许发生的次数或时间范围。</div></div>
