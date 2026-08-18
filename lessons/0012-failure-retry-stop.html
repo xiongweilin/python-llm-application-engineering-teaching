@@ -12,7 +12,7 @@
     .session-step[hidden]{display:none}.step-kicker{color:var(--accent);font-weight:850;letter-spacing:.04em}.current-action{margin:16px 0;padding:14px 16px;border-left:5px solid var(--accent-2);border-radius:12px;background:var(--blue)}
     .logic-grid,.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin:18px 0}.layer-card{padding:17px}.layer-card h3{margin:.1rem 0 .5rem}.layer-tag{color:var(--accent);font-size:.82rem;font-weight:850}.decision-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:17px 0}.decision-flow div{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:center}.decision-flow strong{display:block;color:var(--accent)}
     .boundary{padding:15px 17px;border:1px solid #a686a6;border-radius:14px;background:var(--purple)}.trace-table{width:100%;margin:16px 0}.question-set{display:grid;gap:14px}.question-row{padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--blue)}.question-row label,.answer-label{display:block;font-weight:800;margin:14px 0 7px}.question-row select{width:100%;padding:10px 12px}
-    .editor{width:100%;min-height:340px;padding:16px;resize:vertical;font:15px/1.55 Consolas,"Cascadia Code",monospace}.explanation,.task-card textarea:not(.editor),.submission-card textarea{width:100%;min-height:120px;padding:14px;resize:vertical}.feedback-box{min-height:3rem;margin-top:12px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;background:var(--soft);white-space:pre-wrap}.feedback-box.pass{background:var(--green)}.feedback-box.fail{background:var(--red)}
+    .editor{width:100%;min-height:340px;padding:16px;resize:vertical;font:15px/1.55 Consolas,"Cascadia Code",monospace}.locked-code{margin:16px 0;padding:16px;border:2px solid var(--line);border-radius:14px;background:var(--course-code);overflow-x:auto}.locked-code pre{margin:0;color:#fff;font:15px/1.55 Consolas,"Cascadia Code",monospace}.locked-code mark{padding:2px 5px;border-radius:5px;background:#ffd66b;color:#1c2836;font-weight:850}.editable-locus{display:flex;align-items:center;gap:0;width:max-content;max-width:100%;margin:12px 0;padding:10px 13px;border:2px solid var(--accent);border-radius:12px;background:var(--gold);font:18px/1.4 Consolas,"Cascadia Code",monospace}.editable-locus input{width:80px;margin:0 2px;padding:7px 9px;border:2px solid var(--accent);border-radius:7px;background:#fff;font:inherit;text-align:center}.editable-locus-intro{margin:14px 0 6px}.locked-note{margin:10px 0;padding:12px 14px;border-left:5px solid var(--accent-2);border-radius:10px;background:var(--blue)}.source-buffer{display:none}.explanation,.task-card textarea:not(.editor),.submission-card textarea{width:100%;min-height:120px;padding:14px;resize:vertical}.feedback-box{min-height:3rem;margin-top:12px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;background:var(--soft);white-space:pre-wrap}.feedback-box.pass{background:var(--green)}.feedback-box.fail{background:var(--red)}
     .hint-stack details{margin-top:10px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}.hint-stack details[data-hint-level="answer"]{border-color:#a686a6;background:var(--purple)}.path-mode{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}.path-mode button{margin:0}.path-mode button.active{outline:3px solid color-mix(in srgb,var(--accent) 28%,transparent)}.path-mode-status{margin:9px 0 0;color:var(--muted)}.session-controls{position:sticky;z-index:10;bottom:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:20px;padding:10px 12px;border:1px solid #344456;border-radius:999px;background:var(--course-code);box-shadow:0 16px 34px rgba(0,0,0,.22)}.session-controls .progress-label{color:#fff;text-align:center;font-weight:800}.session-controls .next{justify-self:end}.session-controls .previous{justify-self:start}.submission-card{background:var(--green)}.submission-card input[type="number"]{width:140px;padding:10px 12px}.save-state{color:var(--muted);font-size:.9rem}
     @media(max-width:760px){.logic-grid,.detail-grid,.decision-flow{grid-template-columns:1fr}.session-controls{grid-template-columns:1fr 1fr;border-radius:18px}.session-controls .progress-label{grid-column:1/-1;grid-row:1}.session-controls button{width:100%}.step-strip{grid-template-columns:repeat(23,106px)}}
   </style>
@@ -66,7 +66,7 @@
 
   <section class="session-step step-panel" data-step="3" hidden>
     <div class="step-kicker">问题一 · 第 3/7 步 · Python 细节</div><h2>把示范轨迹对应到异常、循环和函数参数</h2>
-    <div class="detail-grid"><article class="layer-card"><h3>自定义异常类</h3><p><code>TemporaryError</code> 与 <code>PermanentError</code> 给失败建立可检查类别。</p></article><article class="layer-card"><h3><code>for</code> 循环</h3><p><code>range(1, max_attempts + 1)</code> 产生有限的尝试编号。</p></article><article class="layer-card"><h3>单独一行 <code>raise</code></h3><p>重新抛出当前原异常，调用者仍看到原类型和信息。</p></article><article class="layer-card"><h3><code>sleep_fn</code></h3><p>把等待函数作为参数传入，测试只记录数值，不真的暂停。</p></article></div>
+    <div class="detail-grid"><article class="layer-card"><h3>自定义异常类</h3><p><code>TemporaryError</code> 与 <code>PermanentError</code> 给失败建立可检查类别。</p></article><article class="layer-card"><h3><code>pass</code> 是真实语句</h3><p><code>pass</code> 表示“这里故意什么都不做”，只是满足类体的语法要求；它不是 TODO，也不能仅凭空白外观推断为待填写位置。</p></article><article class="layer-card"><h3><code>for</code> 循环</h3><p><code>range(1, max_attempts + 1)</code> 产生有限的尝试编号。</p></article><article class="layer-card"><h3>单独一行 <code>raise</code></h3><p>重新抛出当前原异常，调用者仍看到原类型和信息。</p></article><article class="layer-card"><h3><code>sleep_fn</code></h3><p>把等待函数作为参数传入，测试只记录数值，不真的暂停。</p></article></div>
     <pre class="code-sample"><code>for attempt in range(1, max_attempts + 1):  # 依次产生 1 到上限的尝试编号，调用次数因此有边界
     try:  # 把一次操作包住，让不同失败类型进入不同分支
         return operation()  # 先执行操作；成功就立即返回，不再进入下一轮
@@ -91,11 +91,11 @@
     <div class="step-kicker">问题一 · 第 5/7 步 · 任务 2/3 · 局部修正</div><h2>修正示范代码中的一个等待错误</h2>
     <p>下面的控制流已经完整提供；先根据示范轨迹决定固定等待值，再只修改等待调用这一处。忘记函数调用写法时，展开语法卡；不要改循环或异常分支。</p>
     <div class="hint-stack"><details data-hint-level="syntax"><summary>语法卡：把一个值交给等待函数</summary><p><code>sleep_fn(值)</code> 会调用传入的等待函数，并把括号内的值交给测试记录。这里不需要新增变量。</p></details><details data-hint-level="reasoning"><summary>结构提示：先判断固定规则</summary><p>示范中相邻两次调用之间的等待相同；最后一次失败后不等待。先写出这条规则，再修改数字。</p></details><details data-hint-level="answer"><summary>提交后再看：参考修改</summary><p>参考实现把等待值改成示范中的固定值 <code>1</code>。</p></details></div>
-    <textarea id="retry-core-code" class="editor" data-save spellcheck="false">class TemporaryError(Exception):  # 给暂时失败一个可以被 except 识别的类型
-    pass  # 这里不增加行为；类名本身就是失败分类标签
+    <div class="locked-code" aria-label="只读重试示范代码"><pre><code>class TemporaryError(Exception):  # 给暂时失败一个可以被 except 识别的类型
+    pass  # 保持不变：pass 是合法语句，类名本身就是失败分类标签
 
-class PermanentError(Exception):  # 给永久失败一个独立的可检查类型
-    pass  # 同样只建立分类，不改变 Exception 的基础行为
+class PermanentError(Exception):  # 给永久失败建立一个独立的可检查类型
+    pass  # 保持不变：这里只建立分类，不增加额外行为
 
 def run_with_retry(operation, max_attempts: int, sleep_fn):  # 接收操作、尝试上限和可替换的等待函数
     if max_attempts &lt; 1:  # 没有至少一次尝试就无法执行，先在副作用前拒绝
@@ -108,8 +108,29 @@ def run_with_retry(operation, max_attempts: int, sleep_fn):  # 接收操作、�
         except TemporaryError:  # 暂时失败先进入预算判断
             if attempt == max_attempts:  # 最后一轮失败时已经没有下一次调用
                 raise  # 保留最后一次暂时错误，不再等待
-            sleep_fn(0)  # 当前值只是占位；依据上方固定等待规则决定这一处的参数</textarea>
-</textarea>
+            sleep_fn(<mark>0</mark>)  # 这里的 0 是题目故意放入的错误值</code></pre></div>
+    <div class="locked-note"><strong><code>pass</code> 先解释一次：</strong>它是合法的 Python 语句，表示“这里故意什么都不做”，用于满足类体的语法要求。它不是 TODO；是否需要修改，必须看题目明确标记。</div>
+    <p class="editable-locus-intro"><strong>唯一可修改位置：</strong>下面方框中的等待参数。其他代码都是既有程序，保持不变。</p>
+    <div class="editable-locus" role="group" aria-label="唯一可修改的等待参数"><code>sleep_fn(</code><input id="retry-core-wait" type="number" min="0" step="1" value="0" data-save data-editable-locus="retry-core-wait" aria-label="固定等待值"><code>)</code></div>
+    <p class="locked-note">题目规定每次重试前固定等待 <code>1</code>。请只把方框中的 <code>0</code> 改成正确值；不要编辑上面的只读代码。</p>
+    <textarea id="retry-core-code" class="source-buffer" hidden aria-hidden="true" spellcheck="false">class TemporaryError(Exception):  # 给暂时失败一个可以被 except 识别的类型
+    pass  # 保持不变：pass 是合法语句，类名本身就是失败分类标签
+
+class PermanentError(Exception):  # 给永久失败建立一个独立的可检查类型
+    pass  # 保持不变：这里只建立分类，不增加额外行为
+
+def run_with_retry(operation, max_attempts: int, sleep_fn):  # 接收操作、尝试上限和可替换的等待函数
+    if max_attempts &lt; 1:  # 没有至少一次尝试就无法执行，先在副作用前拒绝
+        raise ValueError("max_attempts 必须至少为 1")  # 把调用者的参数错误明确报告出去
+    for attempt in range(1, max_attempts + 1):  # 逐次编号，保证最多调用 max_attempts 次
+        try:  # 每一轮只包住一次 operation 调用
+            return operation()  # 成功立即返回，后面的重试分支不会执行
+        except PermanentError:  # 永久失败不应继续消耗尝试预算
+            raise  # 原样重新抛出，让调用者知道真实失败类型
+        except TemporaryError:  # 暂时失败先进入预算判断
+            if attempt == max_attempts:  # 最后一轮失败时已经没有下一次调用
+                raise  # 保留最后一次暂时错误，不再等待
+            sleep_fn(__WAIT__)  # 唯一可修改参数由页面下方输入框提供</textarea>
     <div class="checker-actions"><button id="check-retry-core" type="button">检查局部修正</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><p id="checker-status" class="lesson-status">首次运行需要加载浏览器版 Python，可能需要几十秒。</p><pre id="retry-core-output">尚未运行。</pre>
   </section>
 
@@ -478,6 +499,10 @@ self.onmessage=async event=>{const {id,mode,code}=event.data;try{const p=await g
   chips.forEach((chip,index)=>chip.addEventListener("click",()=>{currentStep=index;renderStep();}));
   previousButton.addEventListener("click",()=>{const indices=pathIndices();const position=indices.indexOf(currentStep);if(position>0){currentStep=indices[position-1];renderStep();}});nextButton.addEventListener("click",()=>{const indices=pathIndices();const position=indices.indexOf(currentStep);if(position<indices.length-1){currentStep=indices[position+1];renderStep();}});
   document.querySelectorAll("[data-save]").forEach(field=>{const saved=localStorage.getItem(STORAGE_PREFIX+field.id);if(saved!==null)field.value=saved;field.addEventListener("input",()=>{localStorage.setItem(STORAGE_PREFIX+field.id,field.value);saveState.textContent=`已自动保存 ${new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}`;});});
+  const retryCoreSource=document.getElementById("retry-core-code"),retryCoreWait=document.getElementById("retry-core-wait"),retryCoreTemplate=retryCoreSource?.value||"";
+  function syncRetryCoreSource(){if(retryCoreSource&&retryCoreWait)retryCoreSource.value=retryCoreTemplate.replace("__WAIT__",retryCoreWait.value);}
+  retryCoreWait?.addEventListener("input",syncRetryCoreSource);
+  syncRetryCoreSource();
   document.querySelectorAll(".hint-stack details[data-hint-level]").forEach(detail=>detail.addEventListener("toggle",()=>{if(detail.open){const key=STORAGE_PREFIX+"hint-"+detail.dataset.hintLevel;localStorage.setItem(key,String(Number(localStorage.getItem(key)||0)+1));}}));
   function feedback(el,passed,text){el.textContent=text;el.classList.toggle("pass",passed);el.classList.toggle("fail",!passed);}
   [["p1","p1-prediction"],["p2","p2-prediction"],["p3","p3-prediction"]].forEach(([prefix,id])=>{document.getElementById(`check-${prefix}-prediction`).addEventListener("click",()=>{const passed=document.getElementById(id).value==="correct";const out=document.getElementById(`${prefix}-prediction-feedback`);feedback(out,passed,passed?"预测正确。":"再沿控制流逐句判断。");localStorage.setItem(STORAGE_PREFIX+`${prefix}-prediction-evidence`,out.textContent);});});
@@ -489,7 +514,7 @@ self.onmessage=async event=>{const {id,mode,code}=event.data;try{const p=await g
   function startTimer(ms,message){clearTimer();timer=setTimeout(()=>{const target=active?.output;dispose();active=null;setStopDisabled(true);if(target)feedback(target,false,message);document.getElementById("checker-status").textContent="运行已停止；代码仍已保存。";},ms);}
   function ensureWorker(){if(worker)return worker;workerUrl=URL.createObjectURL(new Blob([buildWorkerSource()],{type:"text/javascript"}));worker=new Worker(workerUrl,{type:"module"});worker.onmessage=event=>{const m=event.data;if(!active||m.id!==active.id)return;if(m.type==="runtime-loading")document.getElementById("checker-status").textContent="首次加载浏览器版 Python，请稍候……";else if(m.type==="runtime-ready"){document.getElementById("checker-status").textContent="Python 已就绪，正在检查……";startTimer(5000,"代码执行超过 5 秒，已停止。请检查死循环。");}else if(m.type==="result"){clearTimer();const lines=m.report.checks.map(item=>`${item.passed?"✓":"✗"} ${item.message}`);if(m.report.error)lines.push(`错误：${m.report.error}`);if(m.report.stdout)lines.push(`输出：\n${m.report.stdout}`);const text=lines.join("\n")||"没有检查结果。";feedback(active.output,m.report.passed,text);localStorage.setItem(STORAGE_PREFIX+`${m.mode}-evidence`,text);document.getElementById("checker-status").textContent=m.report.passed?"检查通过。":"尚未通过；根据证据修改。";active=null;setStopDisabled(true);}else if(m.type==="worker-error"){clearTimer();feedback(active.output,false,`检查器无法运行。代码已保存。\n详情：${m.error}`);active=null;setStopDisabled(true);dispose();}};worker.onerror=event=>{clearTimer();if(active)feedback(active.output,false,`检查器发生错误。\n详情：${event.message||"未知错误"}`);active=null;setStopDisabled(true);dispose();};return worker;}
   function run(mode,fieldId,outputId){if(active)return;const output=document.getElementById(outputId);try{const w=ensureWorker();active={id:nextId++,mode,output};setStopDisabled(false);output.textContent="";output.classList.remove("pass","fail");startTimer(90000,"首次加载超过 90 秒，已停止。");w.postMessage({id:active.id,mode,code:document.getElementById(fieldId).value});}catch(error){feedback(output,false,`无法启动检查器。\n详情：${error?.message||String(error)}`);active=null;setStopDisabled(true);}}
-  [["check-retry-core","retry-core","retry-core-code","retry-core-output"],["check-retry-transfer","retry-transfer","retry-transfer-code","retry-transfer-output"],["check-identity-core","identity-core","identity-core-code","identity-core-output"],["check-identity-transfer","identity-transfer","identity-transfer-code","identity-transfer-output"],["check-rows-core","rows-core","rows-core-code","rows-core-output"],["check-batch-transfer","batch-transfer","batch-transfer-code","batch-transfer-output"]].forEach(([button,mode,field,output])=>document.getElementById(button).addEventListener("click",()=>run(mode,field,output)));
+  [["check-retry-core","retry-core","retry-core-code","retry-core-output"],["check-retry-transfer","retry-transfer","retry-transfer-code","retry-transfer-output"],["check-identity-core","identity-core","identity-core-code","identity-core-output"],["check-identity-transfer","identity-transfer","identity-transfer-code","identity-transfer-output"],["check-rows-core","rows-core","rows-core-code","rows-core-output"],["check-batch-transfer","batch-transfer","batch-transfer-code","batch-transfer-output"]].forEach(([button,mode,field,output])=>document.getElementById(button).addEventListener("click",()=>{if(mode==="retry-core")syncRetryCoreSource();run(mode,field,output);}));
   stopButtons.forEach(button=>button.addEventListener("click",()=>{clearTimer();if(active)feedback(active.output,false,"已由你停止运行；代码仍已保存。");active=null;setStopDisabled(true);dispose();}));
   async function copyText(text){try{await navigator.clipboard.writeText(text);}catch{const helper=document.createElement("textarea");helper.value=text;helper.style.position="fixed";helper.style.opacity="0";document.body.appendChild(helper);helper.select();document.execCommand("copy");helper.remove();}}
   function value(id){return document.getElementById(id).value.trim();}

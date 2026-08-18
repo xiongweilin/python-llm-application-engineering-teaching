@@ -8,7 +8,7 @@ This is the only active course. The Windows Start-menu entry is **Python & LLM A
 2. Open formal learning session 2 "Retry, deduplication, and batching".
 3. Choose the session path: the suggested path presents about 12 high-value actions first; the full-explanation path keeps all 23 steps available for review. Both paths use the same evidence.
 4. Complete the three distinct problems in order; each problem retains the seven-step contract — orientation, underlying logic, Python details, prediction, guided local completion, one bounded change, and summary — while the suggested path reduces navigation friction.
-5. Each problem starts with a worked example and an execution trace. The code tasks provide a near-complete scaffold and identify the small part to change; syntax cards are available on demand, while semantic answers stay in collapsible hints. This session does not require designing a solution from a blank page.
+5. Each problem starts with a worked example and an execution trace. The code tasks provide a near-complete scaffold and identify one explicit editable locus; existing code is shown read-only, syntax cards are available on demand, and semantic answers stay in collapsible hints. This session does not require designing a solution from a blank page.
 6. Once all nine guided tasks across the three problems are done, copy the full evidence on the summary page, including which help level you used and what remains uncertain, and interact with the teacher only once.
 
 The learning evidence already formed by problems 1–2 is retained. Prototypes A/B/C have left the active entry; the formal session uses A's single-step skeleton and adds detailed abstract logic and concrete programming explanations.
