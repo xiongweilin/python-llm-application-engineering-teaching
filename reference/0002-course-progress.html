@@ -16,7 +16,7 @@
   <nav class="course-nav" aria-label="课程导航"><a class="primary" href="../index.html">课程首页</a><a href="../lessons/0012-failure-retry-stop.html">当前正式会话 2</a><a href="../lessons/0010-state-and-permitted-actions.html">已完成会话 1</a><a href="../lessons/0011-integrated-review-established-capabilities.html">综合复习</a><a href="../FINAL-CAPABILITY-CONTRACT.md">最终能力契约</a><a href="0001-first-terms.html">总术语表</a><a href="../SESSION-PAGE-CONTRACT.md">页面规范</a></nav>
   <header><div class="tag">四个阶段 · 十七个学习环 · 当前位于阶段 A</div><h1>完整课程路线</h1><p class="lead">这张路线同时说明最终去向、当前坐标、每一环的底层逻辑、编程落点和通过关口。页面数量不是进度，能够解释、实现、诊断和迁移才是。</p></header>
 
-  <section class="current"><strong>当前：阶段 A · 环 1 · 正式会话 2“重试、防重复与批处理”</strong><p>正式会话 1 已通过并形成 LR 0011；当前学习三个问题：失败分类、尝试预算和等待决定重试或停止；操作身份与原子预留防重复；行级与批次级规则及错误边界。已有 11 条学习记录继续有效。</p></section>
+  <section class="current"><strong>当前：阶段 A · 环 1 · 正式会话 2“重试、防重复与批处理”</strong><p>正式会话 1 已通过并形成 LR 0011；当前学习三个问题：失败分类、尝试预算和等待决定重试或停止；操作身份与原子预留防重复；行级与批次级规则及错误边界。每题先看示范和执行轨迹，再在近完整脚手架上局部补全，最后只做一个有界变化；已有 11 条学习记录继续有效。</p></section>
 
   <section class="goal"><h2>整条路线的唯一最终目标</h2><p>独立设计、实现、评估和维护一个可靠、受控、可恢复的 LLM 工作流或 RAG Agent；在有限表示、有限维、可计算模型中正式表达、计算、实现和验证不确定性下的决策、序贯策略、人机分工与多主体机制，并把它们接入真实状态、权限、容量、评估、恢复和回滚边界。</p><p>完整毕业定义只由 <a href="../FINAL-CAPABILITY-CONTRACT.md">FINAL-CAPABILITY-CONTRACT.md</a> 持有；本页只负责环级路线与关口。</p></section>
 
@@ -30,7 +30,7 @@
   <section class="phase">
     <header><h2>阶段 A · Python 与真实系统代码所有权</h2><p>先取得编写、测试和诊断两套真实项目的能力，再把同一结构带入数学与模型机制。规划约 25–35 个正式会话。</p></header>
     <article class="ring done"><div class="position">环 0<br>已验证</div><div><h3>系统判断基线</h3><p>底层逻辑：规则范围、状态、并发、恢复、重试、操作身份和职责边界。</p></div><div><h3>编程落点</h3><p>函数、错误列表、方法链、可变副作用、控制流和模块判断。</p></div><div class="gate"><strong>证据：</strong>LR 0001–0010；<a href="../lessons/0011-integrated-review-established-capabilities.html">综合复习 R1</a>。</div></article>
-    <article class="ring now"><div class="position">环 1<br>当前</div><div><h3>可执行 Python 与可靠节点</h3><p>底层逻辑：把状态、错误、失败和身份判断变成明确接口与控制流。</p><ol class="session-list"><li>会话 1“状态与允许行动”（已完成）</li><li><strong>会话 2“重试、防重复与批处理”（当前）</strong></li><li>会话 3“模块、诊断与授权边界”（未开始）：开头先做无答案间隔回忆，再学习模块责任与调用链、traceback 与测试诊断、模型候选与已授权行动三个问题</li></ol></div><div><h3>编程落点</h3><p>对象、引用、集合、函数、分支、循环、异常、类型标注、模块、调用链、测试和 traceback。</p></div><div class="gate"><strong>关口 A1：</strong>独立完成代码变式、失败诊断和模块定位；这三个会话只构成环 1，不是整个 Python 阶段。</div></article>
+    <article class="ring now"><div class="position">环 1<br>当前</div><div><h3>可执行 Python 与可靠节点</h3><p>底层逻辑：把状态、错误、失败和身份判断变成明确接口与控制流。</p><ol class="session-list"><li>会话 1“状态与允许行动”（已完成）</li><li><strong>会话 2“重试、防重复与批处理”（当前）</strong>：示范、执行轨迹、局部补全和有界变化</li><li>会话 3“模块、诊断与授权边界”（未开始）：开头先做无答案间隔回忆，再学习模块责任与调用链、traceback 与测试诊断、模型候选与已授权行动三个问题</li></ol></div><div><h3>编程落点</h3><p>对象、引用、集合、函数、分支、循环、异常、类型标注、模块、调用链、测试和 traceback。</p></div><div class="gate"><strong>关口 A1：</strong>在示范和局部脚手架下完成代码变式、失败诊断和模块定位；更大范围的独立跨模块功能在关口 A2。</div></article>
     <article class="ring later"><div class="position">环 2</div><div><h3>Python 工程基础</h3><p>底层逻辑：接口、依赖、资源生命周期与同步/异步执行。</p></div><div><h3>编程落点</h3><p>包与导入、dataclass/Pydantic、迭代器、上下文管理器、文件/JSON/CSV、pytest fixture/mock、类型检查、日志、异步与任务取消。</p></div><div class="gate"><strong>关口 A2：</strong>独立完成一个中等跨模块功能及测试，能沿 traceback 定位失败。</div></article>
     <article class="ring later"><div class="position">环 3</div><div><h3>Commerce Orchestrator 纵向切片</h3><p>底层逻辑：反馈经聚类与 AI 候选、审批、目录/PIM、渠道发布、效果记账到对账闭环的现实写入。</p></div><div><h3>编程落点</h3><p>backend/（FastAPI、Pydantic、SQLAlchemy/Alembic、PostgreSQL、DBOS v2 工作流、Odoo 19/Shopify adapter）、services/（feedback 聚类与 AI 候选、catalog 目录运营）、console/（Next.js/TypeScript 运营控制台）、infra/（Prometheus/Grafana）；幂等、审批状态机、效果记账与对账。</p></div><div class="gate"><strong>关口 A3：</strong>完成真实小需求，诊断并发或外部写入故障，核对现实结果。</div></article>
     <article class="ring later"><div class="position">环 4</div><div><h3>DeepSeek Harness 纵向切片</h3><p>底层逻辑：插件式 Agent 从模型接入、工具执行、权限/审批、目标/计划、会话持久化到恢复的生命周期。</p></div><div><h3>编程落点</h3><p>TypeScript/Cordis 插件与组合包、dsh CLI（web/headless/profile）、会话与持久化（JSONL/SQLite）、工具执行（bash/pwsh/fs/搜索/技能）、权限与审批、沙箱、goal/plan-mode、Web UI 与客户端插件、MCP、Python SDK。</p></div><div class="gate"><strong>关口 A4：</strong>迁移 Commerce Orchestrator 结构并解释状态、权限、恢复和候选晋级边界。</div></article>
@@ -80,7 +80,7 @@
     <tr data-capability="CAPSTONE"><td>最终综合项目</td><td>最终关口</td><td>围绕同一个现实问题连接决策、策略、序贯、机制、因果、工程六组证据；离线模型必须绑定真实对象、数据、损失、容量与权限，实际接入部分必须具备持久状态、故障注入、人工复核、停止、恢复和回滚。</td></tr>
   </tbody></table>
 
-  <div class="evidence"><strong>统一晋级规则：</strong>接触和同例通过不能推进关口。每一环至少需要变式实现或计算、失败诊断和一次跨情境迁移；十一项能力必须完成上表对应的强制证据，最终综合项目要求用户主导，而不是由 Codex 代做后验解释。</div>
+  <div class="evidence"><strong>统一晋级规则：</strong>接触和同例通过不能推进关口。每一环至少需要变式实现或计算、失败诊断和一次与当前阶段相称的条件变化；阶段 A 早期可以在示范和脚手架下完成有界变化，需要独立跨情境迁移的关口必须明确标注。十一项能力必须完成上表对应的强制证据，最终综合项目要求用户主导，而不是由 Codex 代做后验解释。</div>
 </main>
 </body>
 </html>

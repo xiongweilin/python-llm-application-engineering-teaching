@@ -25,230 +25,284 @@
   <header class="session-header">
     <div class="tag">阶段 A · 环 1 · 正式学习会话 2/3</div>
     <h1>重试、防重复与批处理</h1>
-    <p class="lead">会话 1 的一个问题用了 7 步并实际用时约 10 分钟。本会话保留同等单题深度，同时安排三个不同问题，因此使用 23 步、9 个任务，完成后只互动一次。</p>
-    <div class="session-meta"><span>目标体量 30–45 分钟</span><span>3 个不同问题</span><span>每题 7 步</span><span>9 个任务</span><span>统一互动 1 次</span><span id="save-state" class="save-state">答案自动保存在本机浏览器</span></div>
+    <p class="lead">本会话保留 23 步、9 个任务，但每题先看具体示范和执行轨迹，再在近完整脚手架上修正一个局部，最后只改变一个小条件。可见代码逐行旁注，说明每行的对象、控制流和放置原因。当前目标是可靠地读懂、运行和修改代码，不要求从空白页设计完整方案。</p>
+    <div class="session-meta"><span>目标体量 30–45 分钟</span><span>3 个不同问题</span><span>每题 7 步</span><span>9 个引导式任务</span><span>示范 → 逐行旁注 → 局部修正 → 小变化</span><span id="save-state" class="save-state">答案自动保存在本机浏览器</span></div>
+    <p class="save-state">这是本会话的示范优先版本；旧版本草稿仍保留在浏览器中，但不会自动混入本次练习。</p>
   </header>
 
-  <section class="orientation"><h2>本次会话结构</h2><p><strong>问题一：</strong>失败、重试与停止——控制一次失败操作是否再次执行。</p><p><strong>问题二：</strong>操作身份与防重复——控制同一次业务意图是否被创建两次。</p><p><strong>问题三：</strong>批处理与错误边界——控制规则需要看一行还是整批，以及怎样累计错误。</p><p><strong>每个问题都完整经过：</strong>定向 → 底层逻辑 → Python 细节 → 预测 → 编写 → 迁移 → 小结。</p></section>
+    <section class="orientation"><h2>本次会话结构</h2><p><strong>问题一：</strong>失败、重试与停止——控制一次失败操作是否再次执行。</p><p><strong>问题二：</strong>操作身份与防重复——控制同一次业务意图是否被创建两次。</p><p><strong>问题三：</strong>批处理与错误边界——控制规则需要看一行还是整批，以及怎样累计错误。</p><p><strong>每个问题都完整经过：</strong>定向 → 教师示范与底层逻辑 → Python 细节 → 预测 → 局部修正 → 一个有界变化 → 小结。</p><p><strong>学习方式：</strong>先看已经运行过的例子，再沿着每行旁注阅读对象、控制流和副作用，最后只修改明确标记的一处；旁注会先告诉你“这一行读取或产生什么”，再说明它为什么放在这里。如果卡住，先回看输入、输出和执行轨迹，不需要凭空猜完整设计。</p></section>
   <div class="step-strip" aria-label="会话步骤">
     <button class="step-chip active" type="button" data-step-target="0">地图</button>
-    <button class="step-chip" type="button" data-step-target="1">1 定向</button><button class="step-chip" type="button" data-step-target="2">1 逻辑</button><button class="step-chip" type="button" data-step-target="3">1 Python</button><button class="step-chip" type="button" data-step-target="4">1 预测</button><button class="step-chip" type="button" data-step-target="5">1 编写</button><button class="step-chip" type="button" data-step-target="6">1 迁移</button><button class="step-chip" type="button" data-step-target="7">1 小结</button>
-    <button class="step-chip" type="button" data-step-target="8">2 定向</button><button class="step-chip" type="button" data-step-target="9">2 逻辑</button><button class="step-chip" type="button" data-step-target="10">2 Python</button><button class="step-chip" type="button" data-step-target="11">2 预测</button><button class="step-chip" type="button" data-step-target="12">2 编写</button><button class="step-chip" type="button" data-step-target="13">2 迁移</button><button class="step-chip" type="button" data-step-target="14">2 小结</button>
-    <button class="step-chip" type="button" data-step-target="15">3 定向</button><button class="step-chip" type="button" data-step-target="16">3 逻辑</button><button class="step-chip" type="button" data-step-target="17">3 Python</button><button class="step-chip" type="button" data-step-target="18">3 预测</button><button class="step-chip" type="button" data-step-target="19">3 编写</button><button class="step-chip" type="button" data-step-target="20">3 迁移</button><button class="step-chip" type="button" data-step-target="21">3 小结</button>
+    <button class="step-chip" type="button" data-step-target="1">1 定向</button><button class="step-chip" type="button" data-step-target="2">1 示范</button><button class="step-chip" type="button" data-step-target="3">1 Python</button><button class="step-chip" type="button" data-step-target="4">1 预测</button><button class="step-chip" type="button" data-step-target="5">1 局部修正</button><button class="step-chip" type="button" data-step-target="6">1 小变化</button><button class="step-chip" type="button" data-step-target="7">1 小结</button>
+    <button class="step-chip" type="button" data-step-target="8">2 定向</button><button class="step-chip" type="button" data-step-target="9">2 示范</button><button class="step-chip" type="button" data-step-target="10">2 Python</button><button class="step-chip" type="button" data-step-target="11">2 预测</button><button class="step-chip" type="button" data-step-target="12">2 局部修正</button><button class="step-chip" type="button" data-step-target="13">2 小变化</button><button class="step-chip" type="button" data-step-target="14">2 小结</button>
+    <button class="step-chip" type="button" data-step-target="15">3 定向</button><button class="step-chip" type="button" data-step-target="16">3 示范</button><button class="step-chip" type="button" data-step-target="17">3 Python</button><button class="step-chip" type="button" data-step-target="18">3 预测</button><button class="step-chip" type="button" data-step-target="19">3 局部修正</button><button class="step-chip" type="button" data-step-target="20">3 小变化</button><button class="step-chip" type="button" data-step-target="21">3 小结</button>
     <button class="step-chip" type="button" data-step-target="22">提交</button>
   </div>
 
   <section class="session-step step-panel" data-step="0">
     <div class="step-kicker">会话地图</div><h2>三个问题分别改变程序的不同责任</h2>
-    <div class="current-action"><strong>现在只做：</strong>确认三个问题互不替代，每个问题都将走完七步闭环。</div>
+    <div class="current-action"><strong>现在只做：</strong>确认三个问题互不替代，也确认每题都会先示范，再局部修正，最后只做一个小变化。</div>
     <div class="logic-grid">
       <article class="layer-card"><div class="layer-tag">问题一 · 时间与失败</div><h3>一次调用失败后怎么办</h3><p>核心对象是异常类型、尝试预算、等待时间和停止条件。</p></article>
       <article class="layer-card"><div class="layer-tag">问题二 · 身份与并发</div><h3>两个请求是不是同一次操作</h3><p>核心对象是 <code>operation_id</code>、原子预留、重复异常和已有结果。</p></article>
       <article class="layer-card"><div class="layer-tag">问题三 · 资料范围</div><h3>规则要看一行还是整批</h3><p>核心对象是循环、行号、错误列表、总量和规则执行顺序。</p></article>
-      <article class="layer-card"><div class="layer-tag">统一提交</div><h3>九个任务一次交给老师</h3><p>网页即时反馈不打断会话；全部完成后再复制完整证据。</p></article>
+      <article class="layer-card"><div class="layer-tag">统一提交</div><h3>九个引导式任务一次交给老师</h3><p>网页即时反馈不打断会话；全部完成后再复制示范、修正、运行证据和小结。</p></article>
     </div>
   </section>
 
   <section class="session-step step-panel" data-step="1" hidden>
     <div class="step-kicker">问题一 · 第 1/7 步 · 定向</div><h2>今天要控制的是“失败后的下一次执行”</h2>
-    <div class="current-action"><strong>现在只做：</strong>区分三种结果和本题边界。</div>
+    <div class="current-action"><strong>现在只做：</strong>先认出成功、永久错误、暂时错误和预算耗尽，不写代码。</div>
     <div class="logic-grid"><article class="layer-card"><h3>成功</h3><p>结果已经得到，立即返回。</p></article><article class="layer-card"><h3>永久错误</h3><p>条件不变时重试没有意义，立即停止。</p></article><article class="layer-card"><h3>暂时错误</h3><p>环境可能恢复，但只有剩余预算时才能重试。</p></article><article class="layer-card"><h3>预算耗尽</h3><p>保留原异常向外抛出，不再等待。</p></article></div>
-    <div class="boundary"><strong>本题不处理：</strong>两个请求是不是同一次业务操作，也不检查批量数据是否合法。</div>
+    <div class="boundary"><strong>本题不处理：</strong>两个请求是不是同一次业务操作，也不检查批量数据是否合法。先学会一次调用失败后如何停止或再试。</div>
   </section>
 
   <section class="session-step step-panel" data-step="2" hidden>
-    <div class="step-kicker">问题一 · 第 2/7 步 · 底层逻辑</div><h2>重试是“失败分类 + 有限预算 + 时间间隔”</h2>
+    <div class="step-kicker">问题一 · 第 2/7 步 · 教师示范与底层逻辑</div><h2>先看一个已经运行过的固定等待例子</h2>
     <div class="decision-flow"><div><strong>执行</strong>调用操作</div><div><strong>分类</strong>暂时或永久</div><div><strong>预算</strong>还能否再试</div><div><strong>行动</strong>返回、停止或等待</div></div>
-    <p>稳定条件是：操作调用次数最多为 <code>max_attempts</code>；等待只发生在相邻两次调用之间；最后一次失败后不等待。</p>
+    <table class="trace-table"><thead><tr><th>尝试</th><th>操作结果</th><th>下一步</th></tr></thead><tbody><tr><td>1</td><td><code>TemporaryError</code></td><td>等待 1，再试</td></tr><tr><td>2</td><td><code>TemporaryError</code></td><td>等待 1，再试</td></tr><tr><td>3</td><td><code>TemporaryError</code></td><td>预算耗尽，原异常向外抛出</td></tr></tbody></table>
+    <p>稳定条件是：操作调用次数最多为 <code>max_attempts</code>；等待只发生在相邻两次调用之间；最后一次失败后不等待。先沿着表格读执行顺序，再进入 Python 细节。</p>
   </section>
 
   <section class="session-step step-panel" data-step="3" hidden>
-    <div class="step-kicker">问题一 · 第 3/7 步 · Python 细节</div><h2>异常、循环、重新抛出与函数参数</h2>
+    <div class="step-kicker">问题一 · 第 3/7 步 · Python 细节</div><h2>把示范轨迹对应到异常、循环和函数参数</h2>
     <div class="detail-grid"><article class="layer-card"><h3>自定义异常类</h3><p><code>TemporaryError</code> 与 <code>PermanentError</code> 给失败建立可检查类别。</p></article><article class="layer-card"><h3><code>for</code> 循环</h3><p><code>range(1, max_attempts + 1)</code> 产生有限的尝试编号。</p></article><article class="layer-card"><h3>单独一行 <code>raise</code></h3><p>重新抛出当前原异常，调用者仍看到原类型和信息。</p></article><article class="layer-card"><h3><code>sleep_fn</code></h3><p>把等待函数作为参数传入，测试只记录数值，不真的暂停。</p></article></div>
+    <pre class="code-sample"><code>for attempt in range(1, max_attempts + 1):  # 依次产生 1 到上限的尝试编号，调用次数因此有边界
+    try:  # 把一次操作包住，让不同失败类型进入不同分支
+        return operation()  # 先执行操作；成功就立即返回，不再进入下一轮
+    except PermanentError:  # 永久错误表示条件不变时重试没有意义
+        raise  # 保留原异常并立刻停止，把失败交给调用者
+    except TemporaryError:  # 暂时错误可能恢复，先判断是否还剩尝试次数
+        if attempt == max_attempts:  # 当前已经是最后一次，不能再安排等待
+            raise  # 抛出最后一次原异常，结束整个函数
+        sleep_fn(1)  # 把固定等待交给传入函数，测试可以记录它而不用真的暂停</code></pre>
+    <p>示范代码每行都标出责任；后面的任务只修正一个局部，不要求你重新发明整个循环。</p>
   </section>
 
   <section class="session-step task-card" data-step="4" data-task="1" hidden>
-    <div class="step-kicker">问题一 · 第 4/7 步 · 任务 1/3 · 预测</div><h2>三次暂时错误会发生什么</h2>
+    <div class="step-kicker">问题一 · 第 4/7 步 · 任务 1/3 · 预测</div><h2>根据上方轨迹预测三次暂时错误的结果</h2>
+    <div class="current-action"><strong>现在只做：</strong>回看示范表格，选择已经展示过的执行结果。</div>
     <div class="question-row"><label for="p1-prediction">选择固定等待版本的真实执行证据</label><select id="p1-prediction" data-save><option value="">请选择</option><option value="correct">调用 3 次，等待 [1, 1]，最后抛出 TemporaryError</option><option value="wait3">调用 3 次，等待 [1, 1, 1]，最后抛出异常</option><option value="forever">不断重试直到成功</option></select></div>
-    <label class="answer-label" for="p1-prediction-reason">用自己的话解释为什么</label><textarea id="p1-prediction-reason" data-save></textarea>
+    <label class="answer-label" for="p1-prediction-reason">用句式完成解释：最后一次……；因此……</label><textarea id="p1-prediction-reason" data-save placeholder="最后一次暂时失败时……；因此不再……而是……"></textarea>
     <div class="actions"><button id="check-p1-prediction" type="button">检查预测</button></div><div id="p1-prediction-feedback" class="feedback-box">尚未检查。</div>
   </section>
 
   <section class="session-step task-card" data-step="5" data-task="2" hidden>
-    <div class="step-kicker">问题一 · 第 5/7 步 · 任务 2/3 · 编写</div><h2>实现固定等待的有限重试</h2>
-    <textarea id="retry-core-code" class="editor" data-save spellcheck="false">class TemporaryError(Exception):
-    pass
+    <div class="step-kicker">问题一 · 第 5/7 步 · 任务 2/3 · 局部修正</div><h2>修正示范代码中的一个等待错误</h2>
+    <p>下面的控制流已经完整提供；只把标记的等待值从 <code>0</code> 改成固定等待 <code>1</code>，然后运行检查。</p>
+    <textarea id="retry-core-code" class="editor" data-save spellcheck="false">class TemporaryError(Exception):  # 给暂时失败一个可以被 except 识别的类型
+    pass  # 这里不增加行为；类名本身就是失败分类标签
 
-class PermanentError(Exception):
-    pass
+class PermanentError(Exception):  # 给永久失败一个独立的可检查类型
+    pass  # 同样只建立分类，不改变 Exception 的基础行为
 
-def run_with_retry(operation, max_attempts: int, sleep_fn):
-    # 无效上限先拒绝
-    # 暂时错误且仍有预算时 sleep_fn(1)
-    pass
+def run_with_retry(operation, max_attempts: int, sleep_fn):  # 接收操作、尝试上限和可替换的等待函数
+    if max_attempts &lt; 1:  # 没有至少一次尝试就无法执行，先在副作用前拒绝
+        raise ValueError("max_attempts 必须至少为 1")  # 把调用者的参数错误明确报告出去
+    for attempt in range(1, max_attempts + 1):  # 逐次编号，保证最多调用 max_attempts 次
+        try:  # 每一轮只包住一次 operation 调用
+            return operation()  # 成功立即返回，后面的重试分支不会执行
+        except PermanentError:  # 永久失败不应继续消耗尝试预算
+            raise  # 原样重新抛出，让调用者知道真实失败类型
+        except TemporaryError:  # 暂时失败先进入预算判断
+            if attempt == max_attempts:  # 最后一轮失败时已经没有下一次调用
+                raise  # 保留最后一次暂时错误，不再等待
+            sleep_fn(0)  # 只修改这一处：把 0 改成固定等待 1</textarea>
 </textarea>
-    <div class="checker-actions"><button id="check-retry-core" type="button">检查核心代码</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><p id="checker-status" class="lesson-status">首次运行需要加载浏览器版 Python，可能需要几十秒。</p><pre id="retry-core-output">尚未运行。</pre>
+    <div class="checker-actions"><button id="check-retry-core" type="button">检查局部修正</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><p id="checker-status" class="lesson-status">首次运行需要加载浏览器版 Python，可能需要几十秒。</p><pre id="retry-core-output">尚未运行。</pre>
   </section>
 
   <section class="session-step task-card" data-step="6" data-task="3" hidden>
-    <div class="step-kicker">问题一 · 第 6/7 步 · 任务 3/3 · 迁移</div><h2>条件变化：改为指数退避</h2>
-    <p>新要求：第一次重试前等待 1，第二次等待 2，第三次等待 4；停止边界不变。</p>
-    <textarea id="retry-transfer-code" class="editor" data-save spellcheck="false">class TemporaryError(Exception):
-    pass
+    <div class="step-kicker">问题一 · 第 6/7 步 · 任务 3/3 · 有界变化</div><h2>只改变等待规则：改为指数退避</h2>
+    <p>控制流已经保持不变。新要求只有一处：第一次重试前等待 1，第二次等待 2，第三次等待 4；停止边界不变。只修改标记的等待表达式。</p>
+    <textarea id="retry-transfer-code" class="editor" data-save spellcheck="false">class TemporaryError(Exception):  # 暂时失败的标签，供下面的 except 精确识别
+    pass  # 类体没有额外行为；先保留最小定义
 
-class PermanentError(Exception):
-    pass
+class PermanentError(Exception):  # 永久失败的标签，决定立即停止
+    pass  # 继承 Exception 即可被 Python 异常机制处理
 
-def run_with_retry(operation, max_attempts: int, sleep_fn):
-    if max_attempts &lt; 1:
-        raise ValueError("max_attempts 必须至少为 1")
-    for attempt in range(1, max_attempts + 1):
-        try:
-            return operation()
-        except PermanentError:
-            raise
-        except TemporaryError:
-            if attempt == max_attempts:
-                raise
-            # 修改这一行
-            sleep_fn(1)
+def run_with_retry(operation, max_attempts: int, sleep_fn):  # 控制调用次数、失败分支和等待
+    if max_attempts &lt; 1:  # 先拒绝无效的尝试上限，避免任何操作发生
+        raise ValueError("max_attempts 必须至少为 1")  # 这里报告的是调用者参数错误
+    for attempt in range(1, max_attempts + 1):  # attempt 记录本轮是第几次尝试
+        try:  # 每一轮先尝试一次操作
+            return operation()  # 成功时直接返回结果
+        except PermanentError:  # 永久错误没有恢复价值
+            raise  # 保持原错误类型并停止
+        except TemporaryError:  # 暂时错误才允许进入等待分支
+            if attempt == max_attempts:  # 最后一轮没有下一次重试
+                raise  # 最后一次失败不等待，直接结束
+            # 只修改这一行：等待 1、2、4……
+            sleep_fn(1)  # 这里把固定等待改成 2 ** (attempt - 1)</textarea>
 </textarea>
-    <div class="checker-actions"><button id="check-retry-transfer" type="button">检查迁移代码</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="retry-transfer-output">尚未运行。</pre>
-    <label class="answer-label" for="retry-transfer-explanation">什么保持不变，什么发生变化？</label><textarea id="retry-transfer-explanation" data-save></textarea>
+    <div class="checker-actions"><button id="check-retry-transfer" type="button">检查有界变化</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="retry-transfer-output">尚未运行。</pre>
+    <label class="answer-label" for="retry-transfer-explanation">用句式说明：控制流保持……；只有等待规则变成……</label><textarea id="retry-transfer-explanation" data-save placeholder="保持不变的是尝试上限、永久错误分支和最后一次失败的停止；变化的是……"></textarea>
   </section>
 
   <section class="session-step step-panel" data-step="7" hidden>
-    <div class="step-kicker">问题一 · 第 7/7 步 · 小结</div><h2>形成问题一的完整模型</h2>
-    <label class="answer-label" for="p1-summary">说明输入、输出、稳定结构、变化细节和适用边界</label><textarea id="p1-summary" class="explanation" data-save placeholder="输入……；输出……；稳定结构……；变化细节……；本题不负责……"></textarea>
+    <div class="step-kicker">问题一 · 第 7/7 步 · 小结</div><h2>把示范和局部修正连成一个模型</h2>
+    <label class="answer-label" for="p1-summary">按句式完成，不要求提出新方案</label><textarea id="p1-summary" class="explanation" data-save placeholder="输入是……；成功时……；暂时失败且有预算时……；最后一次失败时……；本题只改变了等待规则……"></textarea>
   </section>
 
   <section class="session-step step-panel" data-step="8" hidden>
     <div class="step-kicker">问题二 · 第 1/7 步 · 定向</div><h2>今天要控制的是“同一次操作不能创建两次”</h2>
-    <div class="current-action"><strong>现在只做：</strong>区分内容相同和操作相同。</div>
+    <div class="current-action"><strong>现在只做：</strong>先区分“内容相同”和“操作相同”，不先讨论数据库实现。</div>
     <div class="logic-grid"><article class="layer-card"><h3>同一次操作可被提交两次</h3><p>用户重复点击或客户端重发，不应创建两个任务。</p></article><article class="layer-card"><h3>不同操作可有相同内容</h3><p>两个合法导入可能恰好包含同一份 CSV，不能只按内容去重。</p></article></div>
-    <div class="boundary"><strong>本题不处理：</strong>创建任务后的网络步骤重试，也不验证 CSV 行数据。</div>
+    <div class="boundary"><strong>本题不处理：</strong>创建任务后的网络步骤重试，也不验证 CSV 行数据。先在小型函数中看清“首次”和“重复”两条路径。</div>
   </section>
 
   <section class="session-step step-panel" data-step="9" hidden>
-    <div class="step-kicker">问题二 · 第 2/7 步 · 底层逻辑</div><h2>稳定身份 + 原子预留 + 重复分支</h2>
+    <div class="step-kicker">问题二 · 第 2/7 步 · 教师示范与底层逻辑</div><h2>先看同一个身份的两次调用</h2>
     <div class="decision-flow"><div><strong>接收身份</strong><code>operation_id</code></div><div><strong>原子预留</strong>先取得唯一位置</div><div><strong>首次</strong>创建任务</div><div><strong>重复</strong>不再创建</div></div>
-    <p>应用层“先查再创建”存在竞态：两个程序可能同时查到不存在。数据库唯一约束才是并发条件下的最终防线。</p>
+    <table class="trace-table"><thead><tr><th>调用</th><th>预留结果</th><th>创建函数</th><th>返回</th></tr></thead><tbody><tr><td>第一次 <code>op-1</code></td><td>成功</td><td>执行一次</td><td>新任务</td></tr><tr><td>第二次 <code>op-1</code></td><td><code>DuplicateOperation</code></td><td>不执行</td><td><code>"duplicate"</code></td></tr></tbody></table>
+    <p>先把“预留 → 创建”看成两个可观察步骤。数据库唯一约束和并发竞态是这条小函数在真实系统中的下一层解释，不要求你现在凭空设计数据库。</p>
   </section>
 
   <section class="session-step step-panel" data-step="10" hidden>
-    <div class="step-kicker">问题二 · 第 3/7 步 · Python 细节</div><h2>依赖函数、异常窄捕获和副作用顺序</h2>
+    <div class="step-kicker">问题二 · 第 3/7 步 · Python 细节</div><h2>把示范轨迹对应到函数参数和异常分支</h2>
     <div class="detail-grid"><article class="layer-card"><h3><code>reserve_fn</code></h3><p>模拟数据库原子插入唯一身份；成功才获得创建资格。</p></article><article class="layer-card"><h3><code>DuplicateOperation</code></h3><p>只表示身份已存在；其他数据库异常不能伪装成重复。</p></article><article class="layer-card"><h3>副作用顺序</h3><p>必须先预留，再调用 <code>create_fn</code>，否则重复判断来得太晚。</p></article><article class="layer-card"><h3>稳定参数</h3><p>预留、创建和查询已有任务都使用同一个 <code>operation_id</code>。</p></article></div>
+    <pre class="code-sample"><code>try:  # 先尝试占用这个操作身份
+    reserve_fn(operation_id)  # 原子预留成功才表示本次可以继续创建
+except DuplicateOperation:  # 只有“身份已存在”才进入重复分支
+    return "duplicate"  # 重复时立即返回，不调用创建函数
+return create_fn(operation_id)  # 首次预留成功后才产生一次创建副作用</code></pre>
+    <p>先读这段最小控制流：每行都说明副作用顺序；只捕获表示重复的异常，其他异常继续向外传递。</p>
   </section>
 
   <section class="session-step task-card" data-step="11" data-task="4" hidden>
-    <div class="step-kicker">问题二 · 第 4/7 步 · 任务 1/3 · 预测</div><h2>预留报告重复时会发生什么</h2>
+    <div class="step-kicker">问题二 · 第 4/7 步 · 任务 1/3 · 预测</div><h2>根据上方轨迹预测重复调用的结果</h2>
+    <div class="current-action"><strong>现在只做：</strong>回看第二行示范，判断重复分支是否还能创建任务。</div>
     <div class="question-row"><label for="p2-prediction">选择核心版本的真实结果</label><select id="p2-prediction" data-save><option value="">请选择</option><option value="correct">不执行 create_fn，返回 "duplicate"</option><option value="create">仍执行 create_fn，再返回 duplicate</option><option value="retry">无限重试 reserve_fn</option></select></div>
-    <label class="answer-label" for="p2-prediction-reason">用自己的话解释为什么</label><textarea id="p2-prediction-reason" data-save></textarea>
+    <label class="answer-label" for="p2-prediction-reason">用句式完成解释：因为预留已经……，所以……</label><textarea id="p2-prediction-reason" data-save placeholder="因为预留已经报告身份存在，所以不再……而是……"></textarea>
     <div class="actions"><button id="check-p2-prediction" type="button">检查预测</button></div><div id="p2-prediction-feedback" class="feedback-box">尚未检查。</div>
   </section>
 
   <section class="session-step task-card" data-step="12" data-task="5" hidden>
-    <div class="step-kicker">问题二 · 第 5/7 步 · 任务 2/3 · 编写</div><h2>实现预留成功后才创建</h2>
-    <textarea id="identity-core-code" class="editor" data-save spellcheck="false">class DuplicateOperation(Exception):
-    pass
+    <div class="step-kicker">问题二 · 第 5/7 步 · 任务 2/3 · 局部修正</div><h2>修正示范代码中的异常类型</h2>
+    <p>下面的顺序已经写好；只把过宽的异常捕获改成表示重复的 <code>DuplicateOperation</code>，然后运行检查。</p>
+    <textarea id="identity-core-code" class="editor" data-save spellcheck="false">class DuplicateOperation(Exception):  # 只为“身份已存在”建立一个可识别类型
+    pass  # 这里不执行任何动作，异常类只负责分类
 
-def import_once(operation_id: str, reserve_fn, create_fn):
-    # 空身份先拒绝
-    # 只把 DuplicateOperation 当作重复
-    pass
+def import_once(operation_id: str, reserve_fn, create_fn):  # 先预留身份，再决定是否创建
+    if not operation_id:  # 空身份无法判断两次请求是否相同
+        raise ValueError("operation_id 不能为空")  # 在副作用发生前报告输入错误
+    try:  # 把可能报告重复的预留调用单独包住
+        reserve_fn(operation_id)  # 预留成功表示当前调用取得创建资格
+    except Exception:  # 只修改这一处：不能把所有异常都当成重复
+        return "duplicate"  # 当前临时写法会吞掉真正的数据库故障
+    return create_fn(operation_id)  # 只有预留成功才执行一次创建</textarea>
 </textarea>
-    <div class="checker-actions"><button id="check-identity-core" type="button">检查核心代码</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="identity-core-output">尚未运行。</pre>
+    <div class="checker-actions"><button id="check-identity-core" type="button">检查局部修正</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="identity-core-output">尚未运行。</pre>
   </section>
 
   <section class="session-step task-card" data-step="13" data-task="6" hidden>
-    <div class="step-kicker">问题二 · 第 6/7 步 · 任务 3/3 · 迁移</div><h2>条件变化：重复时返回已有任务</h2>
-    <p>新要求：不再返回字符串 <code>"duplicate"</code>；重复时调用 <code>get_existing_fn(operation_id)</code> 返回已有任务。</p>
-    <textarea id="identity-transfer-code" class="editor" data-save spellcheck="false">class DuplicateOperation(Exception):
-    pass
+    <div class="step-kicker">问题二 · 第 6/7 步 · 任务 3/3 · 有界变化</div><h2>只改变重复分支：返回已有任务</h2>
+    <p>首次调用的顺序保持不变。新要求只有一处：重复时不再返回字符串 <code>"duplicate"</code>，改为调用 <code>get_existing_fn(operation_id)</code> 返回已有任务。</p>
+    <textarea id="identity-transfer-code" class="editor" data-save spellcheck="false">class DuplicateOperation(Exception):  # 用类型区分“重复”与其他数据库失败
+    pass  # 类体保持空白，因为分类本身已经足够
 
-def import_or_get(operation_id: str, reserve_fn, create_fn, get_existing_fn):
-    # 首次操作仍先预留再创建
-    # 重复时不创建，改为查询并返回已有任务
-    pass
+def import_or_get(operation_id: str, reserve_fn, create_fn, get_existing_fn):  # 首次创建，重复读取
+    if not operation_id:  # 没有稳定身份就不能安全判断重复
+        raise ValueError("operation_id 不能为空")  # 先拒绝无效输入，不产生副作用
+    try:  # 预留仍然是首次/重复分流点
+        reserve_fn(operation_id)  # 预留成功意味着可以创建新任务
+    except DuplicateOperation:  # 只有重复身份才改变返回路径
+        return "duplicate"  # 只修改这一处：改为 get_existing_fn(operation_id)
+    return create_fn(operation_id)  # 首次调用仍然只创建一次</textarea>
 </textarea>
-    <div class="checker-actions"><button id="check-identity-transfer" type="button">检查迁移代码</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="identity-transfer-output">尚未运行。</pre>
-    <label class="answer-label" for="identity-transfer-explanation">接口约定发生了什么变化？为什么唯一约束仍然不变？</label><textarea id="identity-transfer-explanation" data-save></textarea>
+    <div class="checker-actions"><button id="check-identity-transfer" type="button">检查有界变化</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="identity-transfer-output">尚未运行。</pre>
+    <label class="answer-label" for="identity-transfer-explanation">用句式说明：首次路径保持……；重复路径从……变成……</label><textarea id="identity-transfer-explanation" data-save placeholder="首次路径保持先预留再创建；重复路径从返回……变成调用……；唯一约束仍然负责……"></textarea>
   </section>
 
   <section class="session-step step-panel" data-step="14" hidden>
-    <div class="step-kicker">问题二 · 第 7/7 步 · 小结</div><h2>形成问题二的完整模型</h2>
-    <label class="answer-label" for="p2-summary">说明输入、输出、副作用顺序、并发边界和迁移变化</label><textarea id="p2-summary" class="explanation" data-save placeholder="输入……；输出……；先……再……；数据库负责……；迁移改变……"></textarea>
+    <div class="step-kicker">问题二 · 第 7/7 步 · 小结</div><h2>把两次调用的示范连成一个模型</h2>
+    <label class="answer-label" for="p2-summary">按句式完成，不要求设计新的数据库方案</label><textarea id="p2-summary" class="explanation" data-save placeholder="输入是稳定的 operation_id；首次调用先……再……；重复调用不再……；本题只改变了……"></textarea>
   </section>
 
   <section class="session-step step-panel" data-step="15" hidden>
     <div class="step-kicker">问题三 · 第 1/7 步 · 定向</div><h2>今天要控制的是“规则需要看多少资料”</h2>
-    <div class="current-action"><strong>现在只做：</strong>把行级规则和批次级规则分开。</div>
+    <div class="current-action"><strong>现在只做：</strong>先看一行资料和整批资料的区别，不写验证函数。</div>
     <div class="logic-grid"><article class="layer-card"><h3>行级规则</h3><p>价格、数量是否大于 0，只依赖当前一行。</p></article><article class="layer-card"><h3>批次级规则</h3><p>整批总数量是否超限，需要看见所有行。</p></article></div>
-    <div class="boundary"><strong>本题不处理：</strong>验证失败后的自动重试，也不判断重复提交。</div>
+    <div class="boundary"><strong>本题不处理：</strong>验证失败后的自动重试，也不判断重复提交。先学会让规则出现在它能看见所需资料的位置。</div>
   </section>
 
   <section class="session-step step-panel" data-step="16" hidden>
-    <div class="step-kicker">问题三 · 第 2/7 步 · 底层逻辑</div><h2>资料范围决定规则位置，错误契约决定控制流</h2>
-    <table class="trace-table"><thead><tr><th>规则</th><th>所需资料</th><th>位置</th></tr></thead><tbody><tr><td>价格大于 0</td><td>当前行</td><td>循环内</td></tr><tr><td>数量大于 0</td><td>当前行</td><td>循环内</td></tr><tr><td>总数量不超限</td><td>全部行之和</td><td>遍历整批后</td></tr></tbody></table>
-    <p>累计全部错误使用独立 <code>if</code> 并最终返回列表；首错即停会改成提前 <code>return</code> 或抛出异常。</p>
+    <div class="step-kicker">问题三 · 第 2/7 步 · 教师示范与底层逻辑</div><h2>先看一批具体资料怎样产生错误列表</h2>
+    <table class="trace-table"><thead><tr><th>规则</th><th>所需资料</th><th>位置</th><th>示范结果</th></tr></thead><tbody><tr><td>价格大于 0</td><td>当前行</td><td>循环内</td><td><code>第1行：价格必须大于0</code></td></tr><tr><td>数量大于 0</td><td>当前行</td><td>循环内</td><td><code>第1行：数量必须大于0</code></td></tr><tr><td>总数量不超限</td><td>全部行之和</td><td>遍历整批后</td><td><code>批次总数量不能超过100</code></td></tr></tbody></table>
+    <p>同一行的两个错误使用独立 <code>if</code>，所以两个都能留下；首错即停会改成提前 <code>return</code> 或抛出异常。先观察错误列表的顺序，再修正代码中的一个局部。</p>
   </section>
 
   <section class="session-step step-panel" data-step="17" hidden>
-    <div class="step-kicker">问题三 · 第 3/7 步 · Python 细节</div><h2>列表、字典、enumerate、append 与 sum</h2>
+    <div class="step-kicker">问题三 · 第 3/7 步 · Python 细节</div><h2>把示范错误列表对应到列表、字典和循环</h2>
     <div class="detail-grid"><article class="layer-card"><h3><code>rows: list[dict]</code></h3><p>列表保存多行；每行字典用 <code>"price"</code>、<code>"quantity"</code> 取字段。</p></article><article class="layer-card"><h3><code>enumerate(..., start=1)</code></h3><p>同时得到行号和行对象，错误文本能定位用户看到的第几行。</p></article><article class="layer-card"><h3><code>errors.append(...)</code></h3><p>修改同一个错误列表，让多个独立规则都能留下证据。</p></article><article class="layer-card"><h3>遍历后汇总</h3><p>只有看到整批后，才能把数量相加并判断总量上限。</p></article></div>
+    <pre class="code-sample"><code>for index, row in enumerate(rows, start=1):  # 逐行遍历，并从 1 开始生成用户看到的行号
+    if row["price"] &lt;= 0:  # 当前行价格不合法时进入第一个独立规则
+        errors.append(f"第{index}行：价格必须大于0")  # 把定位清楚的错误追加到同一个列表
+    if row["quantity"] &lt;= 0:  # 这是第二个独立规则，不应被上一个 if 跳过
+        errors.append(f"第{index}行：数量必须大于0")  # 因此同一行可以留下第二条错误</code></pre>
+    <p>这里已经展示了行号、字段读取和两个独立判断；任务只修正一个会漏掉错误的局部。</p>
   </section>
 
   <section class="session-step task-card" data-step="18" data-task="7" hidden>
-    <div class="step-kicker">问题三 · 第 4/7 步 · 任务 1/3 · 预测</div><h2>同一行两个错误应怎样返回</h2>
+    <div class="step-kicker">问题三 · 第 4/7 步 · 任务 1/3 · 预测</div><h2>根据示范预测同一行两个错误的返回顺序</h2>
+    <div class="current-action"><strong>现在只做：</strong>回看上方错误列表，判断第二个独立规则是否还会执行。</div>
     <div class="question-row"><label for="p3-prediction">价格和数量都为 0，累计全部错误时选择结果</label><select id="p3-prediction" data-save><option value="">请选择</option><option value="correct">先价格错误，再数量错误</option><option value="first">只返回价格错误</option><option value="batch">只返回批次错误</option></select></div>
-    <label class="answer-label" for="p3-prediction-reason">用自己的话解释两个独立 <code>if</code> 的作用</label><textarea id="p3-prediction-reason" data-save></textarea>
+    <label class="answer-label" for="p3-prediction-reason">用句式完成解释：两个独立 <code>if</code> 会……</label><textarea id="p3-prediction-reason" data-save placeholder="两个独立 if 会分别检查……，所以错误列表按……顺序保留……"></textarea>
     <div class="actions"><button id="check-p3-prediction" type="button">检查预测</button></div><div id="p3-prediction-feedback" class="feedback-box">尚未检查。</div>
   </section>
 
   <section class="session-step task-card" data-step="19" data-task="8" hidden>
-    <div class="step-kicker">问题三 · 第 5/7 步 · 任务 2/3 · 编写</div><h2>实现行级错误累计</h2>
-    <textarea id="rows-core-code" class="editor" data-save spellcheck="false">def validate_rows(rows: list[dict]) -> list[str]:
-    errors = []
-    # 价格和数量用两个独立 if
-    # 错误文本带从 1 开始的行号
-    return errors
+    <div class="step-kicker">问题三 · 第 5/7 步 · 任务 2/3 · 局部修正</div><h2>修正示范代码中会漏掉错误的分支</h2>
+    <p>下面的循环、行号和错误文本已经提供；只把第二个判断从 <code>elif</code> 改成独立的 <code>if</code>，让同一行的两个错误都能保留。</p>
+    <textarea id="rows-core-code" class="editor" data-save spellcheck="false">def validate_rows(rows: list[dict]) -> list[str]:  # 接收整批行，返回有顺序的错误文本列表
+    errors = []  # 用一个可变列表累计所有发现，而不是遇到第一条就返回
+    for index, row in enumerate(rows, start=1):  # 同时取得从 1 开始的行号和当前行
+        if row["price"] &lt;= 0:  # 第一个规则只读取当前行的 price
+            errors.append(f"第{index}行：价格必须大于0")  # 记录价格错误并继续检查
+        elif row["quantity"] &lt;= 0:  # 只修改这一处：两个规则必须独立，改成 if
+            errors.append(f"第{index}行：数量必须大于0")  # 数量规则也应在同一行继续运行
+    return errors  # 遍历完成后一次性返回按执行顺序累计的错误</textarea>
 </textarea>
-    <div class="checker-actions"><button id="check-rows-core" type="button">检查核心代码</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="rows-core-output">尚未运行。</pre>
+    <div class="checker-actions"><button id="check-rows-core" type="button">检查局部修正</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="rows-core-output">尚未运行。</pre>
   </section>
 
   <section class="session-step task-card" data-step="20" data-task="9" hidden>
-    <div class="step-kicker">问题三 · 第 6/7 步 · 任务 3/3 · 迁移</div><h2>条件变化：增加空批次和整批总量规则</h2>
-    <textarea id="batch-transfer-code" class="editor" data-save spellcheck="false">def validate_rows(rows: list[dict]) -> list[str]:
-    errors = []
-    for index, row in enumerate(rows, start=1):
-        if row["price"] &lt;= 0:
-            errors.append(f"第{index}行：价格必须大于0")
-        if row["quantity"] &lt;= 0:
-            errors.append(f"第{index}行：数量必须大于0")
-    return errors
+    <div class="step-kicker">问题三 · 第 6/7 步 · 任务 3/3 · 有界变化</div><h2>只增加一个批次级条件</h2>
+    <p>行级验证函数保持不变。新要求只有两项局部变化：空批次返回固定错误；总数量达到上限时仍然允许，超过上限才追加批次错误。</p>
+    <textarea id="batch-transfer-code" class="editor" data-save spellcheck="false">def validate_rows(rows: list[dict]) -> list[str]:  # 复用已经学过的行级检查，不在这里重写规则
+    errors = []  # 每一批都从新的错误列表开始
+    for index, row in enumerate(rows, start=1):  # 行级规则只能看到当前 row
+        if row["price"] &lt;= 0:  # 价格错误只依赖当前行
+            errors.append(f"第{index}行：价格必须大于0")  # 先记录行级错误
+        if row["quantity"] &lt;= 0:  # 数量错误是另一个独立规则
+            errors.append(f"第{index}行：数量必须大于0")  # 继续保留同一行的其他错误
+    return errors  # 先完成全部行级检查，再把列表交给批次级函数
 
-def validate_batch(rows: list[dict], max_total_quantity: int) -> list[str]:
-    # 空批次返回“批次不能为空”
-    # 保留 validate_rows 的全部错误
-    # 再追加批次总量错误
-    pass
+def validate_batch(rows: list[dict], max_total_quantity: int) -> list[str]:  # 在行级结果上增加整批规则
+    if not rows:  # 空列表没有任何可处理的行
+        return ["批次不能为空"]  # 直接返回批次级输入错误
+    errors = validate_rows(rows)  # 先保留所有行级错误，顺序不能丢
+    total_quantity = sum(row["quantity"] for row in rows)  # 只有看完全部行才能求总量
+    if total_quantity &gt;= max_total_quantity:  # 只修改这一处：达到上限仍然允许，改成 >
+        errors.append(f"批次总数量不能超过{max_total_quantity}")  # 把批次错误追加在行级错误之后
+    return errors  # 返回合并后的完整错误列表</textarea>
 </textarea>
-    <div class="checker-actions"><button id="check-batch-transfer" type="button">检查迁移代码</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="batch-transfer-output">尚未运行。</pre>
-    <label class="answer-label" for="batch-transfer-explanation">什么规则仍在行级，什么规则必须上移到批次级？</label><textarea id="batch-transfer-explanation" data-save></textarea>
+    <div class="checker-actions"><button id="check-batch-transfer" type="button">检查有界变化</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="batch-transfer-output">尚未运行。</pre>
+    <label class="answer-label" for="batch-transfer-explanation">用句式说明：行级规则……；批次级规则……</label><textarea id="batch-transfer-explanation" data-save placeholder="行级规则仍然在循环内检查……；批次级规则要等看完全部行后检查……"></textarea>
   </section>
 
   <section class="session-step step-panel" data-step="21" hidden>
-    <div class="step-kicker">问题三 · 第 7/7 步 · 小结</div><h2>形成问题三的完整模型</h2>
-    <label class="answer-label" for="p3-summary">说明资料范围、错误顺序、控制流和迁移变化</label><textarea id="p3-summary" class="explanation" data-save placeholder="行级规则……；批次级规则……；累计错误……；迁移后……"></textarea>
+    <div class="step-kicker">问题三 · 第 7/7 步 · 小结</div><h2>把示范和局部修正连成一个模型</h2>
+    <label class="answer-label" for="p3-summary">按句式完成，不要求再提出新的验证规则</label><textarea id="p3-summary" class="explanation" data-save placeholder="行级规则只看……；批次级规则需要……；两个独立 if 让……；本题新增的批次条件是……"></textarea>
   </section>
 
   <section class="session-step submission-card" data-step="22" hidden>
-    <div class="step-kicker">会话统一提交</div><h2>一次提交三个完整问题</h2>
-    <div class="current-action"><strong>现在只做：</strong>说明三个问题为什么必须分开，再记录实际用时并复制。</div>
-    <label class="answer-label" for="session-boundaries">分别说明三个问题的输入、输出和不能替代的责任</label><textarea id="session-boundaries" data-save></textarea>
+    <div class="step-kicker">会话统一提交</div><h2>一次提交三个引导式问题</h2>
+    <div class="current-action"><strong>现在只做：</strong>说明三个问题分别看过什么示范、修正了哪一处，再记录实际用时并复制。</div>
+    <label class="answer-label" for="session-boundaries">按句式说明三个问题各自的示范、局部修正和有界变化</label><textarea id="session-boundaries" data-save placeholder="问题一示范……；我修正……；小变化是……。问题二……。问题三……。"></textarea>
     <label class="answer-label" for="uncertainty">仍不确定、容易混淆或想追问的地方</label><textarea id="uncertainty" data-save placeholder="可以写“暂时没有”。"></textarea>
     <label class="answer-label" for="actual-minutes">本次实际投入分钟数</label><input id="actual-minutes" type="number" min="1" max="240" data-save placeholder="例如 36">
-    <div class="actions"><button id="copy-submission" type="button">复制本次完整提交</button></div><div id="copy-status" class="feedback-box">复制内容包括九个任务证据、三个问题小结和实际用时。</div>
+    <div class="actions"><button id="copy-submission" type="button">复制本次完整提交</button></div><div id="copy-status" class="feedback-box">复制内容包括九个引导式任务证据、三个问题小结和实际用时。</div>
     <p><strong>学习日内连续推进：</strong>达到标准后老师直接给出下一会话；首页、路线、术语表和看板等引用页面等你说“今天的课程就学到这里”后再统一更新。</p>
   </section>
 
@@ -258,16 +312,16 @@ def validate_batch(rows: list[dict], max_total_quantity: int) -> list[str]:
     <div><dt>暂时错误 <code>temporary error</code></dt><dd>原因可能随时间消失，允许有限重试。</dd></div><div><dt>永久错误 <code>permanent error</code></dt><dd>条件不变时再次尝试通常不会恢复。</dd></div><div><dt>指数退避 <code>exponential backoff</code></dt><dd>让等待按 1、2、4 等逐次增长。</dd></div>
     <div><dt>操作身份 <code>operation identity</code></dt><dd>标识一次业务意图的稳定值。</dd></div><div><dt>原子预留 <code>atomic reservation</code></dt><dd>不可被并发打断地取得唯一创建资格。</dd></div><div><dt>唯一约束 <code>unique constraint</code></dt><dd>由数据库原子拒绝重复值。</dd></div>
     <div><dt>行级规则 <code>row-level rule</code></dt><dd>只依赖当前一行资料。</dd></div><div><dt>批次级规则 <code>batch-level rule</code></dt><dd>依赖多行比较或整批汇总。</dd></div><div><dt>累计错误 <code>error accumulation</code></dt><dd>继续执行独立规则并保存多个错误。</dd></div>
-    <div><dt>迁移 <code>transfer</code></dt><dd>条件改变后保留稳定结构，只修改真正变化的责任。</dd></div><div><dt>控制流 <code>control flow</code></dt><dd>程序实际执行、跳转、返回和抛出的顺序。</dd></div><div><dt>接口约定 <code>interface contract</code></dt><dd>调用者可依赖的输入、输出、异常和副作用规则。</dd></div>
+    <div><dt>有界变化 <code>bounded change</code></dt><dd>只改变一个明确条件，先观察结果，再说明稳定结构；开放式迁移留到后续阶段。</dd></div><div><dt>控制流 <code>control flow</code></dt><dd>程序实际执行、跳转、返回和抛出的顺序。</dd></div><div><dt>接口约定 <code>interface contract</code></dt><dd>调用者可依赖的输入、输出、异常和副作用规则。</dd></div>
   </dl><p class="term-link"><a href="../reference/0001-first-terms.html">打开跨会话总术语表</a>。</p></section>
   <footer><p>语言行为参考：<a href="https://docs.python.org/zh-cn/3/tutorial/errors.html">Python 错误和异常</a>、<a href="https://docs.python.org/zh-cn/3/tutorial/controlflow.html">控制流工具</a>、<a href="https://docs.python.org/zh-cn/3/library/functions.html#enumerate">enumerate</a>。</p></footer>
 </main>
 
 <script>
 (() => {
-  const STORAGE_PREFIX = "course-session-0012-v4-";
+  const STORAGE_PREFIX = "course-session-0012-v5-guided-";
   const PYODIDE_BASE = "https://cdn.jsdelivr.net/pyodide/v314.0.2/full/";
-  const stepNames = ["会话地图","问题一·定向","问题一·逻辑","问题一·Python","问题一·预测","问题一·编写","问题一·迁移","问题一·小结","问题二·定向","问题二·逻辑","问题二·Python","问题二·预测","问题二·编写","问题二·迁移","问题二·小结","问题三·定向","问题三·逻辑","问题三·Python","问题三·预测","问题三·编写","问题三·迁移","问题三·小结","统一提交"];
+  const stepNames = ["会话地图","问题一·定向","问题一·示范","问题一·Python","问题一·预测","问题一·局部修正","问题一·有界变化","问题一·小结","问题二·定向","问题二·示范","问题二·Python","问题二·预测","问题二·局部修正","问题二·有界变化","问题二·小结","问题三·定向","问题三·示范","问题三·Python","问题三·预测","问题三·局部修正","问题三·有界变化","问题三·小结","统一提交"];
   const steps=[...document.querySelectorAll(".session-step")],chips=[...document.querySelectorAll(".step-chip")],stepStrip=document.querySelector(".step-strip");
   const previousButton=document.getElementById("previous-step"),nextButton=document.getElementById("next-step"),progressLabel=document.getElementById("progress-label"),saveState=document.getElementById("save-state");
   let currentStep=Math.min(steps.length-1,Math.max(0,Number(localStorage.getItem(STORAGE_PREFIX+"step")||0)));
@@ -404,7 +458,7 @@ let runtimePromise=null;
 async function getRuntime(id){if(runtimePromise===null){self.postMessage({type:"runtime-loading",id});runtimePromise=loadPyodide({indexURL:PYODIDE_BASE});}const p=await runtimePromise;self.postMessage({type:"runtime-ready",id});return p;}
 self.onmessage=async event=>{const {id,mode,code}=event.data;try{const p=await getRuntime(id);p.globals.set("USER_CODE",code);p.globals.set("CHECK_MODE",mode);const result=await p.runPythonAsync(CHECKER_PY);self.postMessage({type:"result",id,mode,report:JSON.parse(result)});}catch(error){self.postMessage({type:"worker-error",id,error:error?.message||String(error)});}};`;}
 
-  function renderStep(){steps.forEach((s,i)=>{s.hidden=i!==currentStep;});chips.forEach((c,i)=>{c.classList.toggle("active",i===currentStep);c.classList.toggle("done",i<currentStep);if(i===currentStep)c.setAttribute("aria-current","step");else c.removeAttribute("aria-current");});previousButton.disabled=currentStep===0;nextButton.disabled=currentStep===steps.length-1;nextButton.textContent=currentStep===steps.length-2?"进入统一提交":"下一步";progressLabel.textContent=`第 ${currentStep+1}/${steps.length} 步 · ${stepNames[currentStep]}`;localStorage.setItem(STORAGE_PREFIX+"step",String(currentStep));const activeChip=chips[currentStep];if(activeChip&&stepStrip){const left=activeChip.offsetLeft-(stepStrip.clientWidth-activeChip.clientWidth)/2;stepStrip.scrollTo({left:Math.max(0,left),behavior:"smooth"});}window.scrollTo({top:0,behavior:"smooth"});}
+  function renderStep(){steps.forEach((s,i)=>{s.hidden=i!==currentStep;});chips.forEach((c,i)=>{c.classList.toggle("active",i===currentStep);c.classList.toggle("done",i<currentStep);if(i===currentStep)c.setAttribute("aria-current","step");else c.removeAttribute("aria-current");});previousButton.disabled=currentStep===0;nextButton.disabled=currentStep===steps.length-1;nextButton.textContent=currentStep===steps.length-2?"进入统一提交":"下一步";progressLabel.textContent=`第 ${currentStep+1}/${steps.length} 步 · ${stepNames[currentStep]}`;localStorage.setItem(STORAGE_PREFIX+"step",String(currentStep));const activeChip=chips[currentStep];if(activeChip&&stepStrip){const left=activeChip.offsetLeft-(stepStrip.clientWidth-activeChip.clientWidth)/2;stepStrip.scrollTo({left:Math.max(0,left),behavior:"smooth"});}const activeStep=steps[currentStep];if(activeStep){const top=currentStep===0?0:Math.max(0,activeStep.getBoundingClientRect().top+window.scrollY-24);window.scrollTo({top,behavior:"smooth"});}}
   chips.forEach((chip,index)=>chip.addEventListener("click",()=>{currentStep=index;renderStep();}));
   previousButton.addEventListener("click",()=>{if(currentStep>0){currentStep--;renderStep();}});nextButton.addEventListener("click",()=>{if(currentStep<steps.length-1){currentStep++;renderStep();}});
   document.querySelectorAll("[data-save]").forEach(field=>{const saved=localStorage.getItem(STORAGE_PREFIX+field.id);if(saved!==null)field.value=saved;field.addEventListener("input",()=>{localStorage.setItem(STORAGE_PREFIX+field.id,field.value);saveState.textContent=`已自动保存 ${new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}`;});});
@@ -422,75 +476,75 @@ self.onmessage=async event=>{const {id,mode,code}=event.data;try{const p=await g
   stopButtons.forEach(button=>button.addEventListener("click",()=>{clearTimer();if(active)feedback(active.output,false,"已由你停止运行；代码仍已保存。");active=null;setStopDisabled(true);dispose();}));
   async function copyText(text){try{await navigator.clipboard.writeText(text);}catch{const helper=document.createElement("textarea");helper.value=text;helper.style.position="fixed";helper.style.opacity="0";document.body.appendChild(helper);helper.select();document.execCommand("copy");helper.remove();}}
   function value(id){return document.getElementById(id).value.trim();}
-  document.getElementById("copy-submission").addEventListener("click",async()=>{const submission=`请检查正式学习会话“重试、防重复与批处理”。
+  document.getElementById("copy-submission").addEventListener("click",async()=>{const submission=`请检查正式学习会话“重试、防重复与批处理”（示范优先、局部补全版本）。
 
-问题一·失败、重试与停止
+问题一·失败、重试与停止（先看执行轨迹，再修正局部代码）
 预测：${value("p1-prediction")||"（未选择）"}
 预测解释：${value("p1-prediction-reason")||"（未填写）"}
 
-核心代码：
+局部修正代码：
 \`\`\`python
 ${value("retry-core-code")}
 \`\`\`
-核心检查：
+局部修正检查：
 ${localStorage.getItem(STORAGE_PREFIX+"retry-core-evidence")||"（未检查）"}
 
-迁移代码：
+有界变化代码：
 \`\`\`python
 ${value("retry-transfer-code")}
 \`\`\`
-迁移检查：
+有界变化检查：
 ${localStorage.getItem(STORAGE_PREFIX+"retry-transfer-evidence")||"（未检查）"}
-迁移解释：${value("retry-transfer-explanation")||"（未填写）"}
+有界变化解释：${value("retry-transfer-explanation")||"（未填写）"}
 问题一小结：${value("p1-summary")||"（未填写）"}
 
-问题二·操作身份与防重复
+问题二·操作身份与防重复（先看两次调用，再修正异常分支）
 预测：${value("p2-prediction")||"（未选择）"}
 预测解释：${value("p2-prediction-reason")||"（未填写）"}
 
-核心代码：
+局部修正代码：
 \`\`\`python
 ${value("identity-core-code")}
 \`\`\`
-核心检查：
+局部修正检查：
 ${localStorage.getItem(STORAGE_PREFIX+"identity-core-evidence")||"（未检查）"}
 
-迁移代码：
+有界变化代码：
 \`\`\`python
 ${value("identity-transfer-code")}
 \`\`\`
-迁移检查：
+有界变化检查：
 ${localStorage.getItem(STORAGE_PREFIX+"identity-transfer-evidence")||"（未检查）"}
-迁移解释：${value("identity-transfer-explanation")||"（未填写）"}
+有界变化解释：${value("identity-transfer-explanation")||"（未填写）"}
 问题二小结：${value("p2-summary")||"（未填写）"}
 
-问题三·批处理与错误边界
+问题三·批处理与错误边界（先看错误列表，再修正分支和边界）
 预测：${value("p3-prediction")||"（未选择）"}
 预测解释：${value("p3-prediction-reason")||"（未填写）"}
 
-核心代码：
+局部修正代码：
 \`\`\`python
 ${value("rows-core-code")}
 \`\`\`
-核心检查：
+局部修正检查：
 ${localStorage.getItem(STORAGE_PREFIX+"rows-core-evidence")||"（未检查）"}
 
-迁移代码：
+有界变化代码：
 \`\`\`python
 ${value("batch-transfer-code")}
 \`\`\`
-迁移检查：
+有界变化检查：
 ${localStorage.getItem(STORAGE_PREFIX+"batch-transfer-evidence")||"（未检查）"}
-迁移解释：${value("batch-transfer-explanation")||"（未填写）"}
+有界变化解释：${value("batch-transfer-explanation")||"（未填写）"}
 问题三小结：${value("p3-summary")||"（未填写）"}
 
-三个问题的边界：
+三个问题的示范、局部修正和有界变化：
 ${value("session-boundaries")||"（未填写）"}
 
 仍不确定之处：
 ${value("uncertainty")||"（暂时没有）"}
 
-本次实际投入：${value("actual-minutes")||"（未填写）"} 分钟`;await copyText(submission);feedback(document.getElementById("copy-status"),true,"23 步、九个任务的完整会话已经复制。");});
+本次实际投入：${value("actual-minutes")||"（未填写）"} 分钟`;await copyText(submission);feedback(document.getElementById("copy-status"),true,"23 步、九个引导式任务的完整会话已经复制。");});
   document.querySelectorAll(".editor").forEach(editor=>editor.addEventListener("keydown",event=>{if(event.key==="Tab"){event.preventDefault();const start=editor.selectionStart;editor.setRangeText("    ",start,editor.selectionEnd,"end");editor.dispatchEvent(new Event("input"));}}));
   renderStep();
 })();
