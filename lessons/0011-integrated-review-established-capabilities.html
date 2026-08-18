@@ -16,10 +16,10 @@
     .distinction-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}.distinction{padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--card)}.distinction h3{margin:0 0 6px}.distinction p{margin:.35rem 0}
     .question-set{display:grid;gap:14px}.question-row{padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--blue)}.question-row label{display:block;font-weight:800;margin-bottom:7px}.question-row select{width:100%;padding:10px 12px}.question-row textarea{width:100%;min-height:110px;padding:12px;resize:vertical}
     .feedback-box{min-height:3rem;margin-top:12px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;background:var(--soft);white-space:pre-wrap}.feedback-box.pass{background:var(--green)}.feedback-box.fail{background:var(--red)}
-    .hint-stack details{margin-top:10px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}.code-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.code-grid article{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card)}.code-grid h3{margin-top:0}.code-grid pre{font-size:.86rem;overflow:auto}
+    .hint-stack details{margin-top:10px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}.translation-map{margin:20px 0;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}.translation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:13px}.translation-item{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}.translation-item strong{display:block;color:var(--accent);font-size:.86rem}.help-dock{margin:20px 0;padding:17px;border:2px solid var(--accent-2);border-radius:16px;background:var(--blue)}.help-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.help-buttons button{margin:0;padding:9px 12px}.help-buttons button.active{outline:3px solid color-mix(in srgb,var(--accent) 28%,transparent)}.help-status{min-height:2.8rem;margin:0;padding:11px 13px;border-radius:10px;background:var(--card);white-space:pre-wrap}.code-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.code-grid article{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card)}.code-grid h3{margin-top:0}.code-grid pre{font-size:.86rem;overflow:auto}
     .session-controls{position:sticky;z-index:10;bottom:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:20px;padding:10px 12px;border:1px solid #344456;border-radius:999px;background:var(--course-code);box-shadow:0 16px 34px rgba(0,0,0,.22)}.session-controls .progress-label{color:#fff;text-align:center;font-weight:800}.session-controls .next{justify-self:end}.session-controls .previous{justify-self:start}
     .submission-card{background:var(--green)}.submission-card textarea{width:100%;min-height:125px;padding:15px;resize:vertical}.save-state{color:var(--muted);font-size:.9rem}.review-boundary{padding:15px 17px;border:1px solid #a686a6;border-radius:14px;background:var(--purple)}
-    @media(max-width:780px){.ability-map,.distinction-grid,.code-grid{grid-template-columns:1fr}.session-controls{grid-template-columns:1fr 1fr;border-radius:18px}.session-controls .progress-label{grid-column:1/-1;grid-row:1}.session-controls button{width:100%}.step-strip{grid-template-columns:repeat(7,125px)}}
+    @media(max-width:780px){.ability-map,.distinction-grid,.code-grid,.translation-grid{grid-template-columns:1fr}.session-controls{grid-template-columns:1fr 1fr;border-radius:18px}.session-controls .progress-label{grid-column:1/-1;grid-row:1}.session-controls button{width:100%}.step-strip{grid-template-columns:repeat(7,125px)}}
   </style>
   <link rel="stylesheet" href="../assets/course.css">
   <script defer src="../assets/course-context.js"></script>
@@ -40,7 +40,10 @@
     <p><strong>回忆：</strong>先凭记忆恢复关键区别，不按原来的学习顺序提示。</p>
     <p><strong>连接：</strong>用一个商品导入故障，把规则、状态、并发、恢复、重试与幂等放进同一条流程。</p>
     <p><strong>迁移：</strong>再判断具体 Python 行为和 <code>main.py</code>、<code>service.py</code>、<code>validation.py</code> 的责任。</p>
+    <p><strong>阶段 A 翻译顺序：</strong>先说现实含义，再指出程序责任、代码位置和 Python 写法；复习时也把问题逻辑、程序结构和 Python 表达分开，不把术语复述当成掌握。</p>
   </section>
+  <section class="translation-map"><strong>阶段 A 翻译地图</strong><div class="translation-grid"><div class="translation-item"><strong>[普通中文]</strong>一个导入请求从输入走到外部写入，中间可能重复、并发或失败。</div><div class="translation-item"><strong>[程序概念]</strong>资料范围、控制流、状态和副作用分别决定规则放在哪里。</div><div class="translation-item"><strong>[代码变量]</strong><code>errors</code> 保存已经发现的错误，<code>operation_id</code> 保存一次业务操作的身份。</div><div class="translation-item"><strong>[Python 语法]</strong><code>strip().lower()</code> 是连续函数调用；<code>errors.append(...)</code> 修改列表对象。</div><div class="translation-item"><strong>[标准技术术语]</strong>幂等、唯一约束、锁、重试和恢复先按故障现象理解，再记名称。</div><div class="translation-item"><strong>[课程说法]</strong>本页不把“机制边界”当成隐藏指令，直接说明需要看什么资料和谁承担副作用。</div></div></section>
+  <section class="help-dock" aria-labelledby="help-dock-title"><strong id="help-dock-title">当前复习帮助（五类分开）</strong><div class="help-buttons"><button type="button" data-help-kind="task">我看不懂题目让我做什么</button><button type="button" data-help-kind="locus">我不知道要改哪段代码</button><button type="button" data-help-kind="syntax">我知道改哪里，但不知道 Python 怎么写</button><button type="button" data-help-kind="reasoning">我知道写法，但不知道为什么这样改</button><button type="button" data-help-kind="answer" class="secondary">查看参考答案</button></div><p id="help-status" class="help-status">先完成当前复习动作；帮助类型会单独记录，不会被混成“答错”。</p></section>
 
   <div class="step-strip" aria-label="会话步骤">
     <div class="step-chip active">1 定向</div><div class="step-chip">2 能力地图</div><div class="step-chip">3 系统连接</div><div class="step-chip">4 间隔回忆</div><div class="step-chip">5 故障诊断</div><div class="step-chip">6 代码迁移</div><div class="step-chip">7 汇总</div>
@@ -212,6 +215,21 @@
   const progressLabel = document.getElementById("progress-label");
   const saveState = document.getElementById("save-state");
   let currentStep = Math.min(steps.length - 1, Math.max(0, Number(localStorage.getItem(STORAGE_PREFIX + "step") || 0)));
+  const helpButtons = [...document.querySelectorAll("[data-help-kind]")];
+  const helpStatus = document.getElementById("help-status");
+  const helpMessages = {
+    task: "先把当前动作说成普通话：现在是在回忆机制、定位故障，还是判断代码责任？",
+    locus: "本页只要求定位资料范围、控制流和模块责任；没有明确标出的代码不要自行改写。",
+    syntax: "代码迁移题所需写法直接看三段示例：方法链、append 修改列表、函数返回值。",
+    reasoning: "先问规则需要看几行资料、是否有并发窗口、是否产生外部写入，再选择机制。",
+    answer: "参考答案：按资料范围、状态/锁、幂等/唯一约束、重试与恢复的顺序分别处理，不让一种机制包办所有边界。",
+  };
+  helpButtons.forEach(button => button.addEventListener("click", () => {
+    const kind = button.dataset.helpKind;
+    helpButtons.forEach(item => item.classList.toggle("active", item === button));
+    helpStatus.textContent = `[${kind}] ${helpMessages[kind]}`;
+    localStorage.setItem(`${STORAGE_PREFIX}help-${kind}`, String(Number(localStorage.getItem(`${STORAGE_PREFIX}help-${kind}`) || 0) + 1));
+  }));
 
   function renderStep() {
     steps.forEach((step, index) => { step.hidden = index !== currentStep; });
@@ -224,11 +242,15 @@
     nextButton.textContent = currentStep === steps.length - 2 ? "进入汇总" : "下一步";
     progressLabel.textContent = `第 ${currentStep + 1}/${steps.length} 步 · ${stepNames[currentStep]}`;
     localStorage.setItem(STORAGE_PREFIX + "step", String(currentStep));
-    window.scrollTo({top: 0, behavior: "smooth"});
+    const activeStep = steps[currentStep];
+    if (activeStep) {
+      const top = currentStep === 0 ? 0 : Math.max(0, activeStep.getBoundingClientRect().top + window.scrollY - 24);
+      window.scrollTo({top, behavior: "smooth"});
+    }
   }
 
-  previousButton.addEventListener("click", () => { if (currentStep > 0) { currentStep -= 1; renderStep(); } });
-  nextButton.addEventListener("click", () => { if (currentStep < steps.length - 1) { currentStep += 1; renderStep(); } });
+  previousButton.addEventListener("click", () => { if (currentStep > 0) { currentStep -= 1; helpButtons.forEach(button => button.classList.remove("active")); renderStep(); } });
+  nextButton.addEventListener("click", () => { if (currentStep < steps.length - 1) { currentStep += 1; helpButtons.forEach(button => button.classList.remove("active")); renderStep(); } });
 
   document.querySelectorAll("[data-save]").forEach(field => {
     const saved = localStorage.getItem(STORAGE_PREFIX + field.id);
