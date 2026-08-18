@@ -332,19 +332,25 @@ def main() -> int:
             '指数退避',
             '1 个主要工作单元',
             '3 类能力证据',
-            '模式获得',
-            '受控变化',
-            '迁移与组块化',
+            '完整理解与重建',
+            '受控修改',
+            '新情境迁移',
             '现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证',
-            'course-session-0012-v7-whole-work-unit-',
+            'course-session-0012-v8-whole-work-unit-',
             'retry-imitation-code',
             'retry-rebuild-code',
             'retry-variation-code',
+            'teacher-example',
+            'start-rebuild',
+            'reopen-example',
+            'def f(...):',
+            '案例 A：第一次暂时失败，第二次成功',
+            '案例 B：第一次就是永久失败',
+            '案例 C：一直暂时失败，max_attempts=3',
+            '把我的完整重建带入这里',
             'policy-next-delay',
             'policy-last-wait',
             'check-policy',
-            'policy-expression',
-            'data-editable-locus="policy-expression"',
             'scrollIntoView({behavior: "smooth", block: "start"})',
             'data-hint-level="syntax"',
             'data-hint-level="reasoning"',
@@ -455,6 +461,13 @@ def main() -> int:
         failures.append("formal session 2 must contain five focus stages including map and submission")
     if formal_session.count('class="stage-chip') != 5:
         failures.append("formal session 2 stage strip must contain five chips")
+    if not re.search(r'<textarea id="retry-imitation-code"[^>]*></textarea>', formal_session):
+        failures.append("complete imitation editor must be genuinely blank until the learner types")
+    if 'id="policy-expression"' in formal_session:
+        failures.append("controlled variation must not expose a second standalone expression input")
+    for marker in ('id="teacher-example"', 'id="start-rebuild"', 'id="reopen-example"', '案例 A：第一次暂时失败，第二次成功', '案例 B：第一次就是永久失败', '案例 C：一直暂时失败，max_attempts=3'):
+        if marker not in formal_session:
+            failures.append(f"formal session 2 missing whole-unit interaction marker: {marker}")
 
     review_session = (ROOT / "lessons" / "0011-integrated-review-established-capabilities.html").read_text(encoding="utf-8")
     if review_session.count('data-task="') != 3:

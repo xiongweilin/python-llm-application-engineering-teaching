@@ -24,26 +24,26 @@
     <h1>受控重试：一个完整工作单元</h1>
     <p class="lead">本次只学习一个 retry 模式。你会先看完整范例和运行轨迹，再完整输入、完整重建、改变一个等待规则，最后把同一结构迁移到新的网络获取情境。三个任务是三类能力证据，不是三个互不相关的问题。</p>
     <div class="session-meta"><span>目标体量 30–45 分钟</span><span>1 个主要工作单元</span><span>3 类能力证据</span><span>预测 → 运行 → 比较</span><span id="save-state" class="save-state">答案自动保存在本机浏览器</span></div>
-    <p class="save-state">这是面向“结构记忆仍在、语法调用暂时失效”学习者的再激活版本。完整模仿用于建立顺序和语法连接；完整重建、受控变化、迁移和结构抽取才逐渐形成能力证据。</p>
+    <p class="save-state">这是面向“结构记忆仍在、语法调用暂时失效”学习者的再激活版本。完整模仿用于建立顺序和语法连接；完整重建、受控修改、新情境迁移和说明稳定结构才逐渐形成能力证据。</p>
   </header>
 
   <section class="orientation">
     <h2>本次会话的完整工作单元</h2>
     <p><strong>现实任务：</strong>一个操作可能成功、暂时失败或永久失败。暂时失败可以再次执行，永久失败必须立即停止；如果还有下一次执行机会，程序才会等待。</p>
     <p><strong>程序骨架：</strong>执行 → 成功/失败 → 分类 → 判断是否还有下一次 → 计算候选等待时长 → 等待 → 再执行。</p>
-    <p><strong>本次循环：</strong>最小基础包 → 完整范例与 trace → 完整模仿 → 完整重建 → 受控变化 → 新情境迁移 → 稳定骨架与可变参数抽取。</p>
+    <p><strong>本次循环：</strong>最小基础包 → 完整范例与 trace → 完整模仿 → 完整重建 → 受控修改 → 新情境迁移 → 说明稳定骨架与可变规则。</p>
     <p><strong>阶段 A 翻译顺序：</strong>现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证。</p>
     <p><strong>阶段 A 注意事项：</strong>先说现实含义，再说程序责任、代码位置和 Python 写法；先预测，再运行；把“是否等待”和“等待多久”分开；不要把同例照抄或自动检查通过当作完整掌握。</p>
     <div class="evidence-grid">
-      <article class="evidence-card"><h3>模式获得</h3><p>识别完整结构，沿轨迹解释，并从逻辑骨架重建一个可运行函数。</p><p><code>R / T / P</code></p></article>
-      <article class="evidence-card"><h3>受控变化</h3><p>在自己的完整函数上只改变等待策略，预测稳定部分并运行验证。</p><p><code>M / D</code></p></article>
-      <article class="evidence-card"><h3>迁移与组块化</h3><p>把 retry 骨架迁移到新情境，同时说出稳定步骤和可变规则。</p><p><code>X</code></p></article>
+      <article class="evidence-card"><h3>完整理解与重建</h3><p>识别完整结构，沿真实轨迹解释，并从逻辑骨架重建一个可运行函数。</p></article>
+      <article class="evidence-card"><h3>受控修改</h3><p>在自己的完整函数上只改变等待策略，预测稳定部分并运行验证。</p></article>
+      <article class="evidence-card"><h3>新情境迁移</h3><p>把 retry 骨架迁移到新情境，同时说出稳定步骤和可变规则。</p></article>
     </div>
   </section>
 
   <section class="help-dock" aria-labelledby="help-dock-title"><strong id="help-dock-title">当前任务帮助（五类分开）</strong><div class="help-buttons"><button type="button" data-help-kind="task">我看不懂题目让我做什么</button><button type="button" data-help-kind="locus">我不知道要观察或修改哪段代码</button><button type="button" data-help-kind="syntax">我知道位置，但不知道 Python 怎么写</button><button type="button" data-help-kind="reasoning">我知道写法，但不知道为什么这样改</button><button type="button" data-help-kind="answer" class="secondary">查看参考答案</button></div><p id="help-status" class="help-status">先完成当前动作；需要帮助时选择一种。帮助使用会记录卡在哪一层，但不会自动记为能力通过。</p></section>
 
-  <div class="stage-strip" aria-label="工作单元阶段"><button class="stage-chip active" type="button" data-step-target="0">地图</button><button class="stage-chip" type="button" data-step-target="1">1 模式获得</button><button class="stage-chip" type="button" data-step-target="2">2 受控变化</button><button class="stage-chip" type="button" data-step-target="3">3 迁移与组块化</button><button class="stage-chip" type="button" data-step-target="4">统一提交</button></div>
+  <div class="stage-strip" aria-label="工作单元阶段"><button class="stage-chip active" type="button" data-step-target="0">地图</button><button class="stage-chip" type="button" data-step-target="1">1 完整理解</button><button class="stage-chip" type="button" data-step-target="2">2 受控修改</button><button class="stage-chip" type="button" data-step-target="3">3 新情境迁移</button><button class="stage-chip" type="button" data-step-target="4">统一提交</button></div>
 
   <section class="session-step step-panel" data-step="0">
     <div class="step-kicker">会话地图</div><h2>先认识完整结构，不急着写代码</h2>
@@ -60,10 +60,11 @@
   </section>
 
   <section class="session-step step-panel" data-step="1" data-task="1" hidden>
-    <div class="step-kicker">任务 1 · 模式获得 · R / T / P</div><h2>从完整范例到完整重建</h2>
+    <div class="step-kicker">任务 1 · 完整理解与重建</div><h2>从完整范例到完整重建</h2>
     <div class="current-action"><strong>现在只做：</strong>先看教师范例和轨迹，再把同一完整函数输入一次，最后撤掉参考代码，从逻辑骨架重建。完整模仿不是最终能力证据。</div>
-    <div class="caution"><strong>先建立最小基础包：</strong><code>class</code> 只创建异常标签；<code>pass</code> 是合法 Python 语句，表示类体故意不增加行为，不是 TODO；<code>for</code> 依次产生执行序号；<code>except</code> 按错误类型选择分支；<code>raise</code> 把当前错误继续交给调用者。</div>
-    <h3>完整教师范例（每一行都说明为什么在这里）</h3>
+    <div class="caution"><strong>先建立最小基础包：</strong>下面的速查表只解释这些写法在本函数中承担的角色，不要求现在深入 Python 理论。</div>
+    <table class="mapping-table"><thead><tr><th>Python 写法</th><th>这里先怎么理解</th></tr></thead><tbody><tr><td><code>def f(...):</code></td><td>定义一个函数；冒号后缩进的代码属于函数体。</td></tr><tr><td><code>operation</code></td><td>传进来的另一个函数；它是一个可调用对象。</td></tr><tr><td><code>operation()</code></td><td>现在执行这个函数。</td></tr><tr><td><code>sleep_fn</code></td><td>传进来的等待函数；把它作为参数是为了记录和测试等待行为。</td></tr><tr><td><code>return x</code></td><td>把结果交出去，并结束当前函数。</td></tr><tr><td><code>if a == b:</code></td><td>如果两者相等，执行下面缩进的代码；<code>==</code> 是比较，不是赋值。</td></tr><tr><td><code>for ... in ...:</code></td><td>重复执行下面缩进的代码；每轮会得到一个新的序号。</td></tr><tr><td><code>range(1, 4)</code></td><td>依次产生 1、2、3；右端 4 是停止边界，所以不产生 4。</td></tr><tr><td><code>max_attempts + 1</code></td><td>因为 <code>range</code> 不包含右端点，所以要加 1 才能让上限本身出现。</td></tr><tr><td><code>try:</code></td><td>先尝试执行下面缩进的代码。</td></tr><tr><td><code>except X:</code></td><td>如果出现 X 类型错误，执行这个分支。</td></tr><tr><td><code>raise</code></td><td>把刚才捕获的错误继续抛出去。</td></tr><tr><td><code>class X(Exception):</code></td><td>定义一种新的异常类型；继承 <code>Exception</code> 让它进入 Python 异常机制。</td></tr><tr><td>缩进</td><td>表示哪些语句属于函数、循环、<code>try</code> 或某个 <code>except</code> 分支。</td></tr></tbody></table>
+    <details id="teacher-example" open><summary>查看教师完整范例（每一行都说明为什么在这里）</summary>
     <pre class="annotated-code">class TemporaryError(Exception):  # 创建“暂时失败”这一种异常类型，供下面的 except 精确识别
     pass  # 类体不增加额外行为；pass 是真实语句，不是待填写的练习空位
 
@@ -81,33 +82,17 @@ def run_with_retry(operation, max_attempts: int, sleep_fn):  # 把操作、执�
         except TemporaryError:  # 暂时失败才允许进入重试判断
             if attempt == max_attempts:  # 最后一轮失败时不存在下一次执行
                 raise  # 直接结束，不调用 sleep_fn
-            sleep_fn(1)  # 当前示范使用固定等待策略：每次真正要重试前等待 1 个时间单位</pre>
-    <h3>先预测，再看运行轨迹</h3>
-    <table class="trace-table"><thead><tr><th>当前 attempt</th><th>现实含义</th><th>结果</th><th>下一步</th></tr></thead><tbody><tr><td>1</td><td>第一次执行</td><td>TemporaryError</td><td>还有下一次机会，调用 <code>sleep_fn(1)</code>，再进入 attempt=2</td></tr><tr><td>2</td><td>第一次重试</td><td>成功</td><td>立即返回，不进入 attempt=3</td></tr><tr><td>3（若达到上限）</td><td>第二次重试</td><td>TemporaryError</td><td>没有下一次机会，不等待，直接抛出</td></tr></tbody></table>
+            sleep_fn(1)  # 当前示范使用固定等待策略：每次真正要重试前等待 1 个时间单位</pre></details>
+    <h3>三条独立的真实运行轨迹</h3>
+    <div class="detail-grid"><article class="layer-card"><h3>案例 A：第一次暂时失败，第二次成功</h3><table class="trace-table"><thead><tr><th>当前执行</th><th>结果</th><th>下一步</th></tr></thead><tbody><tr><td>attempt=1</td><td>TemporaryError</td><td>等待 1，再进入 attempt=2</td></tr><tr><td>attempt=2</td><td>success</td><td>return，运行结束</td></tr></tbody></table></article><article class="layer-card"><h3>案例 B：第一次就是永久失败</h3><table class="trace-table"><thead><tr><th>当前执行</th><th>结果</th><th>下一步</th></tr></thead><tbody><tr><td>attempt=1</td><td>PermanentError</td><td>raise，运行结束；不等待</td></tr></tbody></table></article><article class="layer-card"><h3>案例 C：一直暂时失败，max_attempts=3</h3><table class="trace-table"><thead><tr><th>当前执行</th><th>结果</th><th>下一步</th></tr></thead><tbody><tr><td>attempt=1</td><td>TemporaryError</td><td>等待 1，再进入 attempt=2</td></tr><tr><td>attempt=2</td><td>TemporaryError</td><td>等待 1，再进入 attempt=3</td></tr><tr><td>attempt=3</td><td>TemporaryError</td><td>没有下一次执行；不等待，raise，运行结束</td></tr></tbody></table></article></div>
     <label class="answer-label" for="pattern-prediction">预测：如果 operation 第一次暂时失败、第二次成功，sleep_fn 实际调用几次？为什么？</label><select id="pattern-prediction" data-save><option value="">请选择</option><option value="one">1 次</option><option value="two">2 次</option><option value="zero">0 次</option></select><textarea id="pattern-prediction-reason" data-save placeholder="第一次失败后……；第二次成功时……；所以等待调用……次。"></textarea><button id="check-pattern-prediction" type="button">检查预测</button><div id="pattern-prediction-feedback" class="feedback-box">尚未检查。</div>
-    <h3>完整模仿：看着范例输入并运行</h3>
-    <p class="code-note">这一步只建立代码顺序、缩进、语法形状和局部连接。输入后请沿上面的三行轨迹解释一次；不要把照抄成功当作已经独立掌握。</p>
-    <textarea id="retry-imitation-code" class="editor" data-save data-editable-locus="retry-imitation-code" spellcheck="false">class TemporaryError(Exception):  # 暂时失败的标签，供 except 精确识别
-    pass  # 合法 Python 语句；类体没有额外行为
-
-class PermanentError(Exception):  # 永久失败的标签，决定立即停止
-    pass  # 保留最小定义
-
-def run_with_retry(operation, max_attempts: int, sleep_fn):  # 完整 retry 工作单元
-    if max_attempts &lt; 1:  # 拒绝无效执行上限
-        raise ValueError("max_attempts 必须至少为 1")  # 报告调用参数错误
-    for attempt in range(1, max_attempts + 1):  # 逐次产生执行序号
-        try:  # 先执行一次操作
-            return operation()  # 成功立即返回
-        except PermanentError:  # 永久失败立即停止
-            raise  # 保持原错误
-        except TemporaryError:  # 暂时失败才考虑重试
-            if attempt == max_attempts:  # 最后一轮没有下一次执行
-                raise  # 不等待，直接结束
-            sleep_fn(1)  # 固定等待 1 个时间单位</textarea>
-    <div class="checker-actions"><button id="check-retry-imitation" type="button">运行范例检查</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="retry-imitation-output" class="checker-output">尚未运行。</pre>
+    <h3>完整模仿：看着范例，亲手输入完整程序</h3>
+    <p class="code-note"><strong>你现在是在照着写，不是在考试。</strong>忘了缩进、冒号或某行的位置，直接看上面的范例；中文注释不要求输入。目标是亲手走完整个程序结构。</p>
+    <textarea id="retry-imitation-code" class="editor" data-save data-editable-locus="retry-imitation-code" spellcheck="false" placeholder="请从 class TemporaryError(Exception): 开始，手动输入到 sleep_fn(1) 结束。可以随时向上查看教师范例；中文注释不要求输入。"></textarea>
+    <div class="checker-actions"><button id="check-retry-imitation" type="button">检查我输入的完整程序</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="retry-imitation-output" class="checker-output">尚未运行。</pre>
     <h3>完整重建：撤掉参考，只保留逻辑骨架</h3>
-    <p>允许查询 Python 语法；不要求一次写对。若失败，先回退到“代码块标题”或“关键行”级帮助，再继续重建。</p>
+    <p>点击开始后，教师范例会自动折叠。这里要求你重新写<strong>整个函数</strong>，不是填写七个答案；下面七条只是提醒代码块按什么顺序存在。允许查询 Python 语法；不要求一次写对，卡住时可以重新查看范例。</p>
+    <div class="checker-actions"><button id="start-rebuild" type="button">开始完整重建（折叠教师范例）</button><button id="reopen-example" class="secondary" type="button">重新查看教师范例</button></div>
     <pre class="annotated-code">1. 定义 TemporaryError 和 PermanentError；两个类体保留 pass。
 2. 定义 run_with_retry(operation, max_attempts, sleep_fn)。
 3. 先检查 max_attempts 是否至少为 1。
@@ -138,42 +123,36 @@ def run_with_retry(operation, max_attempts: int, sleep_fn):
   </section>
 
   <section class="session-step step-panel" data-step="2" data-task="2" hidden>
-    <div class="step-kicker">任务 2 · 受控变化 · M / D</div><h2>在自己的完整函数上只改变等待策略</h2>
+    <div class="step-kicker">任务 2 · 受控修改</div><h2>在自己的完整函数上只改变等待策略</h2>
     <div class="current-action"><strong>现在只做：</strong>控制流保持不变，只把固定等待改成指数退避。先建立候选值和实际等待的区别，再修改完整代码中的唯一等待表达式。</div>
     <div class="quantity-grid"><article class="quantity-card"><strong>稳定部分</strong><code>try</code>、错误分类、最后一次失败直接 <code>raise</code>、成功立即返回，都保持不变。</article><article class="quantity-card"><strong>唯一变化</strong>只有“如果还要重试，等待多久”这一条策略改变。</article><article class="quantity-card"><strong>候选值</strong><code>attempt=1,2,3,4</code> 时策略计算出 <code>1,2,4,8</code>。</article><article class="quantity-card"><strong>实际副作用</strong>候选时长不等于一定发生的等待；<code>max_attempts=3</code> 且三次都失败时，实际等待只有 <code>1,2</code>；最后一次没有下一次执行。</article></div>
-    <table class="mapping-table"><thead><tr><th>attempt</th><th>这次执行的身份</th><th>策略候选等待时长</th><th>是否一定发生</th></tr></thead><tbody><tr><td>1</td><td>第一次执行</td><td>1</td><td>只有失败且还有下一次时发生</td></tr><tr><td>2</td><td>第一次重试</td><td>2</td><td>只有失败且还有下一次时发生</td></tr><tr><td>3</td><td>第二次重试</td><td>4</td><td>只有失败且还有下一次时发生</td></tr><tr><td>4</td><td>第三次重试</td><td>8</td><td>只有失败且还有下一次时发生</td></tr></tbody></table>
+    <table class="mapping-table"><thead><tr><th>attempt</th><th>这次执行的身份</th><th>策略候选等待时长</th><th>是否一定发生</th></tr></thead><tbody><tr><td>1</td><td>第一次执行</td><td>1</td><td>只有失败且还有下一次时发生</td></tr><tr><td>2</td><td>第一次重试</td><td>2</td><td>只有失败且还有下一次时发生</td></tr><tr><td>3</td><td>第二次重试</td><td>4</td><td>只有失败且还有下一次时发生</td></tr></tbody></table>
     <label class="answer-label" for="policy-next-delay">未见案例：如果 attempt=4，策略计算出的候选等待时长是多少？</label><input id="policy-next-delay" type="number" data-save placeholder="填数字"><label class="answer-label" for="policy-last-wait">如果 max_attempts=4，第四次执行失败后会不会真的等待候选值？</label><select id="policy-last-wait" data-save><option value="">请选择</option><option value="wait">会等待</option><option value="no-wait">不会等待</option></select><button id="check-policy" type="button">检查策略与边界</button><div id="policy-feedback" class="feedback-box">尚未检查。</div>
-    <h3>唯一表达式位置</h3>
-    <p class="code-note">本次只改等待时长表达式。表达式就是括号内会被 Python 计算成一个参数值的代码；不要改异常类、循环、停止条件或函数调用名称。</p>
-    <div class="editable-locus" aria-label="唯一可修改的等待表达式"><code>sleep_fn(</code><input id="policy-expression" type="text" data-save data-editable-locus="policy-expression" value="1" aria-label="等待表达式"><code>)</code></div>
-    <button id="load-rebuild-into-variation" class="secondary" type="button">把我的完整重建带入这里</button><div id="variation-load-feedback" class="feedback-box">建议先完成任务 1 的完整重建；带入后只修改下面标出的等待表达式。</div>
-    <textarea id="retry-variation-code" class="editor" data-save data-editable-locus="retry-variation-code" spellcheck="false">class TemporaryError(Exception):  # 暂时失败的标签，保持不变
-    pass  # 合法类体，保持不变
-
-class PermanentError(Exception):  # 永久失败的标签，保持不变
-    pass  # 保持不变
-
-def run_with_retry(operation, max_attempts: int, sleep_fn):  # 完整函数结构保持不变
-    if max_attempts &lt; 1:  # 参数边界保持不变
-        raise ValueError("max_attempts 必须至少为 1")  # 参数错误保持不变
-    for attempt in range(1, max_attempts + 1):  # 执行序号保持不变
-        try:  # 每轮先执行
-            return operation()  # 成功立即返回
-        except PermanentError:  # 永久失败分支保持不变
-            raise  # 立即停止
-        except TemporaryError:  # 暂时失败分支保持不变
-            if attempt == max_attempts:  # 停止边界保持不变
-                raise  # 最后一轮不等待
-            sleep_fn(1)  # 【唯一修改位置】改成根据 attempt 计算 1、2、4、8 的表达式</textarea>
+    <h3>只保留一个真正的编辑入口</h3>
+    <p class="code-note">先完成上面的候选值和停止边界判断，然后把你在任务 1 重建的完整程序带入下面编辑器。现在只改这一行：<code>sleep_fn(1)</code>。不要再改异常类、循环、停止条件或函数调用名称。</p>
+    <button id="load-rebuild-into-variation" class="secondary" type="button">把我的完整重建带入这里</button><div id="variation-load-feedback" class="feedback-box">建议先完成任务 1 的完整重建；带入后直接在完整程序中改唯一等待表达式。</div>
+    <textarea id="retry-variation-code" class="editor" data-save data-editable-locus="retry-variation-code" spellcheck="false" placeholder="先点击“把我的完整重建带入这里”，再只修改完整程序中的 sleep_fn(1) 这一行。"></textarea>
     <div class="checker-actions"><button id="check-retry-variation" type="button">运行变化后的函数检查</button><button class="secondary stop-checker" type="button" disabled>停止运行</button></div><pre id="retry-variation-output" class="checker-output">尚未运行。</pre>
     <label class="answer-label" for="variation-explanation">用句式解释：控制流仍然……；改变的是……；max_attempts=3 时实际等待……。</label><textarea id="variation-explanation" data-save placeholder="控制流仍然……；等待策略从……变为……；最后一次失败因为……所以……"></textarea>
   </section>
 
   <section class="session-step step-panel" data-step="3" data-task="3" hidden>
-    <div class="step-kicker">任务 3 · 迁移与组块化 · X</div><h2>把 retry 骨架迁移到新的网络获取情境</h2>
+    <div class="step-kicker">任务 3 · 新情境迁移</div><h2>把 retry 骨架迁移到新的网络获取情境</h2>
     <div class="current-action"><strong>现在只做：</strong>根据新的行为契约重建一个完整函数；先指出哪些结构保持不变，再写代码并运行未见轨迹。</div>
     <div class="logic-grid"><article class="layer-card"><div class="layer-tag">新情境</div><h3><code>fetch_with_retry</code></h3><p>网络获取可能超时，也可能因为认证失败。超时允许继续，认证失败立即停止。</p></article><article class="layer-card"><div class="layer-tag">新规则</div><h3>最多执行 4 次，每次重试前等待 2 个时间单位</h3><p>最后一次失败后没有下一次执行，因此不等待；成功仍然立即返回。</p></article></div>
     <div class="boundary"><strong>允许复用的稳定骨架：</strong>执行上限检查、按执行序号循环、成功返回、错误分类、最后一次失败停止、重试前等待。<strong>必须改变的部分：</strong>函数名、失败类型名称、等待常量和业务情境。</div>
+    <pre class="annotated-code">结构骨架（先不要写 Python）：
+输入检查
+↓
+有限循环
+↓
+执行 fetch_data
+↓
+认证错误：停止
+↓
+超时错误：还有次数？
+    没有 → 停止
+    有 → 等待 → 下一次循环</pre>
     <pre class="annotated-code">行为契约（先不要写 Python）：
 1. AuthenticationError：立即停止，不调用 sleep_fn。
 2. TimeoutError：如果还有下一次执行，等待 2 个时间单位后继续。
@@ -202,23 +181,23 @@ def fetch_with_retry(fetch_data, max_attempts: int, sleep_fn):
 
   <section class="session-step submission-card" data-step="4" hidden>
     <div class="step-kicker">会话统一提交</div><h2>提交完整工作单元的证据</h2>
-    <div class="current-action"><strong>现在只做：</strong>不要只提交“通过”。请说明你在完整范例、完整重建、受控变化和迁移中分别留下了什么证据，并记录仍不确定的地方。</div>
-    <div class="evidence-grid"><article class="evidence-card"><h3>模式获得</h3><p>我能否解释完整控制流，并从逻辑骨架重建？</p><textarea id="evidence-pattern" data-save placeholder="R/T/P 证据：……"></textarea></article><article class="evidence-card"><h3>受控变化</h3><p>我改变了什么，哪些稳定行为被验证？</p><textarea id="evidence-variation" data-save placeholder="M/D 证据：……"></textarea></article><article class="evidence-card"><h3>迁移与组块化</h3><p>我在新情境中识别了哪些稳定骨架和可变参数？</p><textarea id="evidence-transfer" data-save placeholder="X 证据：……"></textarea></article></div>
+    <div class="current-action"><strong>现在只做：</strong>不要只提交“通过”。请说明你在完整范例、完整重建、受控修改和迁移中分别留下了什么证据，并记录仍不确定的地方。</div>
+    <div class="evidence-grid"><article class="evidence-card"><h3>完整理解与重建</h3><p>我能否解释完整控制流，并从逻辑骨架重建？</p><textarea id="evidence-pattern" data-save placeholder="我看懂了……；我重建了……；运行证据是……"></textarea></article><article class="evidence-card"><h3>受控修改</h3><p>我改变了什么，哪些稳定行为被验证？</p><textarea id="evidence-variation" data-save placeholder="我只改变了……；保持不变的是……；运行证据是……"></textarea></article><article class="evidence-card"><h3>新情境迁移</h3><p>我在新情境中识别了哪些稳定骨架和可变参数？</p><textarea id="evidence-transfer" data-save placeholder="稳定骨架是……；可变规则是……；边界是……"></textarea></article></div>
     <label class="answer-label" for="uncertainty">仍不确定、容易混淆或想追问的地方</label><textarea id="uncertainty" data-save placeholder="可以写“暂时没有”。"></textarea><label class="answer-label" for="actual-minutes">本次实际投入分钟数</label><input id="actual-minutes" type="number" min="1" max="240" data-save placeholder="例如 36"><div class="actions"><button id="copy-submission" type="button">复制本次完整提交</button></div><div id="copy-status" class="feedback-box">提交会包含三个证据阶段、代码检查结果、帮助使用和实际用时。</div>
     <p><strong>学习日内连续推进：</strong>达到标准后老师直接给出下一会话；首页、路线、术语表和看板等引用页面等你说“今天的课程就学到这里”后再统一更新。</p>
   </section>
 
   <div class="session-controls" aria-label="会话翻页"><button id="previous-step" class="secondary previous" type="button">上一步</button><div id="progress-label" class="progress-label">第 1/5 个阶段 · 会话地图</div><button id="next-step" class="next" type="button">下一阶段</button></div>
 
-  <section class="session-terms" aria-labelledby="session-terms-title"><h2 id="session-terms-title">本会话中文术语与量的定义</h2><p class="terms-note">本页术语先按中文含义理解，再连接到具体代码责任；数字先说明是执行序号、次数上限、候选时长还是实际副作用。</p><dl class="term-grid"><div><dt><code>attempt</code> · 执行序号</dt><dd>当前正在执行第几次 <code>operation()</code>；第一次执行是 1，第一次重试是 2。</dd></div><div><dt><code>max_attempts</code> · 执行次数上限</dt><dd>整次操作最多执行多少次，包括第一次执行。</dd></div><div><dt><code>TemporaryError</code> · 暂时失败</dt><dd>允许进入下一次执行判断的错误类型。</dd></div><div><dt><code>PermanentError</code> · 永久失败</dt><dd>立即停止并把原错误交给调用者的错误类型。</dd></div><div><dt>候选等待时长</dt><dd>策略根据执行序号计算出的数值；没有下一次执行时不一定变成实际等待。</dd></div><div><dt>完整重建</dt><dd>撤掉完整参考，只根据结构骨架或行为契约重新组合一个完整工作单元。</dd></div><div><dt>受控变化</dt><dd>只改变一个明确规则，同时验证稳定部分没有被破坏。</dd></div><div><dt>组块化阅读</dt><dd>把多行代码压缩成输入验证、主循环、错误分类、停止边界和副作用等有意义程序块。</dd></div></dl><p class="term-link"><a href="../reference/0001-first-terms.html">打开跨会话总术语表</a>。</p></section>
+  <section class="session-terms" aria-labelledby="session-terms-title"><h2 id="session-terms-title">本会话中文术语与量的定义</h2><p class="terms-note">本页术语先按中文含义理解，再连接到具体代码责任；数字先说明是执行序号、次数上限、候选时长还是实际副作用。</p><dl class="term-grid"><div><dt><code>attempt</code> · 执行序号</dt><dd>当前正在执行第几次 <code>operation()</code>；第一次执行是 1，第一次重试是 2。</dd></div><div><dt><code>max_attempts</code> · 执行次数上限</dt><dd>整次操作最多执行多少次，包括第一次执行。</dd></div><div><dt><code>TemporaryError</code> · 暂时失败</dt><dd>允许进入下一次执行判断的错误类型。</dd></div><div><dt><code>PermanentError</code> · 永久失败</dt><dd>立即停止并把原错误交给调用者的错误类型。</dd></div><div><dt>候选等待时长</dt><dd>策略根据执行序号计算出的数值；没有下一次执行时不一定变成实际等待。</dd></div><div><dt>完整重建</dt><dd>撤掉完整参考，只根据结构骨架或行为契约重新组合一个完整工作单元。</dd></div><div><dt>受控修改</dt><dd>只改变一个明确规则，同时验证稳定部分没有被破坏。</dd></div><div><dt>程序块阅读</dt><dd>把多行代码压缩成输入验证、主循环、错误分类、停止边界和副作用等有意义程序块。</dd></div></dl><p class="term-link"><a href="../reference/0001-first-terms.html">打开跨会话总术语表</a>。</p></section>
   <footer><p>语言行为参考：<a href="https://docs.python.org/zh-cn/3/tutorial/errors.html">Python 错误和异常</a>、<a href="https://docs.python.org/zh-cn/3/tutorial/controlflow.html">控制流工具</a>、<a href="https://docs.python.org/zh-cn/3/library/functions.html#enumerate">enumerate</a>。</p></footer>
 </main>
 
 <script>
 (() => {
-  const STORAGE_PREFIX = "course-session-0012-v7-whole-work-unit-";
+  const STORAGE_PREFIX = "course-session-0012-v8-whole-work-unit-";
   const PYODIDE_BASE = "https://cdn.jsdelivr.net/pyodide/v314.0.2/full/";
-  const stepNames = ["会话地图", "模式获得", "受控变化", "迁移与组块化", "统一提交"];
+  const stepNames = ["会话地图", "完整理解与重建", "受控修改", "新情境迁移", "统一提交"];
   const steps = [...document.querySelectorAll(".session-step")];
   const chips = [...document.querySelectorAll(".stage-chip")];
   const previousButton = document.getElementById("previous-step");
@@ -230,8 +209,8 @@ def fetch_with_retry(fetch_data, max_attempts: int, sleep_fn):
   currentStep = Number.isInteger(currentStep) && currentStep >= 0 && currentStep < steps.length ? currentStep : 0;
 
   const helpText = {
-    task: ["当前动作", "先完成当前阶段的一个动作：模式获得先看范例并重建；受控变化先填候选值和边界；迁移先写稳定骨架再写代码。"],
-    locus: ["观察/修改位置", "只修改当前阶段明确标出的编辑区。既有范例只读；受控变化只改等待表达式；迁移从行为契约生成完整函数。"],
+    task: ["当前动作", "先完成当前阶段的一个动作：完整理解先看范例并重建；受控修改先填候选值和边界；新情境迁移先写稳定骨架再写代码。"],
+    locus: ["观察/修改位置", "只修改当前阶段明确标出的编辑区。既有范例只读；受控修改只改完整程序中的等待表达式；迁移从行为契约生成完整函数。"],
     syntax: ["Python 写法", "忘记语法可以查。异常类使用 class，空类体保留 pass；函数调用把参数放在括号里；for 可以用 range 产生执行序号。"],
     reasoning: ["程序责任", "先判断有没有下一次执行，只有有下一次时才等待；错误分类决定进入停止分支还是重试分支。"],
     answer: ["参考答案", "参考答案只在你已经说明卡点之后使用。使用它可以继续练习，但不会被记录成独立重建证据。"]
@@ -271,6 +250,14 @@ def fetch_with_retry(fetch_data, max_attempts: int, sleep_fn):
 
   function feedback(element, passed, message) { element.textContent = message; element.classList.toggle("pass", passed); element.classList.toggle("fail", !passed); }
   function setStopButtons(disabled) { document.querySelectorAll(".stop-checker").forEach(button => { button.disabled = disabled; }); }
+  document.getElementById("start-rebuild").addEventListener("click", () => {
+    document.getElementById("teacher-example").open = false;
+    document.getElementById("retry-rebuild-code").scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  document.getElementById("reopen-example").addEventListener("click", () => {
+    document.getElementById("teacher-example").open = true;
+    document.getElementById("teacher-example").scrollIntoView({behavior: "smooth", block: "start"});
+  });
   document.getElementById("check-pattern-prediction").addEventListener("click", () => {
     const passed = document.getElementById("pattern-prediction").value === "one";
     feedback(document.getElementById("pattern-prediction-feedback"), passed, passed ? "预测正确：第一次失败后等待一次；第二次成功立即返回。" : "再沿轨迹判断：第一次失败后还有下一次，第二次成功后没有后续等待。" );
@@ -405,7 +392,7 @@ json.dumps(report, ensure_ascii=False)
   document.getElementById("load-rebuild-into-variation").addEventListener("click", () => {
     const source = document.getElementById("retry-rebuild-code").value.trim();
     const target = document.getElementById("retry-variation-code");
-    if (!source) { feedback(document.getElementById("variation-load-feedback"), false, "任务 1 的重建代码还为空；先完成一次完整重建，再带入受控变化。" ); return; }
+    if (!source) { feedback(document.getElementById("variation-load-feedback"), false, "任务 1 的重建代码还为空；先完成一次完整重建，再带入受控修改。" ); return; }
     target.value = source;
     localStorage.setItem(STORAGE_PREFIX + target.id, source);
     feedback(document.getElementById("variation-load-feedback"), true, "已把你的完整重建带入这里。现在只修改 sleep_fn(...) 内的等待表达式，其他控制流保持不变。" );
@@ -419,7 +406,7 @@ json.dumps(report, ensure_ascii=False)
     const submission = `请检查正式学习会话“受控重试：一个完整工作单元”。
 帮助使用：${helpCounts}
 
-模式获得（R/T/P）：
+完整理解与重建：
 预测：${value("pattern-prediction")}
 预测解释：${value("pattern-prediction-reason")}
 完整重建代码：
@@ -428,13 +415,12 @@ ${value("retry-rebuild-code")}
 \`\`\`
 检查证据：${localStorage.getItem(STORAGE_PREFIX + "retry-core-evidence") || "（未检查）"}
 
-受控变化（M/D）：
+受控修改：
 候选值检查：${value("policy-next-delay")}；最后一次是否等待：${value("policy-last-wait")}
-等待表达式：${value("policy-expression")}
 解释：${value("variation-explanation")}
 变化代码检查：${localStorage.getItem(STORAGE_PREFIX + "retry-variation-evidence") || "（未检查）"}
 
-迁移与组块化（X）：
+新情境迁移：
 迁移代码：
 \`\`\`python
 ${value("retry-transfer-code")}
@@ -443,9 +429,9 @@ ${value("retry-transfer-code")}
 结构抽取：${value("transfer-structure")}
 
 阶段证据摘要：
-模式获得：${value("evidence-pattern")}
-受控变化：${value("evidence-variation")}
-迁移与组块化：${value("evidence-transfer")}
+完整理解与重建：${value("evidence-pattern")}
+受控修改：${value("evidence-variation")}
+新情境迁移：${value("evidence-transfer")}
 仍不确定：${value("uncertainty")}
 实际投入：${value("actual-minutes")} 分钟`;
     await copyText(submission);
