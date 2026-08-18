@@ -110,6 +110,7 @@ def main() -> int:
         ROOT / "FINAL-CAPABILITY-CONTRACT.md",
         ROOT / "docs" / "decisions" / "0001-finite-computable-curriculum-core.md",
         ROOT / "docs" / "decisions" / "0003-reactivation-learner-and-fading-support.md",
+        ROOT / "docs" / "decisions" / "0004-map-before-expression-edit.md",
     )
     for path in required:
         if not path.is_file():
@@ -142,10 +143,11 @@ def main() -> int:
         ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", 'data-page-kind="reference"', 'data-route-position="跨会话中文术语总表"', "最终能力契约", "正式会话 1：状态与允许行动", "正式会话 2：重试、防重复与批处理", "部分函数", "指数退避"),
         ROOT / "NOTES.md": ("粒度层级固定", "三个不同问题", "A“专注隧道”", "纵向切片", "会话 3“模块、诊断与授权边界”", "共九项任务", "示范优先、局部补全和有界变化", "逐行旁注", "再激活型学习者", "editable locus", "pass", "建议路径", "活动文档保持最小且充分"),
         ROOT / "RESOURCES.md": ("Commerce Orchestrator", "DeepSeek Harness", "教育领域模型", "统计决策", "凸优化与运筹", "Linear, MIP and CP-SAT Examples", "有限状态、序贯决策与在线学习", "实验设计与有限因果图", "Always Valid Inference", "DAGitty learning materials", "博弈与有限机制分析", "LoRA 的矩阵结构、rank 和参数量属于环 12 主线", "Research extensions"),
-        ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-18", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "综合复习会话", "候选参考页", "模块、诊断与授权边界", "四阶段、十七环", "教学坡度", "教师示范 → 共同追踪输入/输出 → 局部补全", "再激活型学习者支持", "editable locus", "第一次出现 `pass`", "建议路径", "完整讲解", "逐行旁注", "不要求学习者从空白页自行设计"),
+        ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-18", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "综合复习会话", "候选参考页", "模块、诊断与授权边界", "四阶段、十七环", "教学坡度", "教师示范 → 共同追踪输入/输出 → 局部补全", "再激活型学习者支持", "editable locus", "第一次出现 `pass`", "可观察的配对/映射", "唯一表达式位置", "建议路径", "完整讲解", "逐行旁注", "不要求学习者从空白页自行设计"),
         ROOT / "docs" / "decisions" / "0001-finite-computable-curriculum-core.md": ("## 状态", "已接受", "有限表示、有限维、可计算优先", "主线知识", "完整证据清单", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0002-guided-teaching-before-independent-transfer.md": ("## 状态", "示范优先、局部补全、有限迁移", "教师示范 → 共同追踪输入/输出 → 局部补全", "逐行旁注", "不能只给术语、规则和空白函数", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0003-reactivation-learner-and-fading-support.md": ("## 状态", "再激活型学习者", "结构记忆仍在、符号检索失败", "帮助逐步淡出", "建议路径", "完整讲解", "## 未采用的方案", "## 后果"),
+        ROOT / "docs" / "decisions" / "0004-map-before-expression-edit.md": ("## 状态", "attempt", "等待序列", "可观察配对/映射", "唯一可编辑位置", "## 未采用的方案", "## 后果"),
     }
     for path, markers in required_text.items():
         text = path.read_text(encoding="utf-8")
@@ -317,6 +319,15 @@ def main() -> int:
             'data-editable-locus="retry-core-wait"',
             '唯一可修改位置',
             'pass</code> 先解释一次',
+            'retry-pair-attempt-1',
+            'retry-pair-attempt-2',
+            'retry-pair-attempt-3',
+            'retry-pair-boundary',
+            'check-retry-pairing',
+            'retry-transfer-expression',
+            'data-editable-locus="retry-transfer-expression"',
+            '表达式在哪里？',
+            'syncRetryTransferSource',
             'data-hint-level="syntax"',
             'data-hint-level="reasoning"',
             'data-hint-level="answer"',
