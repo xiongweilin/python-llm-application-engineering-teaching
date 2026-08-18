@@ -114,6 +114,7 @@ def main() -> int:
         ROOT / "docs" / "decisions" / "0005-phase-a-translation-layer-and-diagnostic-help.md",
         ROOT / "docs" / "decisions" / "0006-phase-a-semantic-types-and-non-echo-evidence.md",
         ROOT / "docs" / "decisions" / "0007-phase-a-whole-work-unit-cycle.md",
+        ROOT / "docs" / "decisions" / "0008-open-judgment-and-threshold-switch.md",
     )
     for path in required:
         if not path.is_file():
@@ -139,14 +140,14 @@ def main() -> int:
         failures.append("shared course background image is unexpectedly small")
 
     required_text = {
-        ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "受控重试：一个完整工作单元", "11 条", "17 环", "约 90–125", "最终能力契约", "数学、决策与多主体系统", "现实含义", "程序责任", "editable locus", "三个证据阶段", "完整重建", "127.0.0.1:8766"),
-        ROOT / "README.md": ("Controlled retry: one complete work unit", "single complete retry work unit", "pattern acquisition", "controlled variation", "transfer/chunking", "worked trace", "editable loci", "R/T/P/M/D/X", "prediction-before-runtime", "line-by-line comments", "Modules, diagnostics, and authorization boundaries", "Active documents stay minimal but sufficient", "final-capability-to-gate coverage index"),
+        ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "受控重试：一个完整工作单元", "11 条", "17 环", "约 90–125", "最终能力契约", "数学、决策与多主体系统", "现实含义", "程序责任", "editable locus", "三个证据阶段", "课程如何切换学习方式", "开放问题窗口", "最低可判断能力", "127.0.0.1:8766"),
+        ROOT / "README.md": ("Controlled retry: one complete work unit", "single complete retry work unit", "pattern acquisition", "controlled variation", "transfer/chunking", "worked trace", "editable loci", "R/T/P/M/D/X", "prediction-before-runtime", "line-by-line comments", "two coupled loops", "open-question window", "Minimum Viable Judgment", "Modules, diagnostics, and authorization boundaries", "Active documents stay minimal but sufficient", "final-capability-to-gate coverage index"),
         ROOT / "FINAL-CAPABILITY-CONTRACT.md": ("## 主线建模原则", "## 1. 数学语言、概率、统计与证据", "## 2. 线性代数与张量计算", "## 3. 微积分、决策与约束优化", "## 4. 状态演化、随机过程与序贯决策", "## 5. 语言模型核心计算", "## 6. Transformer 机制", "## 7. 嵌入、检索与 RAG", "## 8. 优化训练、数值精度与计算排错", "**主线核心：**", "**按需扩展：**", "不要求每位学习者实际开展系统性微调实验", "通信类", "平稳分布", "碰撞点（collider）", "d-分离（d-separation）", "离线有限模型、仿真或回放分析", "## 9. API、工作流、Agent 与人机合作", "## 10. 博弈、信息与有限机制分析", "## 11. 实验、因果评估与系统可靠性", "## 最终综合项目", "## 研究扩展范围"),
         ROOT / "reference" / "0002-course-progress.html": ("四个阶段", "十七个学习环", "约 90–125", "环 0", "环 16", "会话 2“受控重试：完整工作单元”", "完整范例与运行轨迹", "完整重建", "受控变化", "迁移与组块化", "候选值", "当前阶段相称的条件变化", "会话 3“模块、诊断与授权边界”", "数学语言、概率、统计与证据", "线性代数与张量", "微积分、决策与约束优化", "状态演化、随机过程与序贯决策", "博弈、信息与有限机制分析", "语言模型核心计算", "Transformer 机制", "训练与数值核心", "按需扩展", "不要求实际完成系统微调", "嵌入、检索与 RAG", "Agent、运行决策与人机合作", "实验、因果评估与系统可靠性", "背门路径", "碰撞点（collider）", "最终能力契约", "离线有限模型、仿真或回放", "最终综合项目与论文阅读", "十一项最终能力如何落到路线", "最终能力—关口覆盖索引"),
         ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", 'data-page-kind="reference"', 'data-route-position="跨会话中文术语总表"', "最终能力契约", "正式会话 1：状态与允许行动", "正式会话 2：受控重试", "完整重建", "指数退避"),
-        ROOT / "NOTES.md": ("完整、可观察、可验证的工程工作单元", "模式获得", "受控变化", "迁移与组块化", "A1", "纵向切片", "会话 3“模块、诊断与授权边界”", "R/T/P/M/D/X", "逐行旁注", "再激活型学习者", "editable locus", "现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证", "pass", "阶段 A 出题审查", "候选值", "禁止答案回显题", "完整重建", "活动文档保持最小且充分"),
+        ROOT / "NOTES.md": ("完整、可观察、可验证的工程工作单元", "模式获得", "受控变化", "迁移与组块化", "A1", "纵向切片", "会话 3“模块、诊断与授权边界”", "R/T/P/M/D/X", "两个循环", "开放问题窗口", "Minimum Viable Judgment", "Frame / Discriminate / Judge / Challenge / Revise", "逐行旁注", "再激活型学习者", "editable locus", "现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证", "pass", "阶段 A 出题审查", "候选值", "禁止答案回显题", "完整重建", "活动文档保持最小且充分"),
         ROOT / "RESOURCES.md": ("Commerce Orchestrator", "DeepSeek Harness", "教育领域模型", "统计决策", "凸优化与运筹", "Linear, MIP and CP-SAT Examples", "有限状态、序贯决策与在线学习", "实验设计与有限因果图", "Always Valid Inference", "DAGitty learning materials", "博弈与有限机制分析", "LoRA 的矩阵结构、rank 和参数量属于环 12 主线", "Research extensions"),
-        ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-18", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "完整、可观察、可验证的工程工作单元", "主要完整工作单元", "完整范例与运行轨迹", "完整模仿", "完整重建", "受控变化", "新情境迁移", "稳定骨架与可变参数", "阶段 A 的证据坡度", "R = Recognize", "T = Trace", "P = Produce", "M = Modify", "D = Diagnose", "X = Transfer", "阶段 A 注意事项", "唯一未知量", "预测必须先于运行验证", "五类帮助", "scrollIntoView", "模块、诊断与授权边界", "四阶段、十七环"),
+        ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-18", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "完整、可观察、可验证的工程工作单元", "主要完整工作单元", "完整范例与运行轨迹", "完整模仿", "完整重建", "受控变化", "新情境迁移", "稳定骨架与可变参数", "两个循环", "开放问题窗口", "Minimum Viable Judgment", "行为契约 → 学习者先判断 → 实现或诊断", "Frame", "Discriminate", "Judge", "Challenge", "Revise", "阶段 A 的证据坡度", "R = Recognize", "T = Trace", "P = Produce", "M = Modify", "D = Diagnose", "X = Transfer", "阶段 A 注意事项", "唯一未知量", "预测必须先于运行验证", "五类帮助", "scrollIntoView", "模块、诊断与授权边界", "四阶段、十七环"),
         ROOT / "docs" / "decisions" / "0001-finite-computable-curriculum-core.md": ("## 状态", "已接受", "有限表示、有限维、可计算优先", "主线知识", "完整证据清单", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0002-guided-teaching-before-independent-transfer.md": ("## 状态", "示范优先、局部补全、有限迁移", "教师示范 → 共同追踪输入/输出 → 局部补全", "逐行旁注", "不能只给术语、规则和空白函数", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0003-reactivation-learner-and-fading-support.md": ("## 状态", "再激活型学习者", "结构记忆仍在、符号检索失败", "帮助逐步淡出", "建议路径", "完整讲解", "## 未采用的方案", "## 后果"),
@@ -154,6 +155,7 @@ def main() -> int:
         ROOT / "docs" / "decisions" / "0005-phase-a-translation-layer-and-diagnostic-help.md": ("## 状态", "现实含义 → 程序责任 → 代码位置 → Python 写法 → 学生操作 → 运行验证", "术语来源", "三种难度", "五类帮助", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0006-phase-a-semantic-types-and-non-echo-evidence.md": ("## 状态", "attempt", "delay", "是否等待", "候选值", "唯一未知量", "## 未采用的方案", "## 后果"),
         ROOT / "docs" / "decisions" / "0007-phase-a-whole-work-unit-cycle.md": ("## 状态", "完整、可观察、可验证的工程工作单元", "模式获得", "受控变化", "迁移与组块化", "完整重建", "R/T/P/M/D/X", "## 未采用的方案", "## 后果"),
+        ROOT / "docs" / "decisions" / "0008-open-judgment-and-threshold-switch.md": ("## 状态", "开放问题窗口", "Minimum Viable Judgment", "两个循环", "行为契约 → 学习者先判断 → 实现或诊断", "Frame", "Discriminate", "Judge", "Challenge", "Revise", "## 未采用的方案", "## 后果"),
     }
     for path, markers in required_text.items():
         text = path.read_text(encoding="utf-8")
