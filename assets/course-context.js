@@ -6,32 +6,21 @@
   const prefix = inSubdirectory ? "../" : "";
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (!reducedMotion && !document.querySelector(".course-background-video")) {
-    const video = document.createElement("video");
-    video.className = "course-background-video";
-    video.src = `${prefix}assets/course-background.mp4`;
-    video.autoplay = true;
-    video.defaultMuted = true;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
-    video.setAttribute("muted", "");
-    video.setAttribute("playsinline", "");
-    video.setAttribute("aria-hidden", "true");
-    video.tabIndex = -1;
+  if (!reducedMotion && !document.querySelector(".course-background-image")) {
+    const image = document.createElement("img");
+    image.className = "course-background-image";
+    image.src = `${prefix}assets/wallhaven-6ld8xl.jpg`;
+    image.alt = "";
+    image.decoding = "async";
+    image.setAttribute("aria-hidden", "true");
+    image.tabIndex = -1;
 
     const overlay = document.createElement("div");
     overlay.className = "course-background-overlay";
     overlay.setAttribute("aria-hidden", "true");
 
     document.body.prepend(overlay);
-    document.body.prepend(video);
-    video.play().catch(() => {});
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) video.pause();
-      else video.play().catch(() => {});
-    });
+    document.body.prepend(image);
   }
 
   const horizontalScrollers = main.querySelectorAll(".step-strip, .chain, .logic-path");

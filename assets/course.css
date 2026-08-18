@@ -6,8 +6,8 @@
   --course-control-alpha: 0;
   --course-border-alpha: 0;
   --course-text-alpha: 1;
-  --course-video-brightness: 0.8;
-  --course-video-veil-alpha: 0.1;
+  --course-image-brightness: 0.8;
+  --course-image-veil-alpha: 0.1;
   --course-bg: #f3efe6;
   --course-surface: rgb(255 253 248 / var(--course-card-alpha));
   --course-surface-soft: rgb(238 232 221 / var(--course-card-alpha));
@@ -73,7 +73,7 @@ body {
   font: 16px/1.72 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif !important;
 }
 
-.course-background-video,
+.course-background-image,
 .course-background-overlay {
   position: fixed;
   inset: 0;
@@ -82,17 +82,17 @@ body {
   pointer-events: none;
 }
 
-.course-background-video {
+.course-background-image {
   z-index: -2;
   object-fit: cover;
   opacity: 0.7;
-  filter: brightness(var(--course-video-brightness));
+  filter: brightness(var(--course-image-brightness));
   background: var(--course-bg);
 }
 
 .course-background-overlay {
   z-index: -1;
-  background: rgb(24 36 52 / var(--course-video-veil-alpha));
+  background: rgb(24 36 52 / var(--course-image-veil-alpha));
 }
 
 main {
@@ -575,13 +575,13 @@ footer {
       radial-gradient(circle at 4% 16%, rgba(143, 61, 48, 0.08), transparent 26rem),
       var(--course-bg) !important;
   }
-  .course-background-video,
+  .course-background-image,
   .course-background-overlay { display: none !important; }
 }
 
 @media print {
   body { background: #fff !important; }
-  .course-background-video,
+  .course-background-image,
   .course-background-overlay { display: none !important; }
   main, main.shell { width: 100% !important; max-width: none !important; padding: 12px !important; }
   .course-nav, .nav, .shutdown, .course-context-bar nav { display: none !important; }

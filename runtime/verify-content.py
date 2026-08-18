@@ -97,7 +97,7 @@ def main() -> int:
         ROOT / "index.html",
         ROOT / "assets" / "course.css",
         ROOT / "assets" / "course-context.js",
-        ROOT / "assets" / "course-background.mp4",
+        ROOT / "assets" / "wallhaven-6ld8xl.jpg",
         ROOT / "practice" / "0001-python-basics-playground.html",
         ROOT / "reference" / "0001-first-terms.html",
         ROOT / "reference" / "0002-course-progress.html",
@@ -120,7 +120,7 @@ def main() -> int:
     shared_css_path = ROOT / "assets" / "course.css"
     if shared_css_path.is_file():
         shared_css = shared_css_path.read_text(encoding="utf-8")
-        for marker in ("--course-accent", "--course-card-alpha: 0", "--course-control-alpha: 0", "--course-border-alpha: 0", "--course-text-alpha: 1", "--course-video-brightness: 0.8", "--course-video-veil-alpha: 0.1", "--course-shadow: none", "rgb(255 253 248 / var(--course-card-alpha))", "rgb(24 36 52 / var(--course-card-alpha))", "rgb(25 37 54 / var(--course-text-alpha))", "rgb(255 255 255 / var(--course-control-alpha))", "rgb(24 36 52 / var(--course-video-veil-alpha))", "filter: brightness(var(--course-video-brightness))", "main *:not(#course-foreground-surface)::before", "background-color: transparent", "scrollbar-width: auto", "scrollbar-color: transparent transparent", "main *::-webkit-scrollbar", "main *::-webkit-scrollbar-thumb", "height: 12px", ".course-nav", ".course-context-bar", ".course-background-video", ".course-background-overlay", "opacity: 0.7", "prefers-reduced-motion: reduce", ".question-button", ".page-status", ".session-terms", ".term-grid", ".session-controls", ".prototype-switcher", ".completion", "textarea", "@media"):
+        for marker in ("--course-accent", "--course-card-alpha: 0", "--course-control-alpha: 0", "--course-border-alpha: 0", "--course-text-alpha: 1", "--course-image-brightness: 0.8", "--course-image-veil-alpha: 0.1", "--course-shadow: none", "rgb(255 253 248 / var(--course-card-alpha))", "rgb(24 36 52 / var(--course-card-alpha))", "rgb(25 37 54 / var(--course-text-alpha))", "rgb(255 255 255 / var(--course-control-alpha))", "rgb(24 36 52 / var(--course-image-veil-alpha))", "filter: brightness(var(--course-image-brightness))", "main *:not(#course-foreground-surface)::before", "background-color: transparent", "scrollbar-width: auto", "scrollbar-color: transparent transparent", "main *::-webkit-scrollbar", "main *::-webkit-scrollbar-thumb", "height: 12px", ".course-nav", ".course-context-bar", ".course-background-image", ".course-background-overlay", "opacity: 0.7", "prefers-reduced-motion: reduce", ".question-button", ".page-status", ".session-terms", ".term-grid", ".session-controls", ".prototype-switcher", ".completion", "textarea", "@media"):
             if marker not in shared_css:
                 failures.append(f"missing shared CSS marker: {marker}")
         if "scrollbar-width: none" in shared_css:
@@ -129,18 +129,18 @@ def main() -> int:
         if without_comments.count("{") != without_comments.count("}"):
             failures.append("unbalanced braces in assets/course.css")
 
-    background_video_path = ROOT / "assets" / "course-background.mp4"
-    if background_video_path.is_file() and background_video_path.stat().st_size < 100_000:
-        failures.append("shared course background video is unexpectedly small")
+    background_image_path = ROOT / "assets" / "wallhaven-6ld8xl.jpg"
+    if background_image_path.is_file() and background_image_path.stat().st_size < 100_000:
+        failures.append("shared course background image is unexpectedly small")
 
     required_text = {
         ROOT / "index.html": ("四个能力阶段", "阶段 A · 环 1", "正式会话 2", "重试、防重复与批处理", "11 条", "17 环", "约 90–125", "最终能力契约", "数学、决策与多主体系统", "对象、输入、规则和责任边界", "连续完成三个问题", "三个问题共九项任务", "127.0.0.1:8766"),
-        ROOT / "README.md": ("重试、防重复与批处理", "三个不同问题", "三个问题共九项任务", "模块、诊断与授权边界", "活动文档保持最小且充分", "最终能力—关口覆盖索引"),
+        ROOT / "README.md": ("Retry, deduplication, and batching", "three distinct problems", "all nine tasks across the three problems", "Modules, diagnostics, and authorization boundaries", "Active documents stay minimal but sufficient", "final-capability-to-gate coverage index"),
         ROOT / "FINAL-CAPABILITY-CONTRACT.md": ("## 主线建模原则", "## 1. 数学语言、概率、统计与证据", "## 2. 线性代数与张量计算", "## 3. 微积分、决策与约束优化", "## 4. 状态演化、随机过程与序贯决策", "## 5. 语言模型核心计算", "## 6. Transformer 机制", "## 7. 嵌入、检索与 RAG", "## 8. 优化训练、数值精度与计算排错", "**主线核心：**", "**按需扩展：**", "不要求每位学习者实际开展系统性微调实验", "通信类", "平稳分布", "碰撞点（collider）", "d-分离（d-separation）", "离线有限模型、仿真或回放分析", "## 9. API、工作流、Agent 与人机合作", "## 10. 博弈、信息与有限机制分析", "## 11. 实验、因果评估与系统可靠性", "## 最终综合项目", "## 研究扩展范围"),
         ROOT / "reference" / "0002-course-progress.html": ("四个阶段", "十七个学习环", "约 90–125", "环 0", "环 16", "会话 2“重试、防重复与批处理”", "会话 3“模块、诊断与授权边界”", "数学语言、概率、统计与证据", "线性代数与张量", "微积分、决策与约束优化", "状态演化、随机过程与序贯决策", "博弈、信息与有限机制分析", "语言模型核心计算", "Transformer 机制", "训练与数值核心", "按需扩展", "不要求实际完成系统微调", "嵌入、检索与 RAG", "Agent、运行决策与人机合作", "实验、因果评估与系统可靠性", "背门路径", "碰撞点（collider）", "最终能力契约", "离线有限模型、仿真或回放", "最终综合项目与论文阅读", "十一项最终能力如何落到路线", "最终能力—关口覆盖索引"),
         ROOT / "reference" / "0001-first-terms.html": ("跨会话中文术语总表", 'data-page-kind="reference"', 'data-route-position="跨会话中文术语总表"', "最终能力契约", "正式会话 1：状态与允许行动", "正式会话 2：重试、防重复与批处理", "部分函数", "指数退避"),
         ROOT / "NOTES.md": ("粒度层级固定", "三个不同问题", "A“专注隧道”", "纵向切片", "会话 3“模块、诊断与授权边界”", "共九项任务", "活动文档保持最小且充分"),
-        ROOT / "RESOURCES.md": ("Commerce Orchestrator", "dsh-varin", "教育领域模型", "统计决策", "凸优化与运筹", "Linear, MIP and CP-SAT Examples", "有限状态、序贯决策与在线学习", "实验设计与有限因果图", "Always Valid Inference", "DAGitty learning materials", "博弈与有限机制分析", "LoRA 的矩阵结构、rank 和参数量属于环 12 主线", "Research extensions"),
+        ROOT / "RESOURCES.md": ("Commerce Orchestrator", "DeepSeek Harness", "教育领域模型", "统计决策", "凸优化与运筹", "Linear, MIP and CP-SAT Examples", "有限状态、序贯决策与在线学习", "实验设计与有限因果图", "Always Valid Inference", "DAGitty learning materials", "博弈与有限机制分析", "LoRA 的矩阵结构、rank 和参数量属于环 12 主线", "Research extensions"),
         ROOT / "SESSION-PAGE-CONTRACT.md": ("2026-08-03", "唯一最终能力事实源 → 阶段 → 学习环", "本会话中文术语", "综合复习会话", "候选参考页", "模块、诊断与授权边界", "四阶段、十七环"),
         ROOT / "docs" / "decisions" / "0001-finite-computable-curriculum-core.md": ("## 状态", "已接受", "有限表示、有限维、可计算优先", "主线知识", "完整证据清单", "## 未采用的方案", "## 后果"),
     }
@@ -215,7 +215,7 @@ def main() -> int:
     context_script_path = ROOT / "assets" / "course-context.js"
     if context_script_path.is_file():
         context_script = context_script_path.read_text(encoding="utf-8")
-        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线", "course-background-video", "assets/course-background.mp4", "prefers-reduced-motion: reduce", "visibilitychange", "video.muted = true", "video.loop = true", ".step-strip, .chain, .logic-path", "maxScrollLeft", "event.preventDefault()", "passive: false"):
+        for marker in ("最终目标", "当前位置", "完整路线", "最终能力契约", "阶段 A · 环 1", "正式会话 3 · 问题三", "四阶段十七环完整路线", "course-background-image", "assets/wallhaven-6ld8xl.jpg", "prefers-reduced-motion: reduce", "image.decoding", "document.body.prepend(image)", ".step-strip, .chain, .logic-path", "maxScrollLeft", "event.preventDefault()", "passive: false"):
             if marker not in context_script:
                 failures.append(f"missing shared course-context marker: {marker}")
         check_node_syntax(context_script, context_script_path, 1, failures)
@@ -420,7 +420,7 @@ def main() -> int:
 
     local_sources = (
         Path(r"D:\agent\ratio\电商工作流项目\README.md"),
-        Path(r"D:\agent\dsh-varin\README.md"),
+        Path(r"D:\agent\deepseek-harness\README.md"),
         Path(r"D:\agent\ratio\领域模型\计算机领域模型.md"),
         Path(r"D:\agent\ratio\领域模型\教育领域模型.md"),
         Path(r"D:\agent\ratio\有限宇宙\有限变化实践.md"),
