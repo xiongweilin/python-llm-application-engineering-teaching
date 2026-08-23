@@ -1,6 +1,6 @@
 # Python, Math, LLM, RAG, and Agent Engineering
 
-[![CI](https://github.com/ratiolin/python-llm-application-engineering-teaching/actions/workflows/ci.yml/badge.svg)](https://github.com/ratiolin/python-llm-application-engineering-teaching/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/xiongweilin/python-llm-application-engineering-teaching/actions/workflows/ci.yml/badge.svg)](https://github.com/xiongweilin/python-llm-application-engineering-teaching/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 This is the only active course. The Windows Start-menu entry is **Python & LLM Application Engineering**; it silently starts the local course server and opens the home page.
 
 ## How to continue now
