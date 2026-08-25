@@ -26,7 +26,19 @@ These records are scoped evidence. They do not imply independent mastery of all 
 
 ## Current focus
 
-Turn the existing conceptual understanding of bounded retry into reliable code-level capability:
+Before resuming bounded-retry reconstruction, establish the minimum Python execution and syntax baseline needed for code-level work:
+
+```text
+create a .py file in VS Code
+→ understand how to run it with the local Python runtime
+→ manually type and run one complete worked example
+→ explain the role of each syntax form used
+→ reproduce the same structure with light guidance
+→ make one controlled variation
+→ solve a neighboring new task
+```
+
+Once these actions stop being the obstruction, return to the existing bounded-retry target:
 
 ```text
 trace
@@ -36,7 +48,7 @@ trace
 → transfer without being told the pattern name
 ```
 
-The target distinction is:
+The retry target distinction remains:
 
 ```text
 whether another attempt is permitted
@@ -48,20 +60,29 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Current scaffold
 
+- Current default environment: this conversation, VS Code, and a local Python runtime.
+- Do not assume the learner already knows how to run a `.py` file, use the VS Code terminal, or interpret Python syntax used in the task.
+- Introduce each new syntax form before using it as part of a structural assessment.
+- Use the temporary novice sequence: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring new task.
 - Syntax lookup is allowed.
-- Do not begin with a full reference implementation unless evidence shows it is needed.
-- Prefer a small behavior contract plus tests or runtime observations.
-- The learner predicts before execution.
-- Help should identify the actual obstruction layer rather than reveal the entire solution.
+- Do not treat successful transcription or imitation as independent reconstruction evidence.
+- Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
+- After the execution/syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-First test independent reconstruction of one bounded-retry work unit from a compact behavior contract. If reconstruction is structurally sound, move immediately to one controlled variation and then an unfamiliar near-transfer case. If it fails, restore only the missing scaffold layer.
+First establish that the learner can create and run a small Python file in VS Code and can explain the basic syntax used in that file. Then obtain one imitation and one controlled-variation success without hiding syntax friction. Only after that return to independent reconstruction of the bounded-retry work unit.
+
+## Observed friction
+
+The first bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. The learner reported understanding the retry logic while not yet knowing how to run a Python file or what the Python forms in the exercise meant. Treat this as non-target friction, not evidence of structural retry failure.
 
 ## Unknowns to resolve from live interaction
 
-- current Python syntax retrieval friction;
-- whether retry structure can be reconstructed without a worked example;
+- whether a usable local Python runtime is already installed and which command invokes it;
+- VS Code terminal and file execution familiarity;
+- basic Python syntax retrieval: literals, variables, function calls, `def`, parameters, return values, indentation, exceptions, classes, and lists;
+- whether retry structure can later be reconstructed without a worked example;
 - whether the learner can independently locate the stopping condition and side-effect boundary;
 - delayed retention and transfer distance.
 
