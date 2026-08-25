@@ -38,7 +38,9 @@ create a .py file in VS Code
 → solve a neighboring new task
 ```
 
-The worked-example step has now produced limited live evidence: the learner reports Python 3.14.7, successfully ran the example file, predicted `True` before execution, and explained the path from `allowed` through the `can_retry` call, parameter values `2` and `4`, the comparison, and the returned `True`. Treat this as execution-and-tracing evidence under full scaffold, not as independent function reconstruction.
+The worked-example step produced limited live evidence: the learner reports Python 3.14.7, successfully ran the example file, predicted `True` before execution, and explained the path from the function call through parameter values, comparison, returned value, assignment, and `print`. Treat this as execution-and-tracing evidence under full scaffold, not as independent function reconstruction.
+
+The imitation step also succeeded. While allowed to inspect the worked example, the learner independently typed a structurally equivalent `has_room` function, predicted `True`, observed `True`, and explained why the comparison `3 < 5` caused the function to return `True` and the result to be printed. The learner reused the outer names `attempt` and `max_attempts` instead of the suggested `items` and `capacity`; the program still behaved correctly. This is useful evidence that the learner is beginning to separate identifier names from the values passed into parameters. It remains imitation evidence, not independent reconstruction evidence.
 
 Once these actions stop being the obstruction, return to the existing bounded-retry target:
 
@@ -64,30 +66,30 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - A usable local Python runtime and basic `.py` execution are now observed; do not re-teach them unless execution friction reappears.
-- Do not yet assume independent Python syntax production from the worked example.
+- Basic tracing of variables, a two-parameter function call, `if`, `return`, assignment, and `print` has been observed under full scaffold and one near imitation.
+- Do not yet assume independent Python syntax production from a behavior contract.
 - Introduce each new syntax form before using it as part of a structural assessment.
 - Continue the temporary novice sequence: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring new task.
-- During imitation, the learner may inspect the worked example.
 - Syntax lookup is allowed.
 - Do not treat successful transcription or imitation as independent reconstruction evidence.
+- Correct terminology when needed: a function call returns a value; assignment stores that value; `print` produces terminal output.
 - Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
 - After the execution/syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-Obtain one near imitation of the same variable/function/condition/return/call/print structure while the learner may inspect the worked example. Then test one controlled variation without changing multiple syntax dimensions at once. Only after that move to a neighboring new task and eventually return to independent bounded-retry reconstruction.
+Test one controlled variation of the same function structure without introducing unrelated syntax. Prefer a boundary-value change first so the learner must reason about the existing `<` condition rather than merely repeat the previous successful path. If that succeeds, move to a neighboring new task with the same already-introduced syntax before adding new forms.
 
 ## Observed friction
 
 The first bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. The learner reported understanding the retry logic while not yet knowing how to run a Python file or what the Python forms in the exercise meant. Treat this as non-target friction, not evidence of structural retry failure.
 
-The first worked example removed the runtime obstruction. No syntax failure has yet been observed during independent production because independent production has not yet been tested.
+The first worked example removed the runtime obstruction. The imitation did not expose a syntax-production failure, but it was still performed with the reference structure available. One terminology issue remains useful to correct: the learner described the result variable as if it called the function; the actual order is function call → returned value → assignment → `print`.
 
 ## Unknowns to resolve from live interaction
 
-- basic Python syntax production and retrieval: literals, variables, function calls, `def`, parameters, return values, indentation, exceptions, classes, and lists;
-- whether the learner can reproduce a simple function structure while using the worked example as a reference;
-- whether the same structure survives one controlled variation and a neighboring new task;
+- basic Python syntax production and retrieval without a visible template: literals, variables, function calls, `def`, parameters, return values, indentation, exceptions, classes, and lists;
+- whether the same simple function structure survives one controlled boundary variation and a neighboring new task;
 - whether retry structure can later be reconstructed without a worked example;
 - whether the learner can independently locate the stopping condition and side-effect boundary;
 - delayed retention and transfer distance.
