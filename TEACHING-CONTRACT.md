@@ -53,6 +53,31 @@ predict / judge
 
 Do not optimize for immediate correctness. Retrieval failure, wrong predictions, and bounded reconstruction difficulty are valid learning events.
 
+### Distinction judgment
+
+When a task depends on classification, representation, or boundary choice, do not treat noticing a difference as sufficient.
+
+Use the smallest useful sequence:
+
+```text
+observable difference
+→ reliably distinguishable?
+→ what would this difference change?
+→ retain or compress?
+→ use the minimum sufficient distinction set
+→ vary context to test scope
+→ reopen if changed evidence makes a compressed difference relevant
+```
+
+Train both failure modes:
+
+- missing a distinction that changes the task;
+- preserving a distinction that changes nothing relevant.
+
+A difference should normally earn explicit representation by changing something consequential, such as prediction, explanation, decision, action, risk, responsibility, or cost.
+
+Do not force this loop when distinction judgment is not part of the target. The protocol is a conditional specialization of `judge`, not learner-facing ceremony for every task.
+
 ## 3. Evidence is scoped
 
 The teacher may internally classify evidence as:
