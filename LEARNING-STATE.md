@@ -38,6 +38,8 @@ create a .py file in VS Code
 → solve a neighboring new task
 ```
 
+The worked-example step has now produced limited live evidence: the learner reports Python 3.14.7, successfully ran the example file, predicted `True` before execution, and explained the path from `allowed` through the `can_retry` call, parameter values `2` and `4`, the comparison, and the returned `True`. Treat this as execution-and-tracing evidence under full scaffold, not as independent function reconstruction.
+
 Once these actions stop being the obstruction, return to the existing bounded-retry target:
 
 ```text
@@ -61,9 +63,11 @@ A successful provider call, a candidate delay value, and an actually executed wa
 ## Current scaffold
 
 - Current default environment: this conversation, VS Code, and a local Python runtime.
-- Do not assume the learner already knows how to run a `.py` file, use the VS Code terminal, or interpret Python syntax used in the task.
+- A usable local Python runtime and basic `.py` execution are now observed; do not re-teach them unless execution friction reappears.
+- Do not yet assume independent Python syntax production from the worked example.
 - Introduce each new syntax form before using it as part of a structural assessment.
-- Use the temporary novice sequence: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring new task.
+- Continue the temporary novice sequence: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring new task.
+- During imitation, the learner may inspect the worked example.
 - Syntax lookup is allowed.
 - Do not treat successful transcription or imitation as independent reconstruction evidence.
 - Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
@@ -71,17 +75,19 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Next evidence target
 
-First establish that the learner can create and run a small Python file in VS Code and can explain the basic syntax used in that file. Then obtain one imitation and one controlled-variation success without hiding syntax friction. Only after that return to independent reconstruction of the bounded-retry work unit.
+Obtain one near imitation of the same variable/function/condition/return/call/print structure while the learner may inspect the worked example. Then test one controlled variation without changing multiple syntax dimensions at once. Only after that move to a neighboring new task and eventually return to independent bounded-retry reconstruction.
 
 ## Observed friction
 
 The first bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. The learner reported understanding the retry logic while not yet knowing how to run a Python file or what the Python forms in the exercise meant. Treat this as non-target friction, not evidence of structural retry failure.
 
+The first worked example removed the runtime obstruction. No syntax failure has yet been observed during independent production because independent production has not yet been tested.
+
 ## Unknowns to resolve from live interaction
 
-- whether a usable local Python runtime is already installed and which command invokes it;
-- VS Code terminal and file execution familiarity;
-- basic Python syntax retrieval: literals, variables, function calls, `def`, parameters, return values, indentation, exceptions, classes, and lists;
+- basic Python syntax production and retrieval: literals, variables, function calls, `def`, parameters, return values, indentation, exceptions, classes, and lists;
+- whether the learner can reproduce a simple function structure while using the worked example as a reference;
+- whether the same structure survives one controlled variation and a neighboring new task;
 - whether retry structure can later be reconstructed without a worked example;
 - whether the learner can independently locate the stopping condition and side-effect boundary;
 - delayed retention and transfer distance.
