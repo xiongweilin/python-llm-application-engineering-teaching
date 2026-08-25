@@ -47,7 +47,9 @@ worked example
 
 In the neighboring loop task, the learner independently created `wait_times = [2, 4, 8]`, iterated with `for wait_time in wait_times:`, printed the loop variable inside the indented body, printed `complete` after the loop, predicted and observed the exact output, and explained the three loop-variable values and the inside/outside indentation boundary. This is retained as scoped independent reconstruction evidence.
 
-The current syntax unit is explicit exception creation with `raise`. Its first worked example has now been completed under full scaffold. With `temperature = -3` and `if temperature < 0: raise ValueError("temperature cannot be below zero")`, the learner correctly predicted that an exception would be raised and that the later `print("accepted")` would not execute. The supplied traceback showed the failing `raise` line and `ValueError: temperature cannot be below zero`. The learner explained that the final traceback line contains the exception type plus its message and distinguished `raise` from `print`: `raise` creates an exception and can stop normal control flow when uncaught, whereas `print` only produces output. Correct one nuance when needed: `raise` is not magically tied to a pre-existing error condition; it executes whenever control reaches that statement. In this example the surrounding `if` controls whether control reaches it.
+The current syntax unit is explicit exception creation with `raise`. Its first worked example has been completed under full scaffold. With `temperature = -3` and `if temperature < 0: raise ValueError("temperature cannot be below zero")`, the learner correctly predicted that an exception would be raised and that the later `print("accepted")` would not execute. The supplied traceback showed the failing `raise` line and `ValueError: temperature cannot be below zero`.
+
+The near-imitation step has also succeeded. While allowed to inspect the worked example, the learner wrote a neighboring validation scenario with `stock = -2`, `if stock < 0:`, and `raise ValueError("Stock cannot be below zero")`, correctly predicted and observed the uncaught `ValueError`, and explained that the `if` condition determines whether execution reaches `raise`. The learner also correctly predicted that changing only `stock` to `2` would make the condition false, skip the `raise` statement entirely, and allow the later `print("accepted")` to execute. Treat this as imitation plus prediction evidence, not yet independent neighboring `raise` reconstruction.
 
 Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time.
 
@@ -88,7 +90,9 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
 - List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose.
 - `for` iteration, loop-variable binding, and indentation-based loop-body membership are sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction.
-- `raise` with a built-in `ValueError` has been introduced, traced, and connected to a real traceback under one complete worked example; do not yet assume independent production.
+- `raise` with a built-in `ValueError` has been introduced, traced, connected to a real traceback, and reproduced in one near imitation; do not yet assume neighboring independent production.
+- Reinforce that `raise` itself creates/raises the exception whenever execution reaches that statement. The surrounding control flow decides whether the statement is reached.
+- Reinforce the distinction between “the condition was false so `raise` never executed” and “an exception was raised and then handled or ignored.” The latter has not yet been introduced.
 - Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
 - For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
@@ -102,7 +106,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Next evidence target
 
-Obtain one near imitation of `if` + `raise ValueError(...)` in a neighboring validation scenario while the learner may inspect the worked example. Then run one controlled variation in which the condition is false so the `raise` statement is skipped and a later `print` executes. Do not introduce `try` / `except` until the learner can explain that reaching `raise` creates the exception and not reaching it means normal execution continues.
+Run the controlled false-condition variation by changing only `stock` from `-2` to `2`, predicting that no exception occurs and `accepted` prints, then verify by execution. After that, ask for one neighboring `if` + `raise ValueError(...)` task without a full template. If that succeeds, treat explicit `raise` as sufficiently stable for the current prerequisite purpose and introduce `try` / `except` with a worked example.
 
 ## Observed friction
 
@@ -110,14 +114,14 @@ The original bounded-retry reconstruction task mixed the intended retry-structur
 
 That runtime obstruction is removed. The simple function, list/indexing, and bounded-repetition sequences have each reached one neighboring independent reconstruction.
 
-One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. The first explicit-`raise` example showed correct source-order reasoning: the learner predicted the later `print` would not run.
+One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. The explicit-`raise` examples so far show correct source-order reasoning: the learner predicts the later `print` will not run when execution reaches an uncaught `raise`.
 
-One terminology nuance remains worth reinforcing: the learner described `raise` as something that executes “when an exception is found.” More precisely, `raise` itself creates/raises the exception whenever execution reaches that statement; the surrounding condition decides whether that line is reached.
+One terminology nuance was corrected: the learner initially described `raise` as something that executes “when an exception is found.” More precisely, `raise` itself creates/raises the exception whenever execution reaches that statement; the surrounding condition decides whether that line is reached. The learner's latest explanation now correctly attributes reachability to the `if` condition.
 
 ## Unknowns to resolve from live interaction
 
 - independent `raise` syntax production and transfer;
-- whether the learner can distinguish “condition false, so `raise` is skipped” from “an exception happened but was ignored”;
+- runtime confirmation of the false-condition path where `raise` is skipped;
 - `try` / `except` syntax and control flow;
 - passing and calling function values as arguments;
 - whether retry structure can later be reconstructed without a worked example;
