@@ -46,7 +46,9 @@ In the neighboring list task, the learner independently created `delays = [1, 2,
 
 The learner also understands that an access such as `delays[4]` is outside the valid index range for a four-element list. Whether any prior values have already been printed depends on the actual location of the failing access relative to the `print` statements; keep execution-order reasoning tied to source order.
 
-Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time. The next unit is bounded repetition with `for`.
+The current syntax unit is bounded repetition with `for`. Its first worked example has now been completed under full scaffold. The learner predicted and observed the output `1`, `2`, `4`, then `done`; identified the loop-variable values as `1`, `2`, and `4`; and correctly explained that `print("done")` runs once because it is outside the indented loop body. Correct terminology when needed: the `for` statement iterates and binds one element at a time; `print(delay)` is what produces terminal output.
+
+Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time.
 
 Likely remaining prerequisites:
 
@@ -84,7 +86,8 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
 - Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
-- List literals and zero-based indexing are now sufficiently stable for the current prerequisite purpose, including one real `IndexError` traceback and one neighboring independent reconstruction.
+- List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose, including one real `IndexError` traceback and one neighboring independent reconstruction.
+- `for` has been introduced and traced successfully under one complete worked example; do not yet assume independent production.
 - Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
 - For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
@@ -92,25 +95,27 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Do not treat transcription or imitation as independent reconstruction evidence.
 - Runtime errors should be treated as observable evidence to inspect, not hidden from the learner.
 - When an uncaught exception occurs, distinguish statements executed before the failing line from statements that appear later in the file and therefore never run.
-- A function call returns a value; assignment stores that value; `print` produces terminal output.
+- A function call returns a value; assignment stores that value; `for` iterates/binds values; `print` produces terminal output.
 - Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
 - After the syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-Introduce `for` as a new syntax form with one tiny worked example over a list. The learner should manually type and run it, predict the sequence of outputs, and explain that the loop variable receives one list element at a time and that the indented body runs once per element. Do not combine the first `for` example with exceptions or retry yet.
+Obtain one near imitation of a `for` loop over a different list while the learner may inspect the worked example. Then test one controlled variation of indentation or list length without introducing a new syntax form. If that succeeds, ask for one neighboring loop task without a full template before moving to exceptions.
 
 ## Observed friction
 
 The original bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. Treat that as non-target friction, not structural retry failure.
 
-That runtime obstruction is removed. The simple function sequence and list/indexing sequence have now each reached one neighboring independent reconstruction.
+That runtime obstruction is removed. The simple function sequence and list/indexing sequence have each reached one neighboring independent reconstruction.
 
 One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. Continue checking source-order reasoning when future exceptions are introduced.
 
+No new friction appeared in the first `for` worked example. The learner correctly traced loop-variable values and the indentation boundary, but independent loop production has not yet been tested.
+
 ## Unknowns to resolve from live interaction
 
-- bounded repetition syntax and traceability;
+- bounded repetition syntax production and transfer;
 - exception, `raise`, and `try` / `except` syntax;
 - passing and calling function values as arguments;
 - whether retry structure can later be reconstructed without a worked example;
