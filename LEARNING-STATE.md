@@ -29,7 +29,7 @@ These records are scoped evidence. They do not imply independent mastery of all 
 
 Build the minimum Python execution and syntax baseline needed to return to bounded-retry reconstruction without mixing syntax friction into the structural assessment.
 
-The initial novice sequence for variables, functions, comparison, return values, calls, assignment, and `print` has now completed successfully:
+The initial novice sequence for variables, functions, comparison, return values, calls, assignment, and `print` has completed successfully:
 
 ```text
 worked example
@@ -39,9 +39,11 @@ worked example
 → neighboring reconstruction without a visible template
 ```
 
-The neighboring task (`needs_heating`) was reconstructed correctly from natural-language requirements. The learner predicted `True`, observed `True`, and explained the execution path as variables → function definition → function call → comparison → returned value → assignment → printed output. This is now retained as scoped independent reconstruction evidence.
+The neighboring task (`needs_heating`) was reconstructed correctly from natural-language requirements. The learner predicted `True`, observed `True`, and explained the execution path as variables → function definition → function call → comparison → returned value → assignment → printed output. This is retained as scoped independent reconstruction evidence.
 
-Before returning to bounded retry, introduce the additional syntax needed by retry code one small unit at a time, using the same sequence when a form is genuinely new. Likely prerequisites include:
+The next syntax unit is Python list values and zero-based indexing. Its worked example has now been completed under full scaffold. The learner manually ran a list containing `1, 2, 4`, predicted and observed the three outputs correctly, explained `delays[0]` as retrieving the first list element, and explained that the third element is at index `2` because indexing starts at zero. Treat this as recognition/tracing evidence for list literals and indexing, not yet independent list production.
+
+Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time, using the same sequence when a form is genuinely new. Likely prerequisites include:
 
 ```text
 list values / indexing
@@ -77,8 +79,9 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
-- Basic independent production is now observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
-- Do not re-teach those forms from scratch unless friction reappears, but keep correcting terminology when useful.
+- Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
+- List literal and zero-based indexing have been introduced and traced successfully under a complete worked example; do not yet assume independent production.
+- Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
 - For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
 - Syntax lookup is allowed.
@@ -89,17 +92,20 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Next evidence target
 
-Introduce Python list values as the next new syntax unit without combining them yet with loops or exceptions. Use a tiny worked example that stores several retry-delay-like values in a list, accesses them by index, predicts the output before execution, and explains zero-based indexing. Then obtain one imitation and controlled variation before introducing repetition.
+Obtain one near imitation of a list literal plus indexed access while the learner may inspect the worked example, followed by one controlled boundary variation that exposes the list's valid index range. Do not introduce loops yet. If those succeed, ask for one neighboring list task without a full template before moving to bounded repetition.
 
 ## Observed friction
 
 The original bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. Treat that as non-target friction, not structural retry failure.
 
-That runtime obstruction is now removed. No significant syntax failure appeared in the simple function sequence. One terminology issue was corrected during the sequence: the result variable does not call the function; the function call happens first, its returned value is assigned, and `print` later produces terminal output.
+That runtime obstruction is removed. No significant syntax failure appeared in the simple function sequence. One terminology issue was corrected during the sequence: the result variable does not call the function; the function call happens first, its returned value is assigned, and `print` later produces terminal output.
+
+No new friction appeared in the first list worked example. The learner correctly reasoned about zero-based indexing, but independent list production has not yet been tested.
 
 ## Unknowns to resolve from live interaction
 
-- list literal and indexing production;
+- list literal and indexing production without a complete template;
+- valid list-index boundary and ability to interpret the resulting runtime error;
 - bounded repetition syntax and traceability;
 - exception, `raise`, and `try` / `except` syntax;
 - passing and calling function values as arguments;
