@@ -41,9 +41,9 @@ worked example
 
 The neighboring task (`needs_heating`) was reconstructed correctly from natural-language requirements. The learner predicted `True`, observed `True`, and explained the execution path as variables → function definition → function call → comparison → returned value → assignment → printed output. This is retained as scoped independent reconstruction evidence.
 
-The current syntax unit is Python list values and zero-based indexing. Its worked example was completed under full scaffold: the learner manually ran a list containing `1, 2, 4`, predicted and observed the three outputs correctly, explained `delays[0]` as retrieving the first list element, and explained that the third element is at index `2` because indexing starts at zero.
+The current syntax unit is Python list values and zero-based indexing. Its worked example was completed under full scaffold, and the list imitation step also succeeded with `[3, 6, 9]` and indices `[0]`, `[1]`, and `[2]`.
 
-The list imitation step also succeeded. While allowed to inspect the worked example, the learner independently wrote `response_times = [3, 6, 9]`, retrieved the values with indices `[0]`, `[1]`, and `[2]`, predicted and observed `3`, `6`, and `9`, and correctly explained the mapping between zero-based indices and the first, second, and third elements. Treat this as imitation evidence, not yet neighboring independent list reconstruction.
+The controlled list-boundary variation has now been run. The learner correctly predicted that accessing index `[3]` in a three-element list would fail and supplied the real traceback showing `IndexError: list index out of range` at `third_time = response_times[3]`. The learner incorrectly predicted that the later `print(first_time)` and `print(second_time)` statements would execute before the error. Treat this as useful control-flow evidence: the remaining gap is execution-order tracing across an uncaught runtime exception, not list-index understanding.
 
 Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time, using the same sequence when a form is genuinely new. Likely prerequisites include:
 
@@ -82,20 +82,21 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
 - Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
-- List literal and zero-based indexing have now been introduced, traced, and reproduced in one near imitation; do not yet assume neighboring independent production.
+- List literal and zero-based indexing have been introduced, traced, reproduced in one near imitation, and tested at the invalid upper boundary.
 - Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
 - For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
 - Syntax lookup is allowed.
 - Do not treat transcription or imitation as independent reconstruction evidence.
 - Runtime errors should be treated as observable evidence to inspect, not as something to hide from the learner. When introducing an error type, first let the learner predict the failure, then run it, then read the traceback from the bottom upward: exception type/message, failing line, then local cause.
+- When an uncaught exception occurs, explicitly distinguish statements executed before the failing line from statements that appear later in the file and therefore never run.
 - A function call returns a value; assignment stores that value; `print` produces terminal output.
 - Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
 - After the syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-Run one controlled list-index boundary variation: access index `[3]` in a three-element list, predict what kind of failure should occur without requiring the exact Python exception name, then inspect the real traceback. The learner should identify that valid indices are `0`, `1`, and `2`, locate the failing source line, and connect the bottom-line error message to the invalid index. After that, ask for one neighboring list task without a full template before moving to bounded repetition.
+First have the learner read the current traceback and identify: (1) exception type, (2) human-readable message, (3) failing source line, and (4) why the later print statements did not execute. Then ask for one neighboring list task without a full template before moving to bounded repetition.
 
 ## Observed friction
 
@@ -103,11 +104,12 @@ The original bounded-retry reconstruction task mixed the intended retry-structur
 
 That runtime obstruction is removed. No significant syntax failure appeared in the simple function sequence. One terminology issue was corrected during the sequence: the result variable does not call the function; the function call happens first, its returned value is assigned, and `print` later produces terminal output.
 
-No new friction appeared in the list worked example or list imitation. The learner correctly reasons about zero-based indexing. The next uncertainty is whether the learner can use a real out-of-range traceback as evidence rather than only reason about successful accesses.
+List indexing itself appears understood, including zero-based indices and the invalid `[3]` boundary for a three-element list. A new trace-order friction appeared: the learner expected print statements located after the failing line to execute before the uncaught exception. Resolve this with the current traceback before adding new syntax.
 
 ## Unknowns to resolve from live interaction
 
-- valid list-index boundary and ability to interpret the resulting runtime error;
+- whether the learner can read a simple traceback from bottom to source line;
+- whether execution-order tracing now survives an uncaught runtime exception;
 - list literal and indexing production in a neighboring task without a complete template;
 - bounded repetition syntax and traceability;
 - exception, `raise`, and `try` / `except` syntax;
