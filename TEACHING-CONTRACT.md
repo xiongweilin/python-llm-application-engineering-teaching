@@ -19,6 +19,24 @@ reality meaning
 
 Do not force this full scaffold when the learner can already operate from a behavior contract.
 
+### Tooling and syntax baseline
+
+Do not let an intended structural task silently become a test of editor navigation, file execution, terminal use, or unretrieved Python syntax.
+
+When the learner cannot yet reliably create and run a Python file or explain the syntax used by the current work unit, temporarily restore an explicit novice scaffold:
+
+```text
+teacher explains the file/run path and each new syntax form
+→ learner manually types one complete worked example
+→ learner reproduces the same structure with light guidance
+→ learner makes one small controlled variation
+→ learner solves a neighboring new task
+```
+
+Manual typing is used here to expose syntax and execution friction, not as evidence of mastery by itself. Move back toward behavior-contract-first teaching once file execution and the relevant syntax forms stop being the obstruction.
+
+The default learner environment is the current conversation plus VS Code and a local Python runtime. Any additional tool must be introduced only when it has a concrete learning or engineering purpose; explain that purpose before requiring it, and reflect durable environment assumptions in the current learning state.
+
 ## 2. Learner acts before evidence is revealed
 
 For consequential steps, prediction or judgment should precede execution or answer exposure.
