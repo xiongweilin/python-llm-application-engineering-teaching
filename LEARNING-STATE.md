@@ -50,6 +50,8 @@ The current syntax unit is bounded repetition with `for`. Its first worked examp
 
 The near-imitation step also succeeded. While allowed to inspect the worked example, the learner independently wrote `attempts = [1, 2, 3, 4]`, iterated with `for attempt in attempts:`, printed each attempt, and placed `print("finished")` outside the loop. The learner predicted and observed `1`, `2`, `3`, `4`, then `finished`, identified the four loop-variable values correctly, and explained that `finished` prints once because that statement is unindented and outside the loop body. Treat this as imitation evidence, not yet neighboring independent loop reconstruction.
 
+The controlled indentation variation also succeeded. After moving `print("finished")` into the loop body, the learner correctly predicted and observed the alternating output `1/finished`, `2/finished`, `3/finished`, `4/finished`, stated that `finished` prints four times because the statement is now indented inside the loop, and explained that the changed result comes from the statement's changed relationship to the loop body. This is evidence that indentation is being interpreted as block membership controlling execution count, not merely visual formatting.
+
 Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time.
 
 Likely remaining prerequisites:
@@ -89,7 +91,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
 - Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
 - List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose, including one real `IndexError` traceback and one neighboring independent reconstruction.
-- `for` has been introduced, traced, and reproduced in one near imitation; do not yet assume neighboring independent production.
+- `for` has been introduced, traced, reproduced in one near imitation, and tested with one controlled indentation variation; do not yet assume neighboring independent production.
 - Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
 - For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
@@ -97,13 +99,13 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Do not treat transcription or imitation as independent reconstruction evidence.
 - Runtime errors should be treated as observable evidence to inspect, not hidden from the learner.
 - When an uncaught exception occurs, distinguish statements executed before the failing line from statements that appear later in the file and therefore never run.
-- A function call returns a value; assignment stores that value; `for` iterates/binds values; `print` produces terminal output.
+- A function call returns a value; assignment stores that value; `for` iterates/binds values; indentation determines block membership; `print` produces terminal output.
 - Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
 - After the syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-Run one controlled indentation variation using the existing `for` structure: move a previously unindented `print` statement into the loop body, predict the exact output sequence, run it, and explain why execution count changes. Do not introduce new syntax. If that succeeds, ask for one neighboring loop task without a full template before moving to exceptions.
+Ask for one neighboring loop task without a full template. The learner should independently create a list, iterate over it with `for`, use the loop variable inside the indented body, predict the full output, run it, and explain which statements are inside versus outside the loop. If this succeeds, treat bounded repetition as sufficiently stable for the current prerequisite purpose and introduce exceptions/`raise` with a worked example.
 
 ## Observed friction
 
@@ -113,11 +115,11 @@ That runtime obstruction is removed. The simple function sequence and list/index
 
 One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. Continue checking source-order reasoning when future exceptions are introduced.
 
-No new friction appeared in the first `for` worked example or near imitation. The learner correctly traces loop-variable values and the indentation boundary. The next uncertainty is whether execution-count reasoning survives a controlled indentation change and then a neighboring task without a full template.
+No new friction appeared in the `for` worked example, near imitation, or controlled indentation variation. The learner now correctly reasons that indentation determines loop-body membership and therefore execution count. The remaining uncertainty is neighboring loop reconstruction without a full template.
 
 ## Unknowns to resolve from live interaction
 
-- bounded repetition syntax production and transfer;
+- bounded repetition syntax production and transfer in a neighboring task;
 - exception, `raise`, and `try` / `except` syntax;
 - passing and calling function values as arguments;
 - whether retry structure can later be reconstructed without a worked example;
