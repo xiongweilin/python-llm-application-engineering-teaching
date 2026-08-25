@@ -32,13 +32,7 @@ These records are scoped evidence. They do not imply independent mastery of all 
 
 Build the minimum Python execution and syntax baseline needed to return to bounded-retry reconstruction without mixing syntax friction into the structural assessment.
 
-The initial novice sequence for variables, functions, comparison, return values, calls, assignment, and `print` has completed successfully.
-
-The list/indexing sequence has completed for the current prerequisite purpose, including a real `IndexError` traceback and one neighboring independent reconstruction.
-
-The bounded-repetition sequence with `for` has completed for the current prerequisite purpose.
-
-The explicit-exception sequence with `raise` has completed for the current prerequisite purpose, including one neighboring independent reconstruction and an explicit role distinction between `if` reachability and `raise` exception creation.
+The novice sequences for simple functions, list/indexing, `for`, and explicit `raise` have each reached one neighboring independent reconstruction for the current prerequisite purpose.
 
 The current syntax unit is `try` / `except`. Its first worked example was manually typed and run:
 
@@ -51,9 +45,15 @@ except ValueError:
 print("continued")
 ```
 
-The learner observed the actual output `caught` then `continued` with no traceback. However, the pre-run prediction expected a traceback, and the post-run explanation incorrectly said the `raise` did not really produce an exception. The learner correctly recognized that `except ValueError` catches the exception and prints `caught`, but attributed `continued` mainly to being unindented. The missing causal distinction is that the exception genuinely occurs, matching `except` handles it, and therefore control can continue after the `try` / `except`; being outside the block only describes block membership and does not by itself guarantee the line will be reached.
+The learner observed `caught` then `continued` with no traceback, but initially compressed “no traceback” into “no exception happened” and attributed `continued` mainly to being unindented.
 
-The latest `TEACHING-CONTRACT.md` §2 now includes a conditional `Distinction judgment` specialization for tasks that depend on classification, representation, or boundary choice. Apply that specialization here because the present gap is exactly a consequential distinction problem. Do not turn it into a learner-facing ritual for unrelated tasks.
+Because this was a consequential classification gap, the §2 conditional `Distinction judgment` specialization was applied to three tiny traces: raised/unhandled, raised/handled, and never-raised. The learner then classified all three correctly:
+
+- raised + unhandled: `ValueError` occurs, no `except` runs, traceback appears, later code is not reached;
+- raised + handled: `ValueError` occurs, matching `except` runs, no traceback appears, later code is reached;
+- never raised because a guard is false: no `ValueError` occurs, no `except` runs, no traceback appears, later code is reached.
+
+The learner also explicitly stated that “a `ValueError` happened but was caught” cannot be compressed into the same state as “no error happened.” Treat this distinction as currently stable enough to resume syntax imitation. Keep block membership separate from runtime reachability: unindented code is outside the block, but it executes only if control reaches it.
 
 Likely remaining prerequisites before returning to bounded retry:
 
@@ -88,49 +88,35 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
-- Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
-- List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose.
-- `for` iteration, loop-variable binding, and indentation-based loop-body membership are sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction.
-- `raise ValueError(...)` guarded by an `if` is sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction.
-- `try` / `except ValueError:` has only one worked-example run so far; do not assume even basic control-flow understanding yet.
-- Before more imitation, use a minimal distinction judgment because current errors concern classification of three materially different states: exception never raised, exception raised and handled, exception raised and unhandled.
-- Keep another distinction explicit: block membership / indentation is not the same as reachability. A statement outside a block still will not run if earlier unhandled control flow prevents reaching it.
-- Introduce genuinely new syntax before using it as part of a structural assessment.
-- For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use, but insert a targeted judgment check when the evidence shows a consequential classification gap.
+- Basic independent production is observed for literals, assignment, `def`, parameters, `if`, `<`, `return`, calls, returned-value assignment, `print`, list indexing, simple `for`, and guarded `raise ValueError(...)`.
+- `try` / `except ValueError:` has one worked-example run plus one successful distinction-judgment check; do not yet assume independent syntax production.
+- Matching `except` handles an exception that really occurred; no traceback does not imply no exception.
+- Block membership / indentation is not the same as runtime reachability.
+- Introduce genuinely new syntax before structural assessment.
+- For a new syntax form, prefer: explicit worked example → manual typing → imitation → one controlled variation → neighboring use, inserting a targeted judgment check only when evidence shows a consequential classification gap.
 - Syntax lookup is allowed.
 - Do not treat transcription or imitation as independent reconstruction evidence.
-- Runtime errors should be treated as observable evidence to inspect, not hidden from the learner.
-- A function call returns a value; assignment stores that value; `for` iterates/binds values; indentation determines block membership; `raise` explicitly creates/propagates an exception; matching `except` handles a raised exception and changes the subsequent control path; `print` produces terminal output.
-- Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
+- Runtime errors are observable evidence to inspect.
+- Add another tool only when it has a concrete learning or engineering purpose and explain that purpose first.
 - After the syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-Use the §2 conditional distinction-judgment specialization on three tiny traces with no new syntax:
-
-1. an exception is raised and unhandled;
-2. an exception is raised inside `try` and handled by matching `except`;
-3. a guarded `raise` is skipped because its `if` condition is false.
-
-For each, ask the learner to judge whether a `ValueError` actually occurs, whether an `except` block runs, whether a traceback appears, and whether later code is reached. Then ask which distinctions must be retained because they change observable behavior. Only after these classifications are reliable should the course return to `try` / `except` imitation and controlled variation.
+Return to the `try` / `except` novice sequence with one near imitation while the learner may inspect the worked example. Use a neighboring scenario with `raise ValueError(...)` inside `try`, matching `except ValueError:` printing one message, and a later unindented print. Ask for exact prediction, actual output, whether the exception really occurred, why no traceback appeared, and why later code was reachable. Then run one controlled variation before a neighboring no-template reconstruction.
 
 ## Observed friction
 
-The original bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. Treat that as non-target friction, not structural retry failure.
+The original bounded-retry reconstruction mixed retry structure with unknown runtime/editor/Python syntax; treat that as non-target friction.
 
-That runtime obstruction is removed. The simple function, list/indexing, bounded-repetition, and explicit-`raise` sequences have each reached one neighboring independent reconstruction.
+One earlier execution-order error around uncaught exceptions was corrected with traceback evidence. The explicit-`raise` sequence later stabilized raised versus skipped paths.
 
-The first `try` / `except` worked example exposed a new target-specific control-flow gap. The learner expected a traceback even with matching `except`, then after seeing `caught` / `continued` said the `raise` had not actually produced an exception. This indicates the learner is currently compressing “no traceback” into “no exception happened,” which is not a safe compression because handled and non-raised paths have different control-flow meaning.
-
-A second attribution issue appeared in explaining `continued`: the learner used indentation as the main cause. Indentation correctly marks that `print("continued")` is outside the `try` / `except`, but actual execution still depends on whether control reaches it. Reinforce membership versus reachability.
-
-Use the new distinction-judgment specialization only because these differences change prediction, explanation, and control-flow behavior.
+The first `try` / `except` example exposed a new target-specific compression: “no traceback” was treated as “no exception.” The conditional distinction-judgment check corrected this. No further curriculum redesign is warranted unless the distinction collapses again under variation.
 
 ## Unknowns to resolve from live interaction
 
-- whether the learner can reliably distinguish exception-never-raised, raised-and-handled, and raised-unhandled paths;
-- `try` / `except` syntax production and transfer after the distinction stabilizes;
-- whether the learner can distinguish block membership from runtime reachability;
+- `try` / `except` syntax production and neighboring transfer;
+- whether handled-vs-never-raised remains stable under variation;
+- whether block membership remains distinct from reachability;
 - passing and calling function values as arguments;
 - whether retry structure can later be reconstructed without a worked example;
 - whether the learner can independently locate the stopping condition and side-effect boundary;
