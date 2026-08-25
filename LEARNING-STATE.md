@@ -42,6 +42,8 @@ The worked-example step produced limited live evidence: the learner reports Pyth
 
 The imitation step also succeeded. While allowed to inspect the worked example, the learner independently typed a structurally equivalent `has_room` function, predicted `True`, observed `True`, and explained why the comparison `3 < 5` caused the function to return `True` and the result to be printed. The learner reused the outer names `attempt` and `max_attempts` instead of the suggested `items` and `capacity`; the program still behaved correctly. This is useful evidence that the learner is beginning to separate identifier names from the values passed into parameters. It remains imitation evidence, not independent reconstruction evidence.
 
+The controlled boundary variation also succeeded. With the same code structure and only the input changed to `5` and `5`, the learner predicted and observed `False`, explained that `5 < 5` is false, and correctly predicted that `6 < 5` would also be `False` without running it. This is evidence that the learner is applying the comparison rule across boundary values rather than memorizing the earlier successful path. It still does not establish independent reconstruction without a visible template.
+
 Once these actions stop being the obstruction, return to the existing bounded-retry target:
 
 ```text
@@ -66,7 +68,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - A usable local Python runtime and basic `.py` execution are now observed; do not re-teach them unless execution friction reappears.
-- Basic tracing of variables, a two-parameter function call, `if`, `return`, assignment, and `print` has been observed under full scaffold and one near imitation.
+- Basic tracing of variables, a two-parameter function call, `if`, `return`, assignment, and `print` has been observed under full scaffold, one near imitation, and one controlled boundary variation.
 - Do not yet assume independent Python syntax production from a behavior contract.
 - Introduce each new syntax form before using it as part of a structural assessment.
 - Continue the temporary novice sequence: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring new task.
@@ -78,7 +80,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Next evidence target
 
-Test one controlled variation of the same function structure without introducing unrelated syntax. Prefer a boundary-value change first so the learner must reason about the existing `<` condition rather than merely repeat the previous successful path. If that succeeds, move to a neighboring new task with the same already-introduced syntax before adding new forms.
+Move to one neighboring new task using only already-introduced syntax (`literal`, variable assignment, `def`, parameters, `if`, `<`, `return`, function call, assignment, `print`). Do not show a complete reference implementation. Ask the learner to reconstruct the structure from a compact natural-language requirement, predict the output, run it, and explain the execution path. If this succeeds, introduce the next syntax form with a worked example rather than immediately escalating to retry.
 
 ## Observed friction
 
@@ -86,10 +88,12 @@ The first bounded-retry reconstruction task mixed the intended retry-structure t
 
 The first worked example removed the runtime obstruction. The imitation did not expose a syntax-production failure, but it was still performed with the reference structure available. One terminology issue remains useful to correct: the learner described the result variable as if it called the function; the actual order is function call → returned value → assignment → `print`.
 
+No new friction appeared in the boundary-value variation. The next uncertainty is whether the learner can reconstruct the same structure when the surface scenario and identifier names change and the full template is no longer visible.
+
 ## Unknowns to resolve from live interaction
 
 - basic Python syntax production and retrieval without a visible template: literals, variables, function calls, `def`, parameters, return values, indentation, exceptions, classes, and lists;
-- whether the same simple function structure survives one controlled boundary variation and a neighboring new task;
+- whether the simple function structure survives a neighboring new task without a complete reference implementation;
 - whether retry structure can later be reconstructed without a worked example;
 - whether the learner can independently locate the stopping condition and side-effect boundary;
 - delayed retention and transfer distance.
