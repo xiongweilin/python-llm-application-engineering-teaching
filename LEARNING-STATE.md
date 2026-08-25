@@ -46,7 +46,9 @@ In the neighboring list task, the learner independently created `delays = [1, 2,
 
 The learner also understands that an access such as `delays[4]` is outside the valid index range for a four-element list. Whether any prior values have already been printed depends on the actual location of the failing access relative to the `print` statements; keep execution-order reasoning tied to source order.
 
-The current syntax unit is bounded repetition with `for`. Its first worked example has now been completed under full scaffold. The learner predicted and observed the output `1`, `2`, `4`, then `done`; identified the loop-variable values as `1`, `2`, and `4`; and correctly explained that `print("done")` runs once because it is outside the indented loop body. Correct terminology when needed: the `for` statement iterates and binds one element at a time; `print(delay)` is what produces terminal output.
+The current syntax unit is bounded repetition with `for`. Its first worked example was completed under full scaffold. The learner predicted and observed the output `1`, `2`, `4`, then `done`; identified the loop-variable values as `1`, `2`, and `4`; and correctly explained that `print("done")` runs once because it is outside the indented loop body. Correct terminology when needed: the `for` statement iterates and binds one element at a time; `print(delay)` is what produces terminal output.
+
+The near-imitation step also succeeded. While allowed to inspect the worked example, the learner independently wrote `attempts = [1, 2, 3, 4]`, iterated with `for attempt in attempts:`, printed each attempt, and placed `print("finished")` outside the loop. The learner predicted and observed `1`, `2`, `3`, `4`, then `finished`, identified the four loop-variable values correctly, and explained that `finished` prints once because that statement is unindented and outside the loop body. Treat this as imitation evidence, not yet neighboring independent loop reconstruction.
 
 Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time.
 
@@ -87,7 +89,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
 - Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
 - List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose, including one real `IndexError` traceback and one neighboring independent reconstruction.
-- `for` has been introduced and traced successfully under one complete worked example; do not yet assume independent production.
+- `for` has been introduced, traced, and reproduced in one near imitation; do not yet assume neighboring independent production.
 - Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
 - For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
@@ -101,7 +103,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Next evidence target
 
-Obtain one near imitation of a `for` loop over a different list while the learner may inspect the worked example. Then test one controlled variation of indentation or list length without introducing a new syntax form. If that succeeds, ask for one neighboring loop task without a full template before moving to exceptions.
+Run one controlled indentation variation using the existing `for` structure: move a previously unindented `print` statement into the loop body, predict the exact output sequence, run it, and explain why execution count changes. Do not introduce new syntax. If that succeeds, ask for one neighboring loop task without a full template before moving to exceptions.
 
 ## Observed friction
 
@@ -111,7 +113,7 @@ That runtime obstruction is removed. The simple function sequence and list/index
 
 One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. Continue checking source-order reasoning when future exceptions are introduced.
 
-No new friction appeared in the first `for` worked example. The learner correctly traced loop-variable values and the indentation boundary, but independent loop production has not yet been tested.
+No new friction appeared in the first `for` worked example or near imitation. The learner correctly traces loop-variable values and the indentation boundary. The next uncertainty is whether execution-count reasoning survives a controlled indentation change and then a neighboring task without a full template.
 
 ## Unknowns to resolve from live interaction
 
