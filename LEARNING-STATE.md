@@ -36,30 +36,24 @@ The initial novice sequence for variables, functions, comparison, return values,
 
 The list/indexing sequence has completed for the current prerequisite purpose, including a real `IndexError` traceback and one neighboring independent reconstruction.
 
-The bounded-repetition sequence with `for` has also completed for the current prerequisite purpose:
+The bounded-repetition sequence with `for` has completed for the current prerequisite purpose.
 
-```text
-worked example
-→ manual typing
-→ imitation
-→ controlled indentation variation
-→ neighboring reconstruction without a visible template
+The explicit-exception sequence with `raise` has completed for the current prerequisite purpose, including one neighboring independent reconstruction and an explicit role distinction between `if` reachability and `raise` exception creation.
+
+The current syntax unit is `try` / `except`. Its first worked example was manually typed and run:
+
+```python
+try:
+    raise ValueError("invalid value")
+except ValueError:
+    print("caught")
+
+print("continued")
 ```
 
-The explicit-exception sequence with `raise` has now completed for the current prerequisite purpose:
+The learner observed the actual output `caught` then `continued` with no traceback. However, the pre-run prediction expected a traceback, and the post-run explanation incorrectly said the `raise` did not really produce an exception. The learner correctly recognized that `except ValueError` catches the exception and prints `caught`, but attributed `continued` mainly to being unindented. The missing causal distinction is that the exception genuinely occurs, matching `except` handles it, and therefore control can continue after the `try` / `except`; being outside the block only describes block membership and does not by itself guarantee the line will be reached.
 
-```text
-worked example
-→ manual typing
-→ imitation
-→ controlled true/false condition variation
-→ neighboring reconstruction without a visible template
-→ minimal role-attribution check
-```
-
-In the neighboring `raise` task, the learner independently created `age = -1`, guarded `raise ValueError("age cannot be below zero")` with `if age < 0:`, placed `print("accepted")` after the block, correctly predicted and observed the uncaught exception, and correctly predicted the false-condition path where `raise` is skipped and `accepted` prints. After one direct role check, the learner also cleanly stated that the `if` condition decides whether execution reaches the branch while the `raise` statement itself creates the `ValueError`. This is retained as scoped independent reconstruction evidence.
-
-The next new syntax unit is `try` / `except`: handling an exception after it has actually been raised, rather than merely skipping a `raise` statement through control flow.
+The latest `TEACHING-CONTRACT.md` §2 now includes a conditional `Distinction judgment` specialization for tasks that depend on classification, representation, or boundary choice. Apply that specialization here because the present gap is exactly a consequential distinction problem. Do not turn it into a learner-facing ritual for unrelated tasks.
 
 Likely remaining prerequisites before returning to bounded retry:
 
@@ -97,37 +91,46 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
 - List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose.
 - `for` iteration, loop-variable binding, and indentation-based loop-body membership are sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction.
-- `raise ValueError(...)` guarded by an `if` is sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction and explicit separation of `if` reachability from `raise` exception creation.
-- Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
+- `raise ValueError(...)` guarded by an `if` is sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction.
+- `try` / `except ValueError:` has only one worked-example run so far; do not assume even basic control-flow understanding yet.
+- Before more imitation, use a minimal distinction judgment because current errors concern classification of three materially different states: exception never raised, exception raised and handled, exception raised and unhandled.
+- Keep another distinction explicit: block membership / indentation is not the same as reachability. A statement outside a block still will not run if earlier unhandled control flow prevents reaching it.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
-- For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
+- For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use, but insert a targeted judgment check when the evidence shows a consequential classification gap.
 - Syntax lookup is allowed.
 - Do not treat transcription or imitation as independent reconstruction evidence.
 - Runtime errors should be treated as observable evidence to inspect, not hidden from the learner.
-- When an uncaught exception occurs, distinguish statements executed before the failing line from statements that appear later in the file and therefore never run.
-- Keep the distinction explicit: a false `if` condition means `raise` never executed; `try` / `except` will introduce the different case where an exception really is raised and then handled.
-- A function call returns a value; assignment stores that value; `for` iterates/binds values; indentation determines block membership; `raise` explicitly creates/propagates an exception; `print` produces terminal output.
+- A function call returns a value; assignment stores that value; `for` iterates/binds values; indentation determines block membership; `raise` explicitly creates/propagates an exception; matching `except` handles a raised exception and changes the subsequent control path; `print` produces terminal output.
 - Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
 - After the syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-Introduce `try` / `except ValueError:` as a genuinely new syntax form with one tiny worked example. Put a known `raise ValueError(...)` inside the `try` block, handle it in the `except` block with a simple `print`, then place another unindented `print` after the whole structure. The learner should manually type it, predict the exact output, run it, and explain that the exception really occurs, transfers control to the matching `except`, and then normal execution continues after the handled block. Do not combine this first `try` / `except` example with loops, retries, or callbacks.
+Use the §2 conditional distinction-judgment specialization on three tiny traces with no new syntax:
+
+1. an exception is raised and unhandled;
+2. an exception is raised inside `try` and handled by matching `except`;
+3. a guarded `raise` is skipped because its `if` condition is false.
+
+For each, ask the learner to judge whether a `ValueError` actually occurs, whether an `except` block runs, whether a traceback appears, and whether later code is reached. Then ask which distinctions must be retained because they change observable behavior. Only after these classifications are reliable should the course return to `try` / `except` imitation and controlled variation.
 
 ## Observed friction
 
 The original bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. Treat that as non-target friction, not structural retry failure.
 
-That runtime obstruction is removed. The simple function, list/indexing, bounded-repetition, and explicit-`raise` sequences have each now reached one neighboring independent reconstruction.
+That runtime obstruction is removed. The simple function, list/indexing, bounded-repetition, and explicit-`raise` sequences have each reached one neighboring independent reconstruction.
 
-One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. The later explicit-`raise` tasks show correct source-order reasoning on both raised and skipped paths.
+The first `try` / `except` worked example exposed a new target-specific control-flow gap. The learner expected a traceback even with matching `except`, then after seeing `caught` / `continued` said the `raise` had not actually produced an exception. This indicates the learner is currently compressing “no traceback” into “no exception happened,” which is not a safe compression because handled and non-raised paths have different control-flow meaning.
 
-A narrower role-attribution issue appeared in the neighboring `raise` task: the learner initially said the `if` line produced the exception. A direct contrast resolved this; the learner now states that `if` decides reachability and `raise` produces the `ValueError`. Treat that issue as resolved unless it reappears.
+A second attribution issue appeared in explaining `continued`: the learner used indentation as the main cause. Indentation correctly marks that `print("continued")` is outside the `try` / `except`, but actual execution still depends on whether control reaches it. Reinforce membership versus reachability.
+
+Use the new distinction-judgment specialization only because these differences change prediction, explanation, and control-flow behavior.
 
 ## Unknowns to resolve from live interaction
 
-- `try` / `except` syntax and control flow;
-- whether the learner can distinguish “exception never raised” from “exception raised and handled” in execution traces;
+- whether the learner can reliably distinguish exception-never-raised, raised-and-handled, and raised-unhandled paths;
+- `try` / `except` syntax production and transfer after the distinction stabilizes;
+- whether the learner can distinguish block membership from runtime reachability;
 - passing and calling function values as arguments;
 - whether retry structure can later be reconstructed without a worked example;
 - whether the learner can independently locate the stopping condition and side-effect boundary;
