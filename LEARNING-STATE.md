@@ -8,7 +8,7 @@ Phase A — Python and real-system code ownership.
 
 ## Earned evidence
 
-There are 13 retained learning records. They currently support experience with:
+There are 14 retained learning records. They currently support experience with:
 
 - functions and deterministic gates;
 - data scope and rule placement;
@@ -22,7 +22,8 @@ There are 13 retained learning records. They currently support experience with:
 - accumulating errors versus fail-fast control flow;
 - implementing and transferring constrained state transitions;
 - independently reconstructing one simple Python function structure in a neighboring context;
-- independently reconstructing a simple list-plus-indexing structure in a neighboring context.
+- independently reconstructing a simple list-plus-indexing structure in a neighboring context;
+- independently reconstructing a simple `for` loop in a neighboring context.
 
 These records are scoped evidence. They do not imply independent mastery of all related Python syntax or unfamiliar project diagnosis.
 
@@ -32,33 +33,26 @@ Build the minimum Python execution and syntax baseline needed to return to bound
 
 The initial novice sequence for variables, functions, comparison, return values, calls, assignment, and `print` has completed successfully.
 
-The list/indexing sequence has also completed for the current prerequisite purpose:
+The list/indexing sequence has completed for the current prerequisite purpose, including a real `IndexError` traceback and one neighboring independent reconstruction.
+
+The bounded-repetition sequence with `for` has also completed for the current prerequisite purpose:
 
 ```text
 worked example
 → manual typing
 → imitation
-→ invalid-boundary traceback
+→ controlled indentation variation
 → neighboring reconstruction without a visible template
 ```
 
-In the neighboring list task, the learner independently created `delays = [1, 2, 4, 8]`, selected the first, third, and fourth elements using indices `[0]`, `[2]`, and `[3]`, predicted and observed `1`, `4`, and `8`, and explained the zero-based mapping correctly. This is retained as scoped independent reconstruction evidence.
+In the neighboring loop task, the learner independently created `wait_times = [2, 4, 8]`, iterated with `for wait_time in wait_times:`, printed the loop variable inside the indented body, printed `complete` after the loop, predicted and observed the exact output, and explained the three loop-variable values and the inside/outside indentation boundary. This is retained as scoped independent reconstruction evidence.
 
-The learner also understands that an access such as `delays[4]` is outside the valid index range for a four-element list. Whether any prior values have already been printed depends on the actual location of the failing access relative to the `print` statements; keep execution-order reasoning tied to source order.
-
-The current syntax unit is bounded repetition with `for`. Its first worked example was completed under full scaffold. The learner predicted and observed the output `1`, `2`, `4`, then `done`; identified the loop-variable values as `1`, `2`, and `4`; and correctly explained that `print("done")` runs once because it is outside the indented loop body. Correct terminology when needed: the `for` statement iterates and binds one element at a time; `print(delay)` is what produces terminal output.
-
-The near-imitation step also succeeded. While allowed to inspect the worked example, the learner independently wrote `attempts = [1, 2, 3, 4]`, iterated with `for attempt in attempts:`, printed each attempt, and placed `print("finished")` outside the loop. The learner predicted and observed `1`, `2`, `3`, `4`, then `finished`, identified the four loop-variable values correctly, and explained that `finished` prints once because that statement is unindented and outside the loop body. Treat this as imitation evidence, not yet neighboring independent loop reconstruction.
-
-The controlled indentation variation also succeeded. After moving `print("finished")` into the loop body, the learner correctly predicted and observed the alternating output `1/finished`, `2/finished`, `3/finished`, `4/finished`, stated that `finished` prints four times because the statement is now indented inside the loop, and explained that the changed result comes from the statement's changed relationship to the loop body. This is evidence that indentation is being interpreted as block membership controlling execution count, not merely visual formatting.
-
-Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time.
+Before returning to bounded retry, introduce the remaining syntax needed by retry code one small unit at a time. The next unit is explicit exception creation with `raise`.
 
 Likely remaining prerequisites:
 
 ```text
-bounded repetition (`for`)
-→ exceptions and `raise`
+exceptions and `raise`
 → `try` / `except`
 → passing a function as a value / callback boundary
 ```
@@ -90,8 +84,8 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
 - Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
-- List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose, including one real `IndexError` traceback and one neighboring independent reconstruction.
-- `for` has been introduced, traced, reproduced in one near imitation, and tested with one controlled indentation variation; do not yet assume neighboring independent production.
+- List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose.
+- `for` iteration, loop-variable binding, and indentation-based loop-body membership are sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction.
 - Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
 - Introduce genuinely new syntax before using it as part of a structural assessment.
 - For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
@@ -105,22 +99,22 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Next evidence target
 
-Ask for one neighboring loop task without a full template. The learner should independently create a list, iterate over it with `for`, use the loop variable inside the indented body, predict the full output, run it, and explain which statements are inside versus outside the loop. If this succeeds, treat bounded repetition as sufficiently stable for the current prerequisite purpose and introduce exceptions/`raise` with a worked example.
+Introduce explicit exception creation with `raise` using one tiny worked example. Keep the exception type built-in and simple, such as `ValueError`, and place `raise` behind an already-known `if` condition. The learner should manually type and run the example, predict whether execution reaches a later `print`, inspect the traceback, and explain that `raise` deliberately creates an exception rather than merely printing an error message. Do not introduce `try` / `except` in the same first exercise.
 
 ## Observed friction
 
 The original bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. Treat that as non-target friction, not structural retry failure.
 
-That runtime obstruction is removed. The simple function sequence and list/indexing sequence have each reached one neighboring independent reconstruction.
+That runtime obstruction is removed. The simple function, list/indexing, and bounded-repetition sequences have each reached one neighboring independent reconstruction.
 
-One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. Continue checking source-order reasoning when future exceptions are introduced.
+One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. Continue checking source-order reasoning as explicit exceptions are introduced.
 
-No new friction appeared in the `for` worked example, near imitation, or controlled indentation variation. The learner now correctly reasons that indentation determines loop-body membership and therefore execution count. The remaining uncertainty is neighboring loop reconstruction without a full template.
+No new friction appeared in the `for` neighboring task. The next unknown is deliberate exception creation with `raise` and its control-flow effect.
 
 ## Unknowns to resolve from live interaction
 
-- bounded repetition syntax production and transfer in a neighboring task;
-- exception, `raise`, and `try` / `except` syntax;
+- exception objects and explicit `raise` syntax;
+- `try` / `except` syntax and control flow;
 - passing and calling function values as arguments;
 - whether retry structure can later be reconstructed without a worked example;
 - whether the learner can independently locate the stopping condition and side-effect boundary;
