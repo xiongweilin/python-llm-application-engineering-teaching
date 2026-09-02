@@ -8,7 +8,7 @@ Phase A — Python and real-system code ownership.
 
 ## Earned evidence
 
-There are 15 retained learning records. They currently support experience with:
+There are 16 retained learning records. They currently support experience with:
 
 - functions and deterministic gates;
 - data scope and rule placement;
@@ -24,7 +24,8 @@ There are 15 retained learning records. They currently support experience with:
 - independently reconstructing one simple Python function structure in a neighboring context;
 - independently reconstructing a simple list-plus-indexing structure in a neighboring context;
 - independently reconstructing a simple `for` loop in a neighboring context;
-- independently reconstructing a simple `if` + `raise ValueError(...)` validation structure in a neighboring context.
+- independently reconstructing a simple `if` + `raise ValueError(...)` validation structure in a neighboring context;
+- independently reconstructing a simple `try` / `except ValueError:` structure in a neighboring context.
 
 These records are scoped evidence. They do not imply independent mastery of all related Python syntax or unfamiliar project diagnosis.
 
@@ -32,45 +33,29 @@ These records are scoped evidence. They do not imply independent mastery of all 
 
 Build the minimum Python execution and syntax baseline needed to return to bounded-retry reconstruction without mixing syntax friction into the structural assessment.
 
-The initial novice sequence for variables, functions, comparison, return values, calls, assignment, and `print` has completed successfully.
+The novice sequences for simple functions, list/indexing, `for`, explicit `raise`, and basic `try` / `except ValueError:` have each reached one neighboring independent reconstruction for the current prerequisite purpose.
 
-The list/indexing sequence has completed for the current prerequisite purpose, including a real `IndexError` traceback and one neighboring independent reconstruction.
+The current new unit is the callback boundary: passing a function itself as a value and calling it through a parameter.
 
-The bounded-repetition sequence with `for` has also completed for the current prerequisite purpose:
+The first worked example has been manually typed and run:
 
-```text
-worked example
-→ manual typing
-→ imitation
-→ controlled indentation variation
-→ neighboring reconstruction without a visible template
+```python
+def say_hello():
+    print("hello")
+
+
+def run_action(action):
+    action()
+
+
+run_action(say_hello)
 ```
 
-The explicit-exception sequence with `raise` has now completed for the current prerequisite purpose:
+The learner correctly predicted and observed `hello`, correctly stated that `say_hello` is not called when it is passed as the argument in `run_action(say_hello)`, identified `action()` as the line that triggers the call, and explained that `action` is a parameter receiving a function. Refine terminology when useful: in this call, the parameter `action` is bound to the `say_hello` function object/value. Treat this as worked-example/manual-typing evidence only, not independent callback reconstruction.
 
-```text
-worked example
-→ manual typing
-→ imitation
-→ controlled true/false condition variation
-→ neighboring reconstruction without a visible template
-→ minimal role-attribution check
-```
+The remaining prerequisite before returning to bounded retry is to stabilize the callback boundary through imitation, one controlled variation, and neighboring reconstruction.
 
-In the neighboring `raise` task, the learner independently created `age = -1`, guarded `raise ValueError("age cannot be below zero")` with `if age < 0:`, placed `print("accepted")` after the block, correctly predicted and observed the uncaught exception, and correctly predicted the false-condition path where `raise` is skipped and `accepted` prints. After one direct role check, the learner also cleanly stated that the `if` condition decides whether execution reaches the branch while the `raise` statement itself creates the `ValueError`. This is retained as scoped independent reconstruction evidence.
-
-The next new syntax unit is `try` / `except`: handling an exception after it has actually been raised, rather than merely skipping a `raise` statement through control flow.
-
-Likely remaining prerequisites before returning to bounded retry:
-
-```text
-`try` / `except`
-→ passing a function as a value / callback boundary
-```
-
-Do not introduce both in one exercise.
-
-The later retry target remains:
+After callback transfer, return to the bounded-retry target:
 
 ```text
 trace
@@ -90,47 +75,68 @@ how long to wait if another attempt is permitted
 
 A successful provider call, a candidate delay value, and an actually executed wait are separate events.
 
+## Curriculum direction after the retry prerequisite closes
+
+Do not expand into a traditional broad Python syllabus. Use real API-facing work units to continue Phase A evidence and then activate a later operational phase only when earned.
+
+Preferred near-term direction after callback and bounded retry:
+
+```text
+bounded Python execution baseline
+→ small bridge: dict / JSON / import / Path / environment variables / HTTP request-response / status code / timeout / logging
+→ real API work units that exercise state, effects, diagnosis, retry, and verification
+→ LLM API with structured output and validation
+→ tool calling with explicit proposal / validation / authorization / execution / effect verification boundaries
+→ MCP tool/server use and modification
+→ one bounded, controlled agent project
+```
+
+Do not wait for exhaustive Python coverage before introducing real APIs. API work can itself provide Phase A evidence because the current authoritative Phase A gate requires ownership of unfamiliar code, failures, side effects, recovery, authority boundaries, and transfer. Conversely, do not declare a separate Phase B complete merely from one API demo.
+
+The current `CAPABILITY-CONTRACT.md` intentionally has only Phase A as the authoritative gate and keeps later coverage as a future guard. Do not pre-generate a detailed Phase B gate yet. When API/tool/MCP becomes the active domain, define the minimum operational gate then, using live evidence. A likely operational theme is API / Tool / MCP execution ownership.
+
+Mathematics, probability, Transformer internals, RAG theory, games, causality, and evaluation remain required long-term coverage where relevant, but should be pulled forward by actual engineering need rather than inserted as one large prerequisite block before API/tool work.
+
+Shell/PowerShell should remain instrumental rather than a standalone curriculum: enough to navigate, run Python, install/use environments when needed, manage environment variables, start/stop programs, and inspect outputs/errors.
+
 ## Current scaffold
 
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
-- Basic independent production is observed for literals, variable assignment, `def`, two parameters, `if`, `<`, `return`, function call, assignment of the returned value, and `print`.
-- List literals and zero-based indexing are sufficiently stable for the current prerequisite purpose.
-- `for` iteration, loop-variable binding, and indentation-based loop-body membership are sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction.
-- `raise ValueError(...)` guarded by an `if` is sufficiently stable for the current prerequisite purpose, including one neighboring independent reconstruction and explicit separation of `if` reachability from `raise` exception creation.
-- Do not re-teach already stable forms from scratch unless friction reappears, but keep correcting terminology when useful.
-- Introduce genuinely new syntax before using it as part of a structural assessment.
-- For a new syntax form, prefer: explicit worked example → learner manually types it → imitation → one controlled variation → neighboring use.
+- Basic independent production is observed for literals, assignment, `def`, parameters, `if`, `<`, `return`, calls, returned-value assignment, `print`, list indexing, simple `for`, guarded `raise ValueError(...)`, and basic matching `try` / `except ValueError:`.
+- Basic callback semantics have one successful worked example; do not yet assume independent syntax production or transfer.
+- Distinguish `function_name` (function object/value) from `function_name()` (call now).
+- A parameter can be bound to a function object and later invoked with `parameter()`.
+- Matching `except` handles an exception that really occurred; no traceback does not imply no exception.
+- Block membership / indentation is not the same as runtime reachability.
+- Introduce genuinely new syntax before structural assessment.
+- For a new syntax form, prefer: explicit worked example → manual typing → imitation → one controlled variation → neighboring use, inserting a targeted judgment check only when evidence shows a consequential classification gap.
 - Syntax lookup is allowed.
 - Do not treat transcription or imitation as independent reconstruction evidence.
-- Runtime errors should be treated as observable evidence to inspect, not hidden from the learner.
-- When an uncaught exception occurs, distinguish statements executed before the failing line from statements that appear later in the file and therefore never run.
-- Keep the distinction explicit: a false `if` condition means `raise` never executed; `try` / `except` will introduce the different case where an exception really is raised and then handled.
-- A function call returns a value; assignment stores that value; `for` iterates/binds values; indentation determines block membership; `raise` explicitly creates/propagates an exception; `print` produces terminal output.
-- Add another tool only when it has a concrete learning or engineering purpose, and explain that purpose before requiring it.
+- Runtime errors are observable evidence to inspect.
+- Add another tool only when it has a concrete learning or engineering purpose and explain that purpose first.
 - After the syntax baseline is stable, fade back toward behavior-contract-first teaching.
 
 ## Next evidence target
 
-Introduce `try` / `except ValueError:` as a genuinely new syntax form with one tiny worked example. Put a known `raise ValueError(...)` inside the `try` block, handle it in the `except` block with a simple `print`, then place another unindented `print` after the whole structure. The learner should manually type it, predict the exact output, run it, and explain that the exception really occurs, transfers control to the matching `except`, and then normal execution continues after the handled block. Do not combine this first `try` / `except` example with loops, retries, or callbacks.
+Use one near imitation of the callback boundary while the learner may inspect the worked example. Use a neighboring zero-argument function and a runner function that accepts it as a parameter and calls that parameter. Require prediction, runtime output, and explanation of exactly where the passed function is invoked. Then run one controlled variation before a neighboring no-template reconstruction. Do not combine callback imitation with retry yet.
 
 ## Observed friction
 
-The original bounded-retry reconstruction task mixed the intended retry-structure target with unknown editor/runtime and Python-syntax requirements. Treat that as non-target friction, not structural retry failure.
+The original bounded-retry reconstruction mixed retry structure with unknown runtime/editor/Python syntax; treat that as non-target friction.
 
-That runtime obstruction is removed. The simple function, list/indexing, bounded-repetition, and explicit-`raise` sequences have each now reached one neighboring independent reconstruction.
+One earlier execution-order error around uncaught exceptions was corrected with traceback evidence. The explicit-`raise` and `try` / `except` sequences later stabilized raised/skipped/handled paths.
 
-One execution-order mistake appeared during the list-boundary experiment: the learner initially expected `print` statements located after an uncaught exception to execute. This was corrected after reading the real traceback. The later explicit-`raise` tasks show correct source-order reasoning on both raised and skipped paths.
-
-A narrower role-attribution issue appeared in the neighboring `raise` task: the learner initially said the `if` line produced the exception. A direct contrast resolved this; the learner now states that `if` decides reachability and `raise` produces the `ValueError`. Treat that issue as resolved unless it reappears.
+The first callback worked example currently shows no conceptual friction: the learner distinguishes passing a function from calling it and identifies the call-through-parameter line correctly. Verify this under imitation and transfer before treating it as stable.
 
 ## Unknowns to resolve from live interaction
 
-- `try` / `except` syntax and control flow;
-- whether the learner can distinguish “exception never raised” from “exception raised and handled” in execution traces;
-- passing and calling function values as arguments;
+- callback syntax production and neighboring transfer;
+- whether the learner keeps `function_name` distinct from `function_name()` under variation;
 - whether retry structure can later be reconstructed without a worked example;
-- whether the learner can independently locate the stopping condition and side-effect boundary;
+- whether the learner can independently locate stopping conditions, side-effect boundaries, and callback invocation boundaries;
+- practical ownership of dict/JSON/import/Path/environment/HTTP/logging forms when API work begins;
+- whether later API/tool/MCP execution ownership warrants a formal Phase B gate when that domain becomes active;
 - delayed retention and transfer distance.
 
 Do not add new teaching-system complexity to answer these unknowns. Resolve them with tasks and runtime evidence first.
