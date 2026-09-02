@@ -38,20 +38,9 @@ The current syntax unit is `try` / `except`.
 
 The first worked example exposed a consequential distinction gap: the learner initially equated “no traceback” with “no exception happened.” The §2 conditional `Distinction judgment` specialization was then applied to three traces: raised/unhandled, raised/handled, and never-raised. The learner classified all three correctly and stated that “an exception happened but was caught” cannot be compressed into “no exception happened.”
 
-The near-imitation step has now also succeeded syntactically and behaviorally. The learner independently wrote:
+The near-imitation step succeeded syntactically and behaviorally. The learner wrote a matching `try` / `except ValueError:` structure, predicted and observed `handled` then `continued`, predicted no traceback, and correctly explained that later unindented code is reachable because the exception is handled. During that imitation, the learner briefly reintroduced the compression “caught means it did not occur,” so one controlled contrast was required before transfer.
 
-```python
-try:
-    raise ValueError("invalid stock")
-except ValueError:
-    print("handled")
-
-print("continued")
-```
-
-They correctly predicted and observed `handled` then `continued`, correctly predicted no traceback, correctly explained that `continued` is outside the `try` / `except` block and is reachable because the exception is handled, and correctly explained that matching `except ValueError:` suppresses the uncaught traceback path.
-
-One conceptual attribution gap reappeared in the same imitation: when asked whether the `ValueError` really occurred, the learner answered “no, because it was caught.” Correct this explicitly: `raise ValueError(...)` really does create the exception; the matching `except` handles that already-raised exception. Treat the distinction-judgment result as promising but not yet robust under syntax production. Do not promote this imitation to independent reconstruction evidence.
+That controlled contrast has now succeeded. With a `try` block containing only `print("start")` and no `raise`, the learner correctly predicted and observed `start` then `continued`, correctly stated that no `ValueError` occurred, the `except ValueError:` block did not execute, no traceback appeared, and the later print did execute. When comparing this with the previous raised-and-handled case, the learner explicitly distinguished “an exception occurred but was caught” from “no exception occurred at all.” Treat handled-vs-never-raised as sufficiently stable for the next neighboring reconstruction. Keep terminology precise: prefer “exception occurred” over the ambiguous colloquial “报错” when no traceback is produced.
 
 Likely remaining prerequisites before returning to bounded retry:
 
@@ -87,7 +76,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 - Current default environment: this conversation, VS Code, and a local Python runtime.
 - The learner reports Python 3.14.7 and has successfully run multiple `.py` files from the VS Code terminal.
 - Basic independent production is observed for literals, assignment, `def`, parameters, `if`, `<`, `return`, calls, returned-value assignment, `print`, list indexing, simple `for`, and guarded `raise ValueError(...)`.
-- `try` / `except ValueError:` now has one worked-example run, one targeted distinction-judgment check, and one successful near imitation; do not yet assume neighboring independent production.
+- `try` / `except ValueError:` now has one worked-example run, one targeted distinction-judgment check, one successful near imitation, and one successful controlled never-raised variation; do not yet assume neighboring independent production.
 - Matching `except` handles an exception that really occurred; no traceback does not imply no exception.
 - Keep three materially different states separate: never raised; raised and handled; raised and unhandled.
 - Block membership / indentation is not the same as runtime reachability.
@@ -101,7 +90,7 @@ A successful provider call, a candidate delay value, and an actually executed wa
 
 ## Next evidence target
 
-Use one controlled variation with no new syntax in which the `try` block completes normally without any `raise`. Ask the learner to predict that the `except ValueError:` block is skipped, no traceback appears, and later code still runs. Explicitly compare this never-raised path with the previous raised-and-handled path. If the learner can state that the observable no-traceback outcome is shared while the internal control flow differs, then ask for one neighboring `try` / `except` task without a full template.
+Ask for one neighboring `try` / `except ValueError:` task without a full template. The learner should independently write a `try` block that raises `ValueError`, a matching `except` block that prints a handling message, and one later unindented print. Require an exact pre-run prediction, actual output, and explanation of: whether the exception really occurs, why no traceback appears, why the handler runs, and why later code is reachable. If successful, retain this as scoped independent `try` / `except` reconstruction evidence and move to the function-as-value / callback boundary prerequisite.
 
 ## Observed friction
 
@@ -109,12 +98,12 @@ The original bounded-retry reconstruction mixed retry structure with unknown run
 
 One earlier execution-order error around uncaught exceptions was corrected with traceback evidence. The explicit-`raise` sequence later stabilized raised versus skipped paths.
 
-The first `try` / `except` example exposed the compression “no traceback means no exception.” A targeted distinction-judgment check corrected it in isolation, but the same compression partially reappeared during the subsequent imitation when the learner said the `ValueError` did not occur because it was caught. This is a target-specific robustness issue, not a reason to redesign the curriculum. Use one controlled contrast between never-raised and raised-and-handled before moving to neighboring production.
+The first `try` / `except` example exposed the compression “no traceback means no exception.” A targeted distinction-judgment check corrected it in isolation, and the same compression briefly reappeared during imitation. The controlled never-raised versus raised-and-handled comparison has now produced a correct explicit distinction. No further specialized judgment loop is needed unless this distinction collapses again under neighboring production.
 
 ## Unknowns to resolve from live interaction
 
-- whether handled-vs-never-raised remains stable during actual syntax production;
 - `try` / `except` neighboring transfer;
+- whether handled-vs-never-raised remains stable in neighboring production;
 - whether block membership remains distinct from reachability;
 - passing and calling function values as arguments;
 - whether retry structure can later be reconstructed without a worked example;
